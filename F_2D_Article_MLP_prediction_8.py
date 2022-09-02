@@ -6,7 +6,7 @@ from PIL import Image
 
 from tensorflow.keras.models import load_model
 
-from General_2D import read_image_with_metadata
+from F_2D_General import read_image_with_metadata
 
 from MLP_2D_3D import Predictions
 

@@ -48,10 +48,10 @@ def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Mode
 
     Model = Sequential()
     Model.add(Dense(units = 1, input_shape = [8]))
-    Model.add(Dense(128, activation = "sigmoid"))
+    Model.add(Dense(64, activation = "sigmoid"))
     Model.add(Dense(4, activation = 'softmax'))
 
-    Opt = Adam(learning_rate = 0.01)
+    Opt = Adam(learning_rate = 0.001)
 
     Model.compile(
         optimizer = Opt, 
@@ -116,13 +116,13 @@ def Predictions(Model, Prediction_value):
 
 def true_data_3D(Result):
 
-    if Result > 0.5:
-        New_Result = 1
-    elif Result < 0.5 and Result > -0.5:
+    if Result == 0:
         New_Result = 0
-    elif Result < -0.5:
+    elif Result == 1:
+        New_Result = 1
+    elif Result == 2:
         New_Result = -1
-    elif Result < -1.0:
+    elif Result == 3:
         New_Result = -2
 
     return New_Result
@@ -133,7 +133,9 @@ def Predictions_3D(Model, Prediction_value):
 
     print("Prediction!")
     #Do not use Model.predict, use model instead
-    Result = Model([Prediction_value])
+    #Result = Model([Prediction_value])
+
+    Result = np.argmax(Model([Prediction_value]), axis = 1)
 
     True_result = true_data_3D(Result)
 
