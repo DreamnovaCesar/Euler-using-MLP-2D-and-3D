@@ -22,21 +22,19 @@ from tensorflow.keras.optimizers import Adamax
 from tensorflow.keras.applications import MobileNetV3Small
 from tensorflow.keras.applications import MobileNetV3Large
 
-
-
+# ?
 def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Model_name:str):
 
+    # *
     Model = Sequential()
     Model.add(Dense(units = 1, input_shape = [8]))
-
     Model.add(Dense(64, activation = "sigmoid"))
-    Model.add(Dense(64, activation = "sigmoid"))
-
     Model.add(Dense(4, activation = 'softmax'))
 
-    #SGD
+    # *
     Opt = Adam(learning_rate = 0.001)
 
+    # *
     Model.compile(
         optimizer = Opt, 
         loss = 'sparse_categorical_crossentropy',
@@ -44,22 +42,27 @@ def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Mode
         #sparse_categorical_crossentropy
     )   
 
+    # *
     print('\n')
-    print("Comenzando entrenamiento...")
+    print("Training...")
     print('\n')
 
+    # *
     Hist_data = Model.fit(Euler_number, Result, epochs = Epochs, verbose = False)
 
     print('\n')
-    print("Modelo entrenado")
+    print("Model trained")
     print('\n')
 
+    # * Saving model using .h5
     Model_name_save = '{}.h5'.format(Model_name)
     Model.save(Model_name_save)
 
-    print("Saved model to disk")
+    # *
+    print("Saveing model...")
     print('\n')
 
+    # *
     Loss = Hist_data.history['loss']
     Accuracy = Hist_data.history['accuracy']
 
@@ -73,7 +76,15 @@ def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Mode
 
     return Hist_data
 
-def plot_data(Hist_data):
+def plot_data_loss(Hist_data):
+
+    #plt.figure(figsize = (20, 20))
+    plt.xlabel ("# Epoch")
+    plt.ylabel ("# Loss")
+    plt.plot(Hist_data.history["loss"])
+    plt.show()
+
+def plot_data_accuracy(Hist_data):
 
     #plt.figure(figsize = (20, 20))
     plt.xlabel ("# Epoch")

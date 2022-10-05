@@ -1,5 +1,11 @@
 from typing import Any
+
 import numpy as np
+
+from diagrams import Diagram
+from diagrams.aws.compute import EC2
+from diagrams.aws.database import RDS
+from diagrams.aws.network import ELB
 
                         # a, b, c, d    e, f, g, h
 Input_3D = np.array([   [[0, 0, 0, 0], [0, 0, 0, 0]],
@@ -540,6 +546,7 @@ Output_3D_array = np.array([  0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype = int)
 
+# ?
 def read_image_with_metadata(Array_file) -> None:
     """
     _summary_
@@ -567,6 +574,7 @@ def read_image_with_metadata(Array_file) -> None:
     print('Number of columns: {}'.format(Array.shape[2]))
     print('\n')
 
+# ?
 def data_tabla_input_ouput(Input_3D_array: np.ndarray, Output_3D_array: np.ndarray) -> None:
     """
     _summary_
@@ -589,6 +597,7 @@ def data_tabla_input_ouput(Input_3D_array: np.ndarray, Output_3D_array: np.ndarr
         raise AssertionError('Input and output dont have the same length. Input: {}, Output: {}'.format(len(Input_3D_array), len(Output_3D_array)))
     print('\n')
 
+# ?
 def bubbleSort(arr: list[int]) -> None:
     """
     _summary_
@@ -617,6 +626,7 @@ def bubbleSort(arr: list[int]) -> None:
 
     return arr
 
+# ?
 def decimal_to_binary(Decimal_value: int) -> int:
 
     # * Converting decimal to binary and removing the prefix(0b)
@@ -630,6 +640,7 @@ def decimal_to_binary(Decimal_value: int) -> int:
 
     return Binary_value
 
+# ?
 def print_array(Sorted_arr: list[int]) -> None:
     
     # *
@@ -643,6 +654,7 @@ def print_array(Sorted_arr: list[int]) -> None:
         print(" % d " % Sorted_arr[i], end = ",")
     print('\n')
 
+# ?
 def index_assign_value(Tuple_index: tuple[int], Tuple_value: tuple[int]) -> Any:
 
     """
@@ -709,6 +721,7 @@ def index_assign_value(Tuple_index: tuple[int], Tuple_value: tuple[int]) -> Any:
     
     return Emp_array
 
+# ?
 def table_binary_multi_256(Number_iter: int) -> None:
 
     # *
@@ -736,3 +749,8 @@ def table_binary_multi_256(Number_iter: int) -> None:
 
             print('{}'.format(Array_prediction))
         print('\n')
+
+def project_diagram() -> None:
+
+    with Diagram("Project diagram", show = False):
+        ELB("lb") >> EC2("web") >> RDS("userdb")
