@@ -11,6 +11,12 @@ from tensorflow.keras.models import load_model
 from keras.models import Sequential
 from keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.optimizers import RMSprop
+from tensorflow.keras.optimizers import Adamax
+
+from tensorflow.keras.applications import MobileNetV3Small
+from tensorflow.keras.applications import MobileNetV3Large
 
 def model_euler_2D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Model_name:str):
 
@@ -48,16 +54,21 @@ def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Mode
 
     Model = Sequential()
     Model.add(Dense(units = 1, input_shape = [8]))
+
     Model.add(Dense(64, activation = "sigmoid"))
+    Model.add(Dense(64, activation = "sigmoid"))
+
     Model.add(Dense(4, activation = 'softmax'))
 
+    #SGD
     Opt = Adam(learning_rate = 0.001)
 
     Model.compile(
         optimizer = Opt, 
         loss = 'sparse_categorical_crossentropy',
-        metrics=['accuracy']
-    )
+        metrics = ['accuracy']
+        #sparse_categorical_crossentropy
+    )   
 
     print('\n')
     print("Comenzando entrenamiento...")
@@ -75,6 +86,17 @@ def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Mode
     print("Saved model to disk")
     print('\n')
 
+    Loss = Hist_data.history['loss']
+    Accuracy = Hist_data.history['accuracy']
+
+    for i in range(len(Loss)):
+
+        print('{} ------- {}'.format(Loss[i], Accuracy[i]))
+        print('\n')
+
+    #print(Loss)
+    print('\n')
+
     return Hist_data
 
 def plot_data(Hist_data):
@@ -85,6 +107,7 @@ def plot_data(Hist_data):
     plt.plot(Hist_data.history["loss"])
     plt.show()
 
+"""
 def true_data(Result):
 
     if Result > 0.5:
@@ -95,6 +118,7 @@ def true_data(Result):
         New_Result = -1
 
     return New_Result
+"""
 
 def Predictions(Model, Prediction_value):
 
@@ -135,7 +159,13 @@ def Predictions_3D(Model, Prediction_value):
     #Do not use Model.predict, use model instead
     #Result = Model([Prediction_value])
 
-    Result = np.argmax(Model([Prediction_value]), axis = 1)
+    Result = Model.predict([Prediction_value])
+
+    print(Result)
+
+    #Result = np.argmax(Model.predict([Prediction_value]), axis = 0)
+
+    #print(Result)
 
     True_result = true_data_3D(Result)
 
