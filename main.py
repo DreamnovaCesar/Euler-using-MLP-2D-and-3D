@@ -2,6 +2,10 @@
 import numpy as np
 
 from S_3D_Article_MLP_prediction import prediction_MLP_3D
+from S_3D_2D_Article_ML_Functions import prediction
+
+def test():
+    pass
 
 def main():
 
@@ -22,23 +26,6 @@ def main():
                         2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 
                             2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1)
 
-    Array_prediction = np.zeros((2, 4), dtype = 'int')
-
-    assign_value(Tuple_index, Tuple_value)
-
-    for i in range(256):
-        value = decimalToBinary(i)
-
-        Array_prediction[1][3] = value[7]   # h
-        Array_prediction[1][2] = value[6]   # g
-        Array_prediction[1][1] = value[5]   # f
-        Array_prediction[1][0] = value[4]   # e
-
-        Array_prediction[0][3] = value[3]   # d
-        Array_prediction[0][2] = value[2]   # c
-        Array_prediction[0][1] = value[1]   # b
-        Array_prediction[0][0] = value[0]   # a
-        
     prediction_MLP_3D()
 
 if __name__ == "__main__":

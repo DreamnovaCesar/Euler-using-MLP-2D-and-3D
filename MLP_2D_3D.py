@@ -52,6 +52,9 @@ def model_euler_2D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Mode
 
 def model_euler_3D(Euler_number:np.ndarray, Result:np.ndarray, Epochs: int, Model_name:str):
 
+    print(Array.shape[0])
+    print(Array.shape[1])
+    
     Model = Sequential()
     Model.add(Dense(units = 1, input_shape = [8]))
 
