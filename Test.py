@@ -3,7 +3,7 @@ import numpy as np
 import joblib
 from MLP_2D_3D import Predictions_3D
 from tensorflow.keras.models import load_model
-from S_3D_General import Output_3D_array
+from S_3D_Article_General import Output_3D_array
 
 Array_prediction = np.zeros((1, 8))
 

@@ -5,8 +5,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
-from S_3D_General import Input_3D_array
-from S_3D_General import Output_3D_array
+from S_3D_Article_General import Input_3D_array
+from S_3D_Article_General import Output_3D_array
 
 #
 # Create an instance of Random Forest Classifier
