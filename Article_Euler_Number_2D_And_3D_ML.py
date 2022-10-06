@@ -47,6 +47,99 @@ class EulerNumberML():
         self.Epochs = kwargs.get('epochs', None)
         self.Columns = ["Loss", "Accuracy"]
 
+    def __repr__(self):
+
+        kwargs_info = "{}, {}, {}, {}, {}, {}".format(self.Input, self.Output, self.Folder, self.Model_name, self.Epochs, self.Columns)
+
+        return kwargs_info
+
+    def __str__(self):
+        pass
+
+    # * Input kwargs
+    @property
+    def Input_property(self):
+        return self.Input
+
+    @Input_property.setter
+    def Input_property(self, New_value):
+        self.Input = New_value
+    
+    @Input_property.deleter
+    def Input_property(self):
+        print("Deleting Input...")
+        del self.Input
+
+    # * Output kwargs
+    @property
+    def Output_property(self):
+        return self.Output
+
+    @Output_property.setter
+    def Output_property(self, New_value):
+        self.Output = New_value
+    
+    @Output_property.deleter
+    def Output_property(self):
+        print("Deleting Output...")
+        del self.Output
+
+    # * Folder kwargs
+    @property
+    def Folder_property(self):
+        return self.Folder
+
+    @Folder_property.setter
+    def Folder_property(self, New_value):
+        self.Folder = New_value
+    
+    @Folder_property.deleter
+    def Folder_property(self):
+        print("Deleting Folder...")
+        del self.Folder
+
+    # * Model_name kwargs
+    @property
+    def Model_name_property(self):
+        return self.Model_name
+
+    @Model_name_property.setter
+    def Model_name_property(self, New_value):
+        self.Model_name = New_value
+    
+    @Model_name_property.deleter
+    def Model_name_property(self):
+        print("Deleting Model_name...")
+        del self.Model_name
+
+    # * Epochs kwargs
+    @property
+    def Epochs_property(self):
+        return self.Epochs
+
+    @Epochs_property.setter
+    def Epochs_property(self, New_value):
+        self.Epochs = New_value
+    
+    @Epochs_property.deleter
+    def Epochs_property(self):
+        print("Deleting Epochs...")
+        del self.Epochs
+
+    # * Columns kwargs
+    @property
+    def Columns_property(self):
+        return self.Columns
+
+    @Columns_property.setter
+    def Columns_property(self, New_value):
+        self.Columns = New_value
+    
+    @Columns_property.deleter
+    def Columns_property(self):
+        print("Deleting Columns...")
+        del self.Columns
+
     # ? Create dataframes
     def create_dataframe_history(self, Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
 
