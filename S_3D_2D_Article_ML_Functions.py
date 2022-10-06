@@ -26,8 +26,6 @@ from tensorflow.keras.optimizers import Adamax
 # ?
 from sklearn.ensemble import RandomForestClassifier
 
-from S_3D_Article_NU import Array_new
-
 # ?
 class EulerNumberML:
 
@@ -40,7 +38,7 @@ class EulerNumberML:
         # * General parameters
         self.Input = kwargs.get('input', None)
         self.Output = kwargs.get('output', None)
-        self.Object = kwargs.get('object', None)
+        #self.Object = kwargs.get('object', None)
 
         # *
         self.Folder = kwargs.get('folder', None)
@@ -225,7 +223,7 @@ class EulerNumberML:
         return New_Result
 
     # ?
-    def Predictions(self, Model: Any, Prediction_value: Any) -> int:
+    def Predictions_2D(self, Model: Any, Prediction_value: Any) -> int:
         """
         _summary_
 
@@ -472,7 +470,7 @@ class EulerNumberML:
         print('\n')
 
     # ?
-    def obtain_arrays_from_object(self):
+    def obtain_arrays_from_object(self, Object):
 
         #Array = np.loadtxt(self.Object, delimiter = ',')
 
@@ -481,7 +479,7 @@ class EulerNumberML:
         Asterisks = 30
 
         # *
-        Array_new = self.read_image_with_metadata(self.Object)
+        Array_new = self.read_image_with_metadata(Object)
 
         # *
         Array_prediction_octov = np.zeros((2, 2, 2))

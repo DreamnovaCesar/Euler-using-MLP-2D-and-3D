@@ -9,10 +9,13 @@ from S_3D_2D_Article_ML_Functions import EulerNumberML
 def test():
     
     Euler_path_3D = r'C:\Users\Cesar\Dropbox\PC\Desktop\Euler 3D'
-    Object_path = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt"
+    Object_path_1 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_1.txt"
+    Object_path_2 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_2.txt"
+    Object_path_3 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_3.txt"
+    Object_path_4 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_4.txt"
 
     #Euler_3D_MLP = EulerNumberML(input = Input_3D_array, output = Output_3D_array, object = Object_path, folder = Euler_path_3D, modelname = 'Model_MLP_3D', epochs = 100)
-    Euler_3D_RF = EulerNumberML(input = Input_3D_array, output = Output_3D_array, object = Object_path, folder = Euler_path_3D, modelname = 'Model_RF_3D', epochs = 100)
+    Euler_3D_RF = EulerNumberML(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, modelname = 'Model_RF_3D', epochs = 100)
 
     #Euler_3D_MLP.print_octovoxel_order()
     Euler_3D_RF.print_octovoxel_order()
@@ -21,10 +24,10 @@ def test():
     Euler_3D_RF.model_euler_3D_RF()
 
     #Array_MLP = Euler_3D_MLP.obtain_arrays_from_object()
-    Array_RF = Euler_3D_RF.obtain_arrays_from_object()
+    Array_RF = Euler_3D_RF.obtain_arrays_from_object(Object_path_4)
 
     #Euler_3D_MLP.model_prediction_3D('MLP_3D.h5', Array_MLP)
-    Euler_3D_RF.model_prediction_3D('RF_3D.joblib', Array_RF)
+    Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
     
 def main():
 
