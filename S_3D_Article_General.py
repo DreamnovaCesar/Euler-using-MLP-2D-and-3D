@@ -547,34 +547,6 @@ Output_3D_array = np.array([  0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], dtype = int)
 
 # ?
-def read_image_with_metadata(Array_file) -> None:
-    """
-    _summary_
-
-    _extended_summary_
-
-    Args:
-        Array_file (_type_): _description_
-    """
-    # *
-    Array = np.loadtxt(Array_file, delimiter = ',')
-    
-    # *
-    Array = Array.astype(int)
-
-    print('\n')
-    print('Array obtained')
-    print('\n')
-    print(Array)
-    print('\n')
-    print('Number of channels: {}'.format(Array.shape[0]))
-    print('\n')
-    print('Number of rows: {}'.format(Array.shape[1]))
-    print('\n')
-    print('Number of columns: {}'.format(Array.shape[2]))
-    print('\n')
-
-# ?
 def data_tabla_input_ouput(Input_3D_array: np.ndarray, Output_3D_array: np.ndarray) -> None:
     """
     _summary_
@@ -749,6 +721,8 @@ def table_binary_multi_256(Number_iter: int) -> None:
 
             print('{}'.format(Array_prediction))
         print('\n')
+
+# ?
 
 def project_diagram() -> None:
 
