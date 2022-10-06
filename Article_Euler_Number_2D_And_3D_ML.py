@@ -659,7 +659,7 @@ class EulerNumberML2D(EulerNumberML):
         # *
         for i, Array in enumerate(Arrays):
 
-            True_result_2D = self.Predictions_2D(Model, Model_prediction) ####
+            True_result_2D = self.Predictions_2D(Model_prediction, Array) ####
             Prediction_result_2D += True_result_2D
         print('\n')
 
@@ -700,31 +700,33 @@ class EulerNumberML2D(EulerNumberML):
     def connectivity_4_prediction_2D(self, Arrays):
 
 
-        Connectivity_4_first_array = np.array([[1, 0, 0, 0]], dtype = 'int')
+        Connectivity_4_first_array = np.array([1, 0, 0, 0], dtype = 'int')
 
-        Connectivity_4_second_array = np.array([[1, 1, 1, 0]], dtype = 'int')
+        Connectivity_4_second_array = np.array([1, 1, 1, 0], dtype = 'int')
 
-        Connectivity_4_third_array = np.array([[1, 0, 0, 1]], dtype = 'int')
+        Connectivity_4_third_array = np.array([1, 0, 0, 1], dtype = 'int')
 
         # *
         Result_connected_4 = 0
 
         # *
         for i, Array in enumerate(Arrays):
-            print(Array)
-        print('\n')
 
-        if(np.all(Array == Connectivity_4_first_array)):
-            Result_connected_4 += 1
-            print('Connectivity 4: {}'.format(Result_connected_4))
+            print(np.array(Array))
 
-        if(np.all(Array == Connectivity_4_second_array)):
-            Result_connected_4 -= 1
-            print('Connectivity 4: {}'.format(Result_connected_4))
+            if(np.array_equal(np.array(Array), Connectivity_4_first_array)):
+                Result_connected_4 += 1
+                print('Connectivity 4: {}'.format(Result_connected_4))
 
-        if(np.all(Array == Connectivity_4_third_array)):
-            Result_connected_4 += 1
-            print('Connectivity 4: {}'.format(Result_connected_4))
+            if(np.array_equal(np.array(Array), Connectivity_4_second_array)):
+                Result_connected_4 -= 1
+                print('Connectivity 4: {}'.format(Result_connected_4))
+
+            if(np.array_equal(np.array(Array), Connectivity_4_third_array)):
+                Result_connected_4 += 1
+                print('Connectivity 4: {}'.format(Result_connected_4))
+            print('\n')
+
         print('\n')
 
         print('Connectivity 4: {}'.format(Result_connected_4))
@@ -734,32 +736,33 @@ class EulerNumberML2D(EulerNumberML):
     def connectivity_8_prediction_2D(self, Arrays):
 
 
-        Connectivity_8_first_array = np.array([[1, 0, 0, 0]], dtype = 'int')
+        Connectivity_8_first_array = np.array([1, 0, 0, 0], dtype = 'int')
 
-        Connectivity_8_second_array = np.array([[1, 1, 1, 0]], dtype = 'int')
+        Connectivity_8_second_array = np.array([1, 1, 1, 0], dtype = 'int')
 
-        Connectivity_8_third_array = np.array([[0, 1, 1, 0]], dtype = 'int')
+        Connectivity_8_third_array = np.array([0, 1, 1, 0], dtype = 'int')
 
         # *
         Result_connected_8 = 0
 
         # *
         for i, Array in enumerate(Arrays):
-            print(Array)
+
+            print(np.array(Array))
+
+            if(np.array_equal(np.array(Array), Connectivity_8_first_array)):
+                Result_connected_8 += 1
+                print('Connectivity 4: {}'.format(Result_connected_8))
+
+            if(np.array_equal(np.array(Array), Connectivity_8_second_array)):
+                Result_connected_8 -= 1
+                print('Connectivity 4: {}'.format(Result_connected_8))
+
+            if(np.array_equal(np.array(Array), Connectivity_8_third_array)):
+                Result_connected_8 += 1
+                print('Connectivity 4: {}'.format(Result_connected_8))
+
         print('\n')
 
-        if(np.all(Array == Connectivity_8_first_array)):
-            Result_connected_8 += 1
-            print('Connectivity 8: {}'.format(Result_connected_8))
-
-        if(np.all(Array == Connectivity_8_second_array)):
-            Result_connected_8 -= 1
-            print('Connectivity 8: {}'.format(Result_connected_8))
-
-        if(np.all(Array == Connectivity_8_third_array)):
-            Result_connected_8 -= 1
-            print('Connectivity 8: {}'.format(Result_connected_8))
-        print('\n')
-
-        print('Connectivity 8: {}'.format(Result_connected_8))
+        print('Connectivity 4: {}'.format(Result_connected_8))
         print('\n')

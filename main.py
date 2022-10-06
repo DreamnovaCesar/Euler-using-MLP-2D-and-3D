@@ -5,9 +5,12 @@ from Article_Euler_Number_2D_General import Input_2D
 from Article_Euler_Number_2D_General import Output_2D_4_Connectivity
 from Article_Euler_Number_2D_General import Output_2D_8_Connectivity
 
-from S_3D_Article_General import Input_3D_array
-from S_3D_Article_General import Output_3D_array
+from Article_Euler_Number_3D_General import project_diagram
+from Article_Euler_Number_3D_General import Input_3D_array
+from Article_Euler_Number_3D_General import Output_3D_array
+
 from Article_Euler_Number_2D_And_3D_ML import *
+
 
 def Variables():
 
@@ -39,9 +42,12 @@ def Euler_2D_test():
 
     Euler_2D_MLP.model_euler_2D_MLP()
 
-    Array_RF = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
+    Array_MLP = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
 
-    Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_RF)
+    #Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP)
+
+    #Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP)
+    Euler_2D_MLP.connectivity_8_prediction_2D(Array_MLP)
 
 
 def Euler_3D_test():
@@ -68,7 +74,9 @@ def Euler_3D_test():
     Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
     
 def main():
-    Euler_2D_test()
+    #project_diagram()
+    #Euler_2D_test()
+    Euler_3D_test()
 
 
 if __name__ == "__main__":
