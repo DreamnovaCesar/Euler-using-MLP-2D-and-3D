@@ -11,7 +11,7 @@ from S_3D_Article_General import Output_3D_array
 #
 # Create an instance of Random Forest Classifier
 #
-forest = RandomForestClassifier(criterion='gini',
+forest = RandomForestClassifier(criterion = 'gini',
                                  n_estimators = 10,
                                  random_state = 2,
                                  n_jobs = 10)

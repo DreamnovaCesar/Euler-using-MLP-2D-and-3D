@@ -26,6 +26,8 @@ from tensorflow.keras.optimizers import Adamax
 # ?
 from sklearn.ensemble import RandomForestClassifier
 
+from S_3D_Article_NU import Array_new
+
 # ?
 class EulerNumberML:
 
@@ -50,6 +52,7 @@ class EulerNumberML:
     @staticmethod
     def print_octovoxel_order() -> None:
         
+        Letters = ('a', 'c', 'b', 'd', 'e', 'h', 'f', 'g')
         # *
         Array_prediction_octov = np.zeros((2, 2, 2))
 
@@ -62,11 +65,17 @@ class EulerNumberML:
         Array_prediction_octov[1][0][1] = 6 #'h'
         Array_prediction_octov[1][1][0] = 7 #'f'
         Array_prediction_octov[1][1][1] = 8 #'g'
+
         print('\n')
-        
+        print(Array_prediction_octov)
+        print('\n')
+
+        for i, letter in enumerate(Letters):
+            print('{} ------> {}'.format(i + 1, letter))
+        print('\n')
+
     # ?
-    @staticmethod
-    def plot_data_loss(Hist_data: Any) -> None:
+    def plot_data_loss(self, Hist_data: Any) -> None:
         """
         _summary_
 
@@ -76,15 +85,19 @@ class EulerNumberML:
             Hist_data (Any): _description_
         """
         #plt.figure(figsize = (20, 20))
-        plt.title('Training accuracy')
+        plt.title('Training loss')
         plt.xlabel ("# Epoch")
         plt.ylabel ("# Loss")
         plt.plot(Hist_data.history["loss"])
-        plt.show()
+        #plt.show()
+
+        Figure_name = "Figure_Loss_{}.png".format(self.Model_name)
+        Figure_name_folder = os.path.join(self.Folder, Figure_name)
+
+        plt.savefig(Figure_name_folder)
 
     # ?
-    @staticmethod
-    def plot_data_accuracy(Hist_data: Any) -> None:
+    def plot_data_accuracy(self, Hist_data: Any) -> None:
         """
         _summary_
 
@@ -98,8 +111,13 @@ class EulerNumberML:
         plt.xlabel ("# Epoch")
         plt.ylabel ("# Acuracy")
         plt.plot(Hist_data.history["accuracy"])
-        plt.show()
-    
+        #plt.show()
+
+        Figure_name = "Figure_Accuracy_{}.png".format(self.Model_name)
+        Figure_name_folder = os.path.join(self.Folder, Figure_name)
+
+        plt.savefig(Figure_name_folder)
+
     # ? Create dataframes
     def create_dataframe_history(self, Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
 
@@ -140,21 +158,25 @@ class EulerNumberML:
         Array = np.loadtxt(Array_file, delimiter = ',')
         
         # *
-        Array = Array.astype(int)
+        Height = Array.shape[0]/Array.shape[1]
+        Array_new = Array.reshape(int(Height), int(Array.shape[1]), int(Array.shape[1]))
+
+        # *
+        Array_new = Array_new.astype(int)
 
         print('\n')
         print('Array obtained')
         print('\n')
-        print(Array)
+        print(Array_new)
         print('\n')
-        print('Number of channels: {}'.format(Array.shape[0]))
+        print('Number of channels: {}'.format(Array_new.shape[0]))
         print('\n')
-        print('Number of rows: {}'.format(Array.shape[1]))
+        print('Number of rows: {}'.format(Array_new.shape[1]))
         print('\n')
-        print('Number of columns: {}'.format(Array.shape[2]))
+        print('Number of columns: {}'.format(Array_new.shape[2]))
         print('\n')
 
-        return Array
+        return Array_new
 
     # ?
     def true_data(self, Result: int):
@@ -232,8 +254,8 @@ class EulerNumberML:
 
         return True_result
 
-    # ?
-    def Predictions_3D(self, Model: Any, Prediction_value: Any) -> int:
+    # ? #Model_prediction, Array
+    def Predictions_3D(self, Model_name: str, Model_prediction: Any, Prediction_value: Any) -> int:
         """
         _summary_
 
@@ -252,9 +274,13 @@ class EulerNumberML:
         #Do not use Model.predict, use model instead
         #Result = Model([Prediction_value])
 
-        Result = Model.predict([Prediction_value])
+        if Model_name.endswith('.h5'):
+            Result = np.argmax(Model_prediction.predict([Prediction_value]), axis = 1)
+            print(Result)
 
-        print(Result)
+        elif Model_name.endswith('.joblib'):
+            Result = Model_prediction.predict([Prediction_value])
+            print(Result)
 
         #Result = np.argmax(Model.predict([Prediction_value]), axis = 0)
 
@@ -374,14 +400,11 @@ class EulerNumberML:
         print('\n')
 
         # *
-        Loss = Hist_data.history['loss']
-        Accuracy = Hist_data.history['accuracy']
+        #Loss = Hist_data.history['loss']
+        #Accuracy = Hist_data.history['accuracy']
 
         # *
-        for i in range(len(Loss)):
-
-            print('{} ------- {}'.format(Loss[i], Accuracy[i]))
-            print('\n')
+        self.create_dataframe_history(self.Columns, self.Folder, self.Model_name, Hist_data)
 
         # *
         self.plot_data_loss(Hist_data)
@@ -393,7 +416,7 @@ class EulerNumberML:
         return Hist_data
 
     # ?
-    def model_euler_3D_RF(self) -> Any:
+    def model_euler_3D_RF(self) -> None:
         """
         _summary_
 
@@ -418,7 +441,7 @@ class EulerNumberML:
         print('\n')
 
         # *
-        Hist_data = Model_RF.fit(self.Input, self.Output, epochs = self.Epochs, verbose = False)
+        Model_RF.fit(self.Input, self.Output)
 
         print('\n')
         print("Model trained")
@@ -433,69 +456,41 @@ class EulerNumberML:
         print('\n')
 
         # *
-        Loss = Hist_data.history['loss']
-        Accuracy = Hist_data.history['accuracy']
+        #Loss = Hist_data.history['loss']
+        #Accuracy = Hist_data.history['accuracy']
 
         # *
-        for i in range(len(Loss)):
-
-            print('{} ------- {}'.format(Loss[i], Accuracy[i]))
-            print('\n')
+        #self.create_dataframe_history(self.Columns, self.Folder, self.Model_name, Hist_data)
 
         # *
-        self.plot_data_loss(Hist_data)
+        #self.plot_data_loss(Hist_data)
 
         # *
-        self.plot_data_accuracy(Hist_data)
+        #self.plot_data_accuracy(Hist_data)
         print('\n')
 
-        return Hist_data
-
+    # ?
     def obtain_arrays_from_object(self):
 
-        #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
+        #Array = np.loadtxt(self.Object, delimiter = ',')
 
         # *
         Arrays = []
-        Prediction_result_3D = 0
         Asterisks = 30
 
         # *
-        Height = self.Object.shape[0]/self.Object.shape[1]
-        Array_new = self.Object.reshape(int(Height), int(self.Object.shape[1]), int(self.Object.shape[1]))
-
-        #print(Array_new)
-
-        # *
-        self.read_image_with_metadata(Array_new)
-
-        #print(Array_new.shape[0])
-        #print(Array_new.shape[1])
-        #print(Array_new.shape[2])
+        Array_new = self.read_image_with_metadata(self.Object)
 
         # *
         Array_prediction_octov = np.zeros((2, 2, 2))
         Array_prediction = np.zeros((8))
-        #print(Array_prediction)
 
-        #Model = load_model('Model_3D.h5')
-
-        #Filename, Format  = os.path.splitext(Model)
-        
-        # * Read multilayer perceptron model
-        if Model.endswith('.h5'):
-            with open(Model, 'rb') as MLP:
-                Model_prediction = joblib.load(MLP)
-
-        # * Read machine learning model
-        elif Model.endswith('.joblib'):
-            with open(Model, 'rb') as MLM:
-                Model_prediction = joblib.load(MLM)
-
+        # *
         for i in range(Array_new.shape[0] - 1):
             for j in range(Array_new.shape[1] - 1):
                 for k in range(Array_new.shape[2] - 1):
 
+                    # *
                     Array_prediction_octov[0][0][0] = Array_new[i][j][k]
                     Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
 
@@ -508,6 +503,7 @@ class EulerNumberML:
                     Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
                     Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
 
+                    # *
                     Array_prediction[0] = Array_new[i + 1][j][k]
                     Array_prediction[1] = Array_new[i + 1][j][k + 1]
 
@@ -519,154 +515,56 @@ class EulerNumberML:
 
                     Array_prediction[6] = Array_new[i][j + 1][k]
                     Array_prediction[7] = Array_new[i][j + 1][k + 1]
-
-                    #print(Array_quad)
                     print('\n')
-                    print("*" * Asterisks)
 
+                    # *
+                    print("*" * Asterisks)
                     Array_prediction_list = Array_prediction.tolist()
                     Array_prediction_list_int = [int(i) for i in Array_prediction_list]
 
-                    True_result_3D = self.Predictions_3D(Model_prediction, Array_prediction) ####
-                    
-                    MLP_result_3D += True_result_3D
-
+                    # *
                     print("Kernel array")
-                    print(Array_quad)
+                    print(Array_prediction_octov)
                     print('\n')
                     print("Prediction array")
                     print(Array_prediction)
-                    Arrays.append('{} -------------- {}'.format(Array_prediction_list_int, True_result_3D))
+                    print('\n')
+                    Arrays.append(Array_prediction_list_int)
+                    print("*" * Asterisks)
                     print('\n')
 
-                    print("*" * Asterisks)
-
-        Array_prediction_octov[0][0][0] = 1 #'a'
-        Array_prediction_octov[0][0][1] = 2 #'c'
-        Array_prediction_octov[0][1][0] = 3 #'b'
-        Array_prediction_octov[0][1][1] = 4 #'d'
-        Array_prediction_octov[1][0][0] = 5 #'e'
-        Array_prediction_octov[1][0][1] = 6 #'h'
-        Array_prediction_octov[1][1][0] = 7 #'f'
-        Array_prediction_octov[1][1][1] = 8 #'g'
-        
-        print('\n')
-
-        print(Array_quad)
-
-        print('\n')
-        
+        # *
         for i in range(len(Arrays)):
             print('{} ---- {}'.format(i, Arrays[i]))
+        print('\n')
+        
+        return Arrays
 
-        print('Euler: {}'.format(MLP_result_3D))
-
-    def prediction_3D(self, Model):
+    # ?
+    def model_prediction_3D(self, Model, Arrays):
 
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
 
         # *
-        Arrays = []
         Prediction_result_3D = 0
         Asterisks = 30
 
-        # *
-        Height = self.Object.shape[0]/self.Object.shape[1]
-        Array_new = self.Object.reshape(int(Height), int(self.Object.shape[1]), int(self.Object.shape[1]))
-
-        #print(Array_new)
-
-        # *
-        self.read_image_with_metadata(Array_new)
-
-        #print(Array_new.shape[0])
-        #print(Array_new.shape[1])
-        #print(Array_new.shape[2])
-
-        # *
-        Array_prediction_octov = np.zeros((2, 2, 2))
-        Array_prediction = np.zeros((8))
-        #print(Array_prediction)
-
-        #Model = load_model('Model_3D.h5')
-
-        #Filename, Format  = os.path.splitext(Model)
-        
         # * Read multilayer perceptron model
         if Model.endswith('.h5'):
-            with open(Model, 'rb') as MLP:
-                Model_prediction = joblib.load(MLP)
+            Model_prediction = load_model(Model)
 
         # * Read machine learning model
         elif Model.endswith('.joblib'):
-            with open(Model, 'rb') as MLM:
-                Model_prediction = joblib.load(MLM)
+            Model_prediction = joblib.load(Model)
 
-        for i in range(Array_new.shape[0] - 1):
-            for j in range(Array_new.shape[1] - 1):
-                for k in range(Array_new.shape[2] - 1):
+        # *
+        for i, Array in enumerate(Arrays):
 
-                    Array_prediction_octov[0][0][0] = Array_new[i][j][k]
-                    Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
+            True_result_3D = self.Predictions_3D(Model, Model_prediction, Array) ####
+            Prediction_result_3D += True_result_3D
 
-                    Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
-                    Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
-
-                    Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
-                    Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
-
-                    Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
-                    Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
-
-                    Array_prediction[0] = Array_new[i + 1][j][k]
-                    Array_prediction[1] = Array_new[i + 1][j][k + 1]
-
-                    Array_prediction[2] = Array_new[i][j][k]
-                    Array_prediction[3] = Array_new[i][j][k + 1]
-
-                    Array_prediction[4] = Array_new[i + 1][j + 1][k]
-                    Array_prediction[5] = Array_new[i + 1][j + 1][k + 1]
-
-                    Array_prediction[6] = Array_new[i][j + 1][k]
-                    Array_prediction[7] = Array_new[i][j + 1][k + 1]
-
-                    #print(Array_quad)
-                    print('\n')
-                    print("*" * Asterisks)
-
-                    Array_prediction_list = Array_prediction.tolist()
-                    Array_prediction_list_int = [int(i) for i in Array_prediction_list]
-
-                    True_result_3D = self.Predictions_3D(Model_prediction, Array_prediction) ####
-                    
-                    MLP_result_3D += True_result_3D
-
-                    print("Kernel array")
-                    print(Array_quad)
-                    print('\n')
-                    print("Prediction array")
-                    print(Array_prediction)
-                    Arrays.append('{} -------------- {}'.format(Array_prediction_list_int, True_result_3D))
-                    print('\n')
-
-                    print("*" * Asterisks)
-
-        Array_quad[0][0][0] = 1 #'a'
-        Array_quad[0][0][1] = 2 #'c'
-        Array_quad[0][1][0] = 3 #'b'
-        Array_quad[0][1][1] = 4 #'d'
-        Array_quad[1][0][0] = 5 #'e'
-        Array_quad[1][0][1] = 6 #'h'
-        Array_quad[1][1][0] = 7 #'f'
-        Array_quad[1][1][1] = 8 #'g'
-        
+            print('{} -------------- {}'.format(Array, True_result_3D))
         print('\n')
 
-        print(Array_quad)
-
+        print('Euler: {}'.format(Prediction_result_3D))
         print('\n')
-        
-        for i in range(len(Arrays)):
-            print('{} ---- {}'.format(i, Arrays[i]))
-
-        print('Euler: {}'.format(MLP_result_3D))
