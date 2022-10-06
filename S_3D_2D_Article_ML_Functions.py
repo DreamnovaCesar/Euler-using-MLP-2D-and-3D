@@ -262,7 +262,8 @@ class EulerNumberML:
         _extended_summary_
 
         Args:
-            Model (Any): _description_
+            Model_name (str): _description_
+            Model_prediction (Any): _description_
             Prediction_value (Any): _description_
 
         Returns:
@@ -289,6 +290,7 @@ class EulerNumberML:
         True_result = self.true_data_3D(Result)
 
         #print("*" * Asterisks)
+        print('{} -------------- {}'.format(Prediction_value, True_result))
         print('The result is: {}'.format(Result))
         print('The true value is: {}'.format(True_result))
         #print("*" * Asterisks)
@@ -562,8 +564,6 @@ class EulerNumberML:
 
             True_result_3D = self.Predictions_3D(Model, Model_prediction, Array) ####
             Prediction_result_3D += True_result_3D
-
-            print('{} -------------- {}'.format(Array, True_result_3D))
         print('\n')
 
         print('Euler: {}'.format(Prediction_result_3D))

@@ -11,8 +11,8 @@ def test():
     Euler_path_3D = r'C:\Users\Cesar\Dropbox\PC\Desktop\Euler 3D'
     Object_path = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt"
 
-    #Euler_3D_MLP = EulerNumberML(input = Input_3D_array, output = Output_3D_array, object = Object_path, folder = Euler_path_3D, modelname = 'MLP_3D', epochs = 100)
-    Euler_3D_RF = EulerNumberML(input = Input_3D_array, output = Output_3D_array, object = Object_path, folder = Euler_path_3D, modelname = 'RF_3D', epochs = 100)
+    #Euler_3D_MLP = EulerNumberML(input = Input_3D_array, output = Output_3D_array, object = Object_path, folder = Euler_path_3D, modelname = 'Model_MLP_3D', epochs = 100)
+    Euler_3D_RF = EulerNumberML(input = Input_3D_array, output = Output_3D_array, object = Object_path, folder = Euler_path_3D, modelname = 'Model_RF_3D', epochs = 100)
 
     #Euler_3D_MLP.print_octovoxel_order()
     Euler_3D_RF.print_octovoxel_order()
