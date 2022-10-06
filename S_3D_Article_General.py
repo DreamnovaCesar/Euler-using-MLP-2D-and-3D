@@ -723,7 +723,6 @@ def table_binary_multi_256(Number_iter: int) -> None:
         print('\n')
 
 # ?
-
 def project_diagram() -> None:
 
     with Diagram("Project diagram", show = False):

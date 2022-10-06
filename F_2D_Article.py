@@ -1,15 +1,15 @@
 import numpy as np
 from PIL import Image
 
-from F_2D_General import read_image_with_metadata
+from Article_Euler_Number_2D_General import read_image_with_metadata
 
-from F_2D_General import Connectivity_4_first_array
-from F_2D_General import Connectivity_4_second_array
-from F_2D_General import Connectivity_4_third_array
+from Article_Euler_Number_2D_General import Connectivity_4_first_array
+from Article_Euler_Number_2D_General import Connectivity_4_second_array
+from Article_Euler_Number_2D_General import Connectivity_4_third_array
 
-from F_2D_General import Connectivity_8_first_array
-from F_2D_General import Connectivity_8_second_array
-from F_2D_General import Connectivity_8_third_array
+from Article_Euler_Number_2D_General import Connectivity_8_first_array
+from Article_Euler_Number_2D_General import Connectivity_8_second_array
+from Article_Euler_Number_2D_General import Connectivity_8_third_array
 
 #image = Image.open(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\X_2D.png")
 #Array = np.asarray(image)
