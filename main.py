@@ -75,8 +75,8 @@ def Euler_3D_test():
     
 def main():
     #project_diagram()
-    #Euler_2D_test()
-    Euler_3D_test()
+    Euler_2D_test()
+    #Euler_3D_test()
 
 
 if __name__ == "__main__":

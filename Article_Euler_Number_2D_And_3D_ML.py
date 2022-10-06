@@ -243,7 +243,7 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
     # ?
-    def read_image_with_metadata_3D(self, Array_file) -> Any:
+    def read_image_with_metadata_3D(self, Array_file: str) -> np.ndarray:
         """
         _summary_
 
@@ -277,7 +277,7 @@ class EulerNumberML3D(EulerNumberML):
         return Array_new
 
     # ?
-    def true_data_3D(self, Result: int):
+    def true_data_3D(self, Result: int) -> int:
         """
         _summary_
 
@@ -301,7 +301,7 @@ class EulerNumberML3D(EulerNumberML):
         return New_Result
 
     # ?
-    def obtain_arrays_from_object_3D(self, Object):
+    def obtain_arrays_from_object_3D(self, Object: str) -> list[np.ndarray]:
 
         #Array = np.loadtxt(self.Object, delimiter = ',')
 
@@ -493,7 +493,7 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
     # ?
-    def model_prediction_3D(self, Model, Arrays):
+    def model_prediction_3D(self, Model, Arrays) -> None:
     
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
 
@@ -568,7 +568,7 @@ class EulerNumberML2D(EulerNumberML):
         super().__init__(**kwargs)
 
     # ?
-    def read_image_with_metadata_2D(self, Array_file):
+    def read_image_with_metadata_2D(self, Array_file: str) -> np.ndarray:
         """
         _summary_
 
@@ -597,7 +597,7 @@ class EulerNumberML2D(EulerNumberML):
         return Array
 
     # ?
-    def true_data_2D(self, Result: int):
+    def true_data_2D(self, Result: int) -> int:
         """
         _summary_
 
@@ -619,7 +619,7 @@ class EulerNumberML2D(EulerNumberML):
         return New_Result
 
     # ?
-    def obtain_arrays_from_object_2D(self, Object):
+    def obtain_arrays_from_object_2D(self, Object) -> list[np.ndarray]:
 
 
         # *
@@ -790,7 +790,7 @@ class EulerNumberML2D(EulerNumberML):
         return True_result
 
     # ?
-    def connectivity_4_prediction_2D(self, Arrays):
+    def connectivity_4_prediction_2D(self, Arrays)-> None:
 
 
         Connectivity_4_first_array = np.array([1, 0, 0, 0], dtype = 'int')
@@ -826,7 +826,7 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
-    def connectivity_8_prediction_2D(self, Arrays):
+    def connectivity_8_prediction_2D(self, Arrays) -> None:
 
 
         Connectivity_8_first_array = np.array([1, 0, 0, 0], dtype = 'int')
