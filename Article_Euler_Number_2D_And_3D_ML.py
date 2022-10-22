@@ -27,7 +27,63 @@ from tensorflow.keras.optimizers import Adamax
 from sklearn.ensemble import RandomForestClassifier
 
 # ?
+from functools import wraps
 
+# ?
+import time
+
+# ?
+class Utilities(object):
+
+    # ? Get the execution time of each function
+    @staticmethod  
+    def time_func(func):  
+        @wraps(func)  
+        def wrapper(self, *args, **kwargs):  
+
+            # * Obtain the executed time of the function
+
+            Asterisk = 60;
+
+            t1 = time.time();
+            result = func(self, *args, **kwargs);
+            t2 = time.time();
+
+            print("\n");
+            print("*" * Asterisk);
+            print('Function {} executed in {:.4f}'.format(func.__name__, t2 - t1));
+            print("*" * Asterisk);
+            print("\n");
+
+            return result
+        return wrapper
+    
+    # ? Detect fi GPU exist in your PC for CNN Decorator
+    @staticmethod  
+    def detect_GPU(func):  
+        @wraps(func)  
+        def wrapper(self, *args, **kwargs):  
+
+            # * Obtain the executed time of the function
+            GPU_name = tf.test.gpu_device_name();
+            GPU_available = tf.config.list_physical_devices();
+            print("\n");
+            print(GPU_available);
+            print("\n");
+            #if GPU_available == True:
+                #print("GPU device is available")
+            if "GPU" not in GPU_name:
+                print("GPU device not found");
+                print("\n");
+            print('Found GPU at: {}'.format(GPU_name));
+            print("\n");
+
+            result = func(self, *args, **kwargs);
+
+            return result
+        return wrapper
+
+# ?
 class EulerNumberML():
 
     def __init__(self, **kwargs) -> None:
@@ -141,6 +197,7 @@ class EulerNumberML():
         del self.Columns
 
     # ? Create dataframes
+    @Utilities.time_func
     def create_dataframe_history(self, Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
 
         # * Lists
@@ -167,6 +224,7 @@ class EulerNumberML():
         Dataframe_created.to_csv(Dataframe_folder)
 
     # ?
+    @Utilities.time_func
     def plot_data_loss(self, Hist_data: Any) -> None:
         """
         _summary_
@@ -189,6 +247,7 @@ class EulerNumberML():
         plt.savefig(Figure_name_folder)
 
     # ?
+    @Utilities.time_func
     def plot_data_accuracy(self, Hist_data: Any) -> None:
         """
         _summary_
@@ -300,7 +359,52 @@ class EulerNumberML3D(EulerNumberML):
 
         return New_Result
 
+    # ? #Model_prediction, Array
+    def Predictions_3D(self, Model_name: str, Model_prediction: Any, Prediction_value: Any) -> int:
+        """
+        _summary_
+
+        _extended_summary_
+
+        Args:
+            Model_name (str): _description_
+            Model_prediction (Any): _description_
+            Prediction_value (Any): _description_
+
+        Returns:
+            int: _description_
+        """
+        #Asterisks = 30
+
+        print("Prediction!")
+        #Do not use Model.predict, use model instead
+        #Result = Model([Prediction_value])
+
+        if Model_name.endswith('.h5'):
+            Result = np.argmax(Model_prediction.predict([Prediction_value]), axis = 1)
+            print(Result)
+
+        elif Model_name.endswith('.joblib'):
+            Result = Model_prediction.predict([Prediction_value])
+            print(Result)
+
+        #Result = np.argmax(Model.predict([Prediction_value]), axis = 0)
+
+        #print(Result)
+
+        True_result = self.true_data_3D(Result)
+
+        #print("*" * Asterisks)
+        print('{} -------------- {}'.format(Prediction_value, True_result))
+        print('The result is: {}'.format(Result))
+        print('The true value is: {}'.format(True_result))
+        #print("*" * Asterisks)
+        print('\n')
+
+        return True_result
+
     # ?
+    @Utilities.time_func
     def obtain_arrays_from_object_3D(self, Object: str) -> list[np.ndarray]:
 
         #Array = np.loadtxt(self.Object, delimiter = ',')
@@ -372,7 +476,9 @@ class EulerNumberML3D(EulerNumberML):
         return Arrays
 
     # ?
-    def model_euler_3D_MLP(self) -> Any:
+    @Utilities.time_func
+    @Utilities.detect_GPU
+    def model_euler_MLP_3D(self) -> Any:
         """
         _summary_
 
@@ -439,7 +545,9 @@ class EulerNumberML3D(EulerNumberML):
         return Hist_data
 
     # ?
-    def model_euler_3D_RF(self) -> None:
+    @Utilities.time_func
+    @Utilities.detect_GPU
+    def model_euler_RF_3D(self) -> None:
         """
         _summary_
 
@@ -493,6 +601,8 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
     # ?
+    @Utilities.time_func
+    @Utilities.detect_GPU
     def model_prediction_3D(self, Model, Arrays) -> None:
     
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
@@ -518,50 +628,6 @@ class EulerNumberML3D(EulerNumberML):
 
         print('Euler: {}'.format(Prediction_result_3D))
         print('\n')
-
-    # ? #Model_prediction, Array
-    def Predictions_3D(self, Model_name: str, Model_prediction: Any, Prediction_value: Any) -> int:
-        """
-        _summary_
-
-        _extended_summary_
-
-        Args:
-            Model_name (str): _description_
-            Model_prediction (Any): _description_
-            Prediction_value (Any): _description_
-
-        Returns:
-            int: _description_
-        """
-        #Asterisks = 30
-
-        print("Prediction!")
-        #Do not use Model.predict, use model instead
-        #Result = Model([Prediction_value])
-
-        if Model_name.endswith('.h5'):
-            Result = np.argmax(Model_prediction.predict([Prediction_value]), axis = 1)
-            print(Result)
-
-        elif Model_name.endswith('.joblib'):
-            Result = Model_prediction.predict([Prediction_value])
-            print(Result)
-
-        #Result = np.argmax(Model.predict([Prediction_value]), axis = 0)
-
-        #print(Result)
-
-        True_result = self.true_data_3D(Result)
-
-        #print("*" * Asterisks)
-        print('{} -------------- {}'.format(Prediction_value, True_result))
-        print('The result is: {}'.format(Result))
-        print('The true value is: {}'.format(True_result))
-        #print("*" * Asterisks)
-        print('\n')
-
-        return True_result
 
 class EulerNumberML2D(EulerNumberML):
     def __init__(self, **kwargs) -> None:
@@ -619,6 +685,37 @@ class EulerNumberML2D(EulerNumberML):
         return New_Result
 
     # ?
+    def Predictions_2D(self, Model: Any, Prediction_value: Any) -> int:
+        """
+        _summary_
+
+        _extended_summary_
+
+        Args:
+            Model (Any): _description_
+            Prediction_value (Any): _description_
+
+        Returns:
+            int: _description_
+        """
+        #Asterisks = 30
+
+        print("Prediction!")
+        #Do not use Model.predict, use model instead
+        Result = Model.predict([Prediction_value])
+
+        True_result = self.true_data_2D(Result)
+
+        #print("*" * Asterisks)
+        print('The result is: {}'.format(Result))
+        print('The true value is: {}'.format(True_result))
+        #print("*" * Asterisks)
+        print('\n')
+
+        return True_result
+
+    # ?
+    @Utilities.time_func
     def obtain_arrays_from_object_2D(self, Object) -> list[np.ndarray]:
 
 
@@ -673,7 +770,9 @@ class EulerNumberML2D(EulerNumberML):
         return Arrays
 
     # ?
-    def model_euler_2D_MLP(self) -> Any:
+    @Utilities.time_func
+    @Utilities.detect_GPU
+    def model_euler_MLP_2D(self) -> Any:
         """
         _summary_
 
@@ -733,6 +832,8 @@ class EulerNumberML2D(EulerNumberML):
         return Hist_data
 
     # ?
+    @Utilities.time_func
+    @Utilities.detect_GPU
     def model_prediction_2D(self, Model, Arrays):
 
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
@@ -760,36 +861,7 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
-    def Predictions_2D(self, Model: Any, Prediction_value: Any) -> int:
-        """
-        _summary_
-
-        _extended_summary_
-
-        Args:
-            Model (Any): _description_
-            Prediction_value (Any): _description_
-
-        Returns:
-            int: _description_
-        """
-        #Asterisks = 30
-
-        print("Prediction!")
-        #Do not use Model.predict, use model instead
-        Result = Model.predict([Prediction_value])
-
-        True_result = self.true_data_2D(Result)
-
-        #print("*" * Asterisks)
-        print('The result is: {}'.format(Result))
-        print('The true value is: {}'.format(True_result))
-        #print("*" * Asterisks)
-        print('\n')
-
-        return True_result
-
-    # ?
+    @Utilities.time_func
     def connectivity_4_prediction_2D(self, Arrays)-> None:
 
 
@@ -826,6 +898,7 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
+    @Utilities.time_func
     def connectivity_8_prediction_2D(self, Arrays) -> None:
 
 

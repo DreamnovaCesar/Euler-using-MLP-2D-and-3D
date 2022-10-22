@@ -96,7 +96,6 @@ class Stats(Text):
 for z in range(10):
     for x in range(10):
         voxel = Voxel((x, 0, z))
-        Total_voxels += voxel.Voxel
 
 player = FirstPersonController()
 
