@@ -1,11 +1,4 @@
-from typing import Any
-
-import numpy as np
-
-from diagrams import Diagram
-from diagrams.aws.compute import EC2
-from diagrams.aws.database import RDS
-from diagrams.aws.network import ELB
+from Article_Euler_Number_Libraries import *
 
 Connectivity_4_first_array = np.array([     [ 1,  0],
                                             [ 0,  0]    ], dtype = 'int')

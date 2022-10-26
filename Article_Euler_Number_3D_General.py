@@ -1,12 +1,4 @@
-from typing import Any
-
-import numpy as np
-
-from diagrams import Diagram
-from diagrams.aws.compute import EC2
-from diagrams.aws.database import RDS
-from diagrams.aws.network import ELB
-
+from Article_Euler_Number_Libraries import *
                         # a, b, c, d    e, f, g, h
 Input_3D = np.array([   [[0, 0, 0, 0], [0, 0, 0, 0]],
                         [[0, 0, 0, 0], [0, 0, 0, 1]],
