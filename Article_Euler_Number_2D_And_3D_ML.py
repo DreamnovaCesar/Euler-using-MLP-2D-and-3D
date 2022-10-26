@@ -49,6 +49,7 @@ class Utilities(object):
             result = func(self, *args, **kwargs);
             t2 = time.time();
 
+            # *
             print("\n");
             print("*" * Asterisk);
             print('Function {} executed in {:.4f}'.format(func.__name__, t2 - t1));
@@ -93,19 +94,19 @@ class EulerNumberML():
         _extended_summary_
         """
         # * General parameters
-        self.Input = kwargs.get('input', None)
-        self.Output = kwargs.get('output', None)
+        self._Input = kwargs.get('input', None)
+        self._Output = kwargs.get('output', None)
         #self.Object = kwargs.get('object', None)
 
         # *
-        self.Folder = kwargs.get('folder', None)
-        self.Model_name = kwargs.get('modelname', None)
-        self.Epochs = kwargs.get('epochs', None)
-        self.Columns = ["Loss", "Accuracy"]
+        self._Folder = kwargs.get('folder', None)
+        self._Model_name = kwargs.get('modelname', None)
+        self._Epochs = kwargs.get('epochs', None)
+        self._Columns = ["Loss", "Accuracy"]
 
     def __repr__(self):
 
-        kwargs_info = "{}, {}, {}, {}, {}, {}".format(self.Input, self.Output, self.Folder, self.Model_name, self.Epochs, self.Columns)
+        kwargs_info = "{}, {}, {}, {}, {}, {}".format(self._Input, self._Output, self._Folder, self._Model_name, self._Epochs, self._Columns)
 
         return kwargs_info
 
@@ -115,88 +116,89 @@ class EulerNumberML():
     # * Input kwargs
     @property
     def Input_property(self):
-        return self.Input
+        return self._Input
 
     @Input_property.setter
     def Input_property(self, New_value):
-        self.Input = New_value
+        self._Input = New_value
     
     @Input_property.deleter
     def Input_property(self):
         print("Deleting Input...")
-        del self.Input
+        del self._Input
 
     # * Output kwargs
     @property
     def Output_property(self):
-        return self.Output
+        return self._Output
 
     @Output_property.setter
     def Output_property(self, New_value):
-        self.Output = New_value
+        self._Output = New_value
     
     @Output_property.deleter
     def Output_property(self):
         print("Deleting Output...")
-        del self.Output
+        del self._Output
 
     # * Folder kwargs
     @property
     def Folder_property(self):
-        return self.Folder
+        return self._Folder
 
     @Folder_property.setter
     def Folder_property(self, New_value):
-        self.Folder = New_value
+        self._Folder = New_value
     
     @Folder_property.deleter
     def Folder_property(self):
         print("Deleting Folder...")
-        del self.Folder
+        del self._Folder
 
     # * Model_name kwargs
     @property
     def Model_name_property(self):
-        return self.Model_name
+        return self._Model_name
 
     @Model_name_property.setter
     def Model_name_property(self, New_value):
-        self.Model_name = New_value
+        self._Model_name = New_value
     
     @Model_name_property.deleter
     def Model_name_property(self):
         print("Deleting Model_name...")
-        del self.Model_name
+        del self._Model_name
 
     # * Epochs kwargs
     @property
     def Epochs_property(self):
-        return self.Epochs
+        return self._Epochs
 
     @Epochs_property.setter
     def Epochs_property(self, New_value):
-        self.Epochs = New_value
+        self._Epochs = New_value
     
     @Epochs_property.deleter
     def Epochs_property(self):
         print("Deleting Epochs...")
-        del self.Epochs
+        del self._Epochs
 
     # * Columns kwargs
     @property
     def Columns_property(self):
-        return self.Columns
+        return self._Columns
 
     @Columns_property.setter
     def Columns_property(self, New_value):
-        self.Columns = New_value
+        self._Columns = New_value
     
     @Columns_property.deleter
     def Columns_property(self):
         print("Deleting Columns...")
-        del self.Columns
+        del self._Columns
 
     # ? Create dataframes
+    @staticmethod
     @Utilities.time_func
     def create_dataframe_history(self, Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
 
@@ -241,8 +243,8 @@ class EulerNumberML():
         plt.plot(Hist_data.history["loss"])
         #plt.show()
 
-        Figure_name = "Figure_Loss_{}.png".format(self.Model_name)
-        Figure_name_folder = os.path.join(self.Folder, Figure_name)
+        Figure_name = "Figure_Loss_{}.png".format(self._Model_name)
+        Figure_name_folder = os.path.join(self._Folder, Figure_name)
 
         plt.savefig(Figure_name_folder)
 
@@ -488,8 +490,8 @@ class EulerNumberML3D(EulerNumberML):
             Any: _description_
         """
         # *
-        print(self.Input.shape)
-        print(self.Output.shape)
+        print(self._Input.shape)
+        print(self._Output.shape)
 
         # *
         Model = Sequential()
@@ -514,14 +516,14 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
         # *
-        Hist_data = Model.fit(self.Input, self.Output, epochs = self.Epochs, verbose = False)
+        Hist_data = Model.fit(self._Input, self._Output, epochs = self._Epochs, verbose = False)
 
         print('\n')
         print("Model trained")
         print('\n')
 
         # * Saving model using .h5
-        Model_name_save = '{}.h5'.format(self.Model_name)
+        Model_name_save = '{}.h5'.format(self._Model_name)
         Model.save(Model_name_save)
 
         # *
@@ -533,7 +535,7 @@ class EulerNumberML3D(EulerNumberML):
         #Accuracy = Hist_data.history['accuracy']
 
         # *
-        self.create_dataframe_history(self.Columns, self.Folder, self.Model_name, Hist_data)
+        self.create_dataframe_history(self._Columns, self._Folder, self._Model_name, Hist_data)
 
         # *
         self.plot_data_loss(Hist_data)
@@ -557,8 +559,8 @@ class EulerNumberML3D(EulerNumberML):
             Any: _description_
         """
         # *
-        print(self.Input.shape)
-        print(self.Output.shape)
+        print(self._Input.shape)
+        print(self._Output.shape)
 
         # *
         Model_RF = RandomForestClassifier(  criterion = 'gini',
@@ -572,14 +574,14 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
         # *
-        Model_RF.fit(self.Input, self.Output)
+        Model_RF.fit(self._Input, self._Output)
 
         print('\n')
         print("Model trained")
         print('\n')
 
         # * Saving model using .h5
-        Model_name_save = '{}.joblib'.format(self.Model_name)
+        Model_name_save = '{}.joblib'.format(self._Model_name)
         joblib.dump(Model_RF, Model_name_save)
 
         # *
@@ -781,8 +783,8 @@ class EulerNumberML2D(EulerNumberML):
         Returns:
             Any: _description_
         """
-        print(self.Input.shape)
-        print(self.Output.shape)
+        print(self._Input.shape)
+        print(self._Output.shape)
 
         Model = Sequential()
         Model.add(Dense(units = 1, input_shape = [4]))
@@ -802,14 +804,14 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
         
         # *
-        Hist_data = Model.fit(self.Input, self.Output, epochs = self.Epochs, verbose = False)
+        Hist_data = Model.fit(self._Input, self._Output, epochs = self._Epochs, verbose = False)
 
         print('\n')
         print("Model trained")
         print('\n')
 
         # *
-        Model_name_save = '{}.h5'.format(self.Model_name)
+        Model_name_save = '{}.h5'.format(self._Model_name)
         Model.save(Model_name_save)
 
         print("Saving model...")
@@ -820,7 +822,7 @@ class EulerNumberML2D(EulerNumberML):
         #Accuracy = Hist_data.history['accuracy']
 
         # *
-        self.create_dataframe_history(self.Columns, self.Folder, self.Model_name, Hist_data)
+        self.create_dataframe_history(self._Columns, self._Folder, self._Model_name, Hist_data)
 
         # *
         self.plot_data_loss(Hist_data)
