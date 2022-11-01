@@ -7,6 +7,8 @@ from Article_Euler_Number_3D_General import project_diagram
 from Article_Euler_Number_3D_General import Input_3D_array
 from Article_Euler_Number_3D_General import Output_3D_array
 
+from Article_Euler_Number_Create_Data import DataEuler
+
 from Article_Euler_Number_2D_And_3D_ML import *
 
 
@@ -70,10 +72,20 @@ def Euler_3D_test():
 
     #Euler_3D_MLP.model_prediction_3D('Model_MLP_3D.h5', Array_MLP)
     #Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
-    
+
+def Create_objects():
+
+    Images_2D = DataEuler(folder = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\2D', NI = 10, Height = 8, Width = 8)
+    Images_2D.create_data_euler_3D()
+
+    Images_3D = DataEuler(folder = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\3D', NI = 10, Height = 8, Width = 8, Depth = 8)
+    Images_3D.create_data_euler_3D()
+
 def main():
+
+    Create_objects()
     #Euler_2D_test()
-    Euler_3D_test()
+    #Euler_3D_test()
 
 
 if __name__ == "__main__":
