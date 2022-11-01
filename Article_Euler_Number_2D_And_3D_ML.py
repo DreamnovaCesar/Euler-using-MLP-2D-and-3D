@@ -331,8 +331,8 @@ class EulerNumberML3D(EulerNumberML):
         return True_result
 
     # ?
-    @profile
     @Utilities.time_func
+    @profile
     def obtain_arrays_from_object_3D(self, Object: str) -> list[np.ndarray]:
 
         #Array = np.loadtxt(self.Object, delimiter = ',')
@@ -404,9 +404,9 @@ class EulerNumberML3D(EulerNumberML):
         return Arrays
 
     # ?
-    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
+    @profile
     def model_euler_MLP_3D(self) -> Any:
         """
         _summary_
@@ -474,9 +474,9 @@ class EulerNumberML3D(EulerNumberML):
         return Hist_data
 
     # ?
-    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
+    @profile
     def model_euler_RF_3D(self) -> None:
         """
         _summary_
@@ -531,9 +531,9 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
     # ?
-    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
+    @profile
     def model_prediction_3D(self, Model, Arrays) -> None:
     
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
@@ -705,9 +705,9 @@ class EulerNumberML2D(EulerNumberML):
         return Arrays
 
     # ?
-    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
+    @profile
     def model_euler_MLP_2D(self) -> Any:
         """
         _summary_
@@ -768,9 +768,9 @@ class EulerNumberML2D(EulerNumberML):
         return Hist_data
 
     # ?
-    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
+    @profile
     def model_prediction_2D(self, Model, Arrays):
 
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
@@ -798,8 +798,8 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
-    @profile
     @Utilities.time_func
+    @profile
     def connectivity_4_prediction_2D(self, Arrays)-> None:
 
 
@@ -836,8 +836,8 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
-    @profile
     @Utilities.time_func
+    @profile
     def connectivity_8_prediction_2D(self, Arrays) -> None:
 
 
