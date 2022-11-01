@@ -53,7 +53,7 @@ class Utilities(object):
         return wrapper
 
 # ?
-class EulerNumberML():
+class EulerNumberML(Utilities):
 
     def __init__(self, **kwargs) -> None:
         """
@@ -68,7 +68,7 @@ class EulerNumberML():
 
         # *
         self._Folder = kwargs.get('folder', None)
-        self._Model_name = kwargs.get('modelname', None)
+        self._Model_name = kwargs.get('MN', None)
         self._Epochs = kwargs.get('epochs', None)
         self._Columns = ["Loss", "Accuracy"]
 
@@ -81,94 +81,100 @@ class EulerNumberML():
     def __str__(self):
         pass
 
-    # * Input kwargs
+    # * _Input attribute
     @property
-    def Input_property(self):
+    def _Input_property(self):
         return self._Input
 
-    @Input_property.setter
-    def Input_property(self, New_value):
+    @_Input_property.setter
+    def _Input_property(self, New_value):
+        print("Changing input...")
         self._Input = New_value
     
-    @Input_property.deleter
-    def Input_property(self):
-        print("Deleting Input...")
+    @_Input_property.deleter
+    def _Input_property(self):
+        print("Deleting input...")
         del self._Input
 
-    # * Output kwargs
+    # * _Output attribute
     @property
-    def Output_property(self):
+    def _Output_property(self):
         return self._Output
 
-    @Output_property.setter
-    def Output_property(self, New_value):
+    @_Output_property.setter
+    def _Output_property(self, New_value):
+        print("Changing output...")
         self._Output = New_value
     
-    @Output_property.deleter
-    def Output_property(self):
-        print("Deleting Output...")
+    @_Output_property.deleter
+    def _Output_property(self):
+        print("Deleting output...")
         del self._Output
 
-    # * Folder kwargs
+    # * _Folder attribute
     @property
-    def Folder_property(self):
+    def _Folder_property(self):
         return self._Folder
 
-    @Folder_property.setter
-    def Folder_property(self, New_value):
+    @_Folder_property.setter
+    def _Folder_property(self, New_value):
+        print("Changing folder...")
         self._Folder = New_value
     
-    @Folder_property.deleter
-    def Folder_property(self):
-        print("Deleting Folder...")
+    @_Folder_property.deleter
+    def _Folder_property(self):
+        print("Deleting folder...")
         del self._Folder
 
-    # * Model_name kwargs
+    # * _Folder attribute
     @property
-    def Model_name_property(self):
+    def _Model_name_property(self):
         return self._Model_name
 
-    @Model_name_property.setter
-    def Model_name_property(self, New_value):
+    @_Model_name_property.setter
+    def _Model_name_property(self, New_value):
+        print("Changing model name...")
         self._Model_name = New_value
     
-    @Model_name_property.deleter
-    def Model_name_property(self):
-        print("Deleting Model_name...")
+    @_Model_name_property.deleter
+    def _Model_name_property(self):
+        print("Deleting model name...")
         del self._Model_name
 
-    # * Epochs kwargs
+    # * _Folder attribute
     @property
-    def Epochs_property(self):
+    def _Epochs_property(self):
         return self._Epochs
 
-    @Epochs_property.setter
-    def Epochs_property(self, New_value):
+    @_Epochs_property.setter
+    def _Epochs_property(self, New_value):
+        print("Changing epochs...")
         self._Epochs = New_value
     
-    @Epochs_property.deleter
-    def Epochs_property(self):
-        print("Deleting Epochs...")
+    @_Epochs_property.deleter
+    def _Epochs_property(self):
+        print("Deleting epochs...")
         del self._Epochs
 
-    # * Columns kwargs
+    # * _Columns kwargs
     @property
-    def Columns_property(self):
+    def _Columns_property(self):
         return self._Columns
 
-    @Columns_property.setter
-    def Columns_property(self, New_value):
+    @_Columns_property.setter
+    def _Columns_property(self, New_value):
+        print("Changing columns names...")
         self._Columns = New_value
     
-    @Columns_property.deleter
-    def Columns_property(self):
-        print("Deleting Columns...")
+    @_Columns_property.deleter
+    def _Columns_property(self):
+        print("Deleting columns names...")
         del self._Columns
 
     # ? Create dataframes
     @staticmethod
     @Utilities.time_func
-    def create_dataframe_history(self, Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
+    def create_dataframe_history(Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
 
         # * Lists
         #Column_names = ['Folder', 'New Folder', 'Animal', 'Label']
@@ -239,7 +245,7 @@ class EulerNumberML():
 
         plt.savefig(Figure_name_folder)
 
-
+# ?
 class EulerNumberML3D(EulerNumberML):
 
     def __init__(self, **kwargs) -> None:
@@ -272,7 +278,8 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
     # ?
-    def read_image_with_metadata_3D(self, Array_file: str) -> np.ndarray:
+    @staticmethod
+    def read_image_with_metadata_3D(Array_file: str) -> np.ndarray:
         """
         _summary_
 
@@ -306,7 +313,8 @@ class EulerNumberML3D(EulerNumberML):
         return Array_new
 
     # ?
-    def true_data_3D(self, Result: int) -> int:
+    @staticmethod
+    def true_data_3D(Result: int) -> int:
         """
         _summary_
 
@@ -374,6 +382,7 @@ class EulerNumberML3D(EulerNumberML):
         return True_result
 
     # ?
+    @profile
     @Utilities.time_func
     def obtain_arrays_from_object_3D(self, Object: str) -> list[np.ndarray]:
 
@@ -446,6 +455,7 @@ class EulerNumberML3D(EulerNumberML):
         return Arrays
 
     # ?
+    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
     def model_euler_MLP_3D(self) -> Any:
@@ -515,6 +525,7 @@ class EulerNumberML3D(EulerNumberML):
         return Hist_data
 
     # ?
+    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
     def model_euler_RF_3D(self) -> None:
@@ -571,6 +582,7 @@ class EulerNumberML3D(EulerNumberML):
         print('\n')
 
     # ?
+    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
     def model_prediction_3D(self, Model, Arrays) -> None:
@@ -599,12 +611,15 @@ class EulerNumberML3D(EulerNumberML):
         print('Euler: {}'.format(Prediction_result_3D))
         print('\n')
 
+# ?
 class EulerNumberML2D(EulerNumberML):
+
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
     # ?
-    def read_image_with_metadata_2D(self, Array_file: str) -> np.ndarray:
+    @staticmethod
+    def read_image_with_metadata_2D(Array_file: str) -> np.ndarray:
         """
         _summary_
 
@@ -633,7 +648,8 @@ class EulerNumberML2D(EulerNumberML):
         return Array
 
     # ?
-    def true_data_2D(self, Result: int) -> int:
+    @staticmethod
+    def true_data_2D(Result: int) -> int:
         """
         _summary_
 
@@ -740,6 +756,7 @@ class EulerNumberML2D(EulerNumberML):
         return Arrays
 
     # ?
+    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
     def model_euler_MLP_2D(self) -> Any:
@@ -802,6 +819,7 @@ class EulerNumberML2D(EulerNumberML):
         return Hist_data
 
     # ?
+    @profile
     @Utilities.time_func
     @Utilities.detect_GPU
     def model_prediction_2D(self, Model, Arrays):
@@ -831,6 +849,7 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
+    @profile
     @Utilities.time_func
     def connectivity_4_prediction_2D(self, Arrays)-> None:
 
@@ -868,6 +887,7 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
     # ?
+    @profile
     @Utilities.time_func
     def connectivity_8_prediction_2D(self, Arrays) -> None:
 

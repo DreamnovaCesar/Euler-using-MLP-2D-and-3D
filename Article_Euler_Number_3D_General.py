@@ -592,6 +592,17 @@ def bubbleSort(arr: list[int]) -> None:
 
 # ?
 def decimal_to_binary(Decimal_value: int) -> int:
+    """
+    _summary_
+
+    _extended_summary_
+
+    Args:
+        Decimal_value (int): _description_
+
+    Returns:
+        int: _description_
+    """
 
     # * Converting decimal to binary and removing the prefix(0b)
 
@@ -606,7 +617,15 @@ def decimal_to_binary(Decimal_value: int) -> int:
 
 # ?
 def print_array(Sorted_arr: list[int]) -> None:
-    
+    """
+    _summary_
+
+    _extended_summary_
+
+    Args:
+        Sorted_arr (list[int]): _description_
+    """
+
     # *
     print('\n')
 
@@ -620,7 +639,6 @@ def print_array(Sorted_arr: list[int]) -> None:
 
 # ?
 def index_assign_value(Tuple_index: tuple[int], Tuple_value: tuple[int]) -> Any:
-
     """
     _summary_
 
@@ -687,7 +705,15 @@ def index_assign_value(Tuple_index: tuple[int], Tuple_value: tuple[int]) -> Any:
 
 # ?
 def table_binary_multi_256(Number_iter: int) -> None:
+    """
+    _summary_
 
+    _extended_summary_
+
+    Args:
+        Number_iter (int): _description_
+    """
+    
     # *
     Array_prediction = np.zeros((8), dtype = 'int')
 

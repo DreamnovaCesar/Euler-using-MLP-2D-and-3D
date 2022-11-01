@@ -36,15 +36,15 @@ def Euler_2D_test():
     Object_path_3 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_3.txt"
     Object_path_4 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_4.txt"
 
-    Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, modelname = 'Model_MLP_2D_4', epochs = 1000)
+    Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 1000)
 
     Euler_2D_MLP.model_euler_MLP_2D()
 
     Array_MLP = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
 
-    #Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP)
+    Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP)
 
-    #Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP)
+    Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP)
     Euler_2D_MLP.connectivity_8_prediction_2D(Array_MLP)
 
 
@@ -57,7 +57,7 @@ def Euler_3D_test():
     Object_path_4 = r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Euler 3D\Example_3D_4.txt"
 
     #Euler_3D_MLP = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, modelname = 'Model_MLP_3D', epochs = 100)
-    Euler_3D_RF = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, modelname = 'Model_RF_3D', epochs = 100)
+    Euler_3D_RF = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, MN = 'Model_RF_3D', epochs = 100)
 
     #Euler_3D_MLP.print_octovoxel_order_3D()
     #Euler_3D_RF.print_octovoxel_order_3D()
@@ -72,7 +72,6 @@ def Euler_3D_test():
     #Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
     
 def main():
-    #project_diagram()
     #Euler_2D_test()
     Euler_3D_test()
 
