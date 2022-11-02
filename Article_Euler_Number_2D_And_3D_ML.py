@@ -263,6 +263,24 @@ class EulerNumberML3D(EulerNumberML):
 
     # ?
     @staticmethod
+    def Show_array_3D(Image: str) -> np.ndarray:
+        
+        # *
+        Data = np.genfromtxt(Image, delimiter = ",")
+        
+        Height = Data.shape[0]/Data.shape[1]
+        Data = Data.reshape((int(Height), int(Data.shape[1]), int(Data.shape[1])));
+
+        # *
+        print(Data)
+
+        # *
+        ax = plt.figure().add_subplot(projection = '3d')
+        ax.voxels(Data, edgecolors = 'gray')
+        plt.show()
+
+    # ?
+    @staticmethod
     def true_data_3D(Result: int) -> int:
         """
         _summary_

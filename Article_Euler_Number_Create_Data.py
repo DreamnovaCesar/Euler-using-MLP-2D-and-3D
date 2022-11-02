@@ -66,7 +66,9 @@ class DataEuler(Utilities):
         
         for i in range(self._Number_of_images):
 
-            Data_2D = np.random.randint(0, 2, (self._Height * self._Width)).reshape(self._Height, self._Width);
+            Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
+            Data_2D = Data_2D.reshape(self._Height, self._Width);
+
             print(Data_2D);
             print('\n');
 
@@ -80,8 +82,11 @@ class DataEuler(Utilities):
         
         for i in range(self._Number_of_images):
 
-            Data_3D = np.random.randint(0, 2, (self._Height * self._Depth * self._Width)).reshape((self._Height * self._Depth), self._Width);
-            print(Data_3D);
+            Data_3D = np.random.randint(0, 2, (self._Height * self._Depth * self._Width));
+            Data_3D = Data_3D.reshape((self._Height * self._Depth), self._Width);
+            Data_3D_plot = Data_3D.reshape((self._Height, self._Depth, self._Width));
+
+            print(Data_3D_plot);
             print('\n');
 
             File_name = 'Image_3D_{}.txt'.format(i);
