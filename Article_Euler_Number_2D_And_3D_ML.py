@@ -17,6 +17,7 @@ class EulerNumberML(Utilities):
 
         # *
         self._Folder = kwargs.get('folder', None)
+        self._Folder_data = kwargs.get('FD', False)
         self._Model_name = kwargs.get('MN', None)
         self._Epochs = kwargs.get('epochs', None)
         self._Columns = ["Loss", "Accuracy"]
@@ -74,6 +75,21 @@ class EulerNumberML(Utilities):
     def _Folder_property(self):
         print("Deleting folder...")
         del self._Folder
+
+    # * _Folder_data attribute
+    @property
+    def _Folder_data_property(self):
+        return self._Folder_data
+
+    @_Folder_data_property.setter
+    def _Folder_data_property(self, New_value):
+        print("Changing folders state...")
+        self._Folder_data = New_value
+    
+    @_Folder_data_property.deleter
+    def _Folder_data_property(self):
+        print("Deleting folders state...")
+        del self._Folder_data
 
     # * _Folder attribute
     @property

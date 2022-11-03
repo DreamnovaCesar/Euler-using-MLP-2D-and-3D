@@ -75,7 +75,7 @@ def Euler_3D_test_handcraft():
     #Euler_3D_RF.model_euler_RF_3D()
 
     #Array_MLP = Euler_3D_MLP.obtain_arrays_from_object_3D(Object_path_4)
-    Array_RF = Euler_3D_RF.obtain_arrays_from_object_3D(Object_path_4)
+    Array_RF = Euler_3D_RF.obtain_arrays_from_object_3D(Object_path_2)
 
     #Euler_3D_MLP.model_prediction_3D('Model_MLP_3D.h5', Array_MLP)
     Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
