@@ -142,9 +142,9 @@ def Create_objects():
 
 def main():
 
-    #Create_objects()
+    Create_objects()
     #Euler_2D_test_handcraft()
-    Euler_3D_test_handcraft()
+    #Euler_3D_test_handcraft()
 
     #Euler_3D_test()
     #Euler_3D_test()
