@@ -42,16 +42,20 @@ def Euler_2D_test_handcraft():
     Object_path_3 = r"C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\Handcraft\2D\Example_2D_1.txt"
     Object_path_4 = r"C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\Handcraft\2D\Example_2D_1.txt"
 
-    Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 1000)
+    Euler_2D_MLP_4 = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 1000)
+    Euler_2D_MLP_8 = EulerNumberML2D(input = Input_2D, output = Output_2D_8_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_8', epochs = 1000)
 
-    Euler_2D_MLP.model_euler_MLP_2D()
+    Euler_2D_MLP_4.model_euler_MLP_2D()
+    Euler_2D_MLP_8.model_euler_MLP_2D()
 
-    Array_MLP = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
+    Array_MLP_4 = Euler_2D_MLP_4.obtain_arrays_from_object_2D(Object_path_4)
+    Array_MLP_8 = Euler_2D_MLP_4.obtain_arrays_from_object_2D(Object_path_4)
 
-    Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP)
+    Euler_2D_MLP_4.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP_4)
+    Euler_2D_MLP_8.model_prediction_2D('Model_MLP_2D_8.h5', Array_MLP_8)
 
-    Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP)
-    Euler_2D_MLP.connectivity_8_prediction_2D(Array_MLP)
+    #Euler_2D_MLP_4.connectivity_4_prediction_2D(Array_MLP_4)
+    #Euler_2D_MLP_8.connectivity_8_prediction_2D(Array_MLP_8)
 
 
 def Euler_3D_test_handcraft():
@@ -134,18 +138,20 @@ def Create_objects():
     Folder_2D = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\2D';
     Folder_3D = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\3D';
 
-    Images_2D = DataEuler(folder = Folder_2D, NI = 10, Height = 8, Width = 8);
-    Images_2D.create_data_euler_2D();
+    Images_2D = DataEuler(folder = Folder_2D, NI = 10, Height = 8, Width = 8, EN = 2, MT = 'Model_MLP_2D_4.h5');
+    Images_2D.create_data_euler_2D_settings();
 
-    Images_3D = DataEuler(folder = Folder_3D, NI = 10, Height = 8, Width = 8, Depth = 8);
-    Images_3D.create_data_euler_3D();
+    #Images_3D = DataEuler(folder = Folder_3D, NI = 10, Height = 8, Width = 8, Depth = 8);
+    #Images_3D.create_data_euler_3D_settings();
 
 def main():
 
-    Create_objects()
-    #Euler_2D_test_handcraft()
+    #Create_objects()
+    Euler_2D_test_handcraft()
     #Euler_3D_test_handcraft()
 
+    #Create_objects()
+    
     #Euler_3D_test()
     #Euler_3D_test()
 

@@ -205,8 +205,8 @@ class EulerNumberML(Utilities):
         plt.plot(Hist_data.history["accuracy"])
         #plt.show()
 
-        Figure_name = "Figure_Accuracy_{}.png".format(self.Model_name)
-        Figure_name_folder = os.path.join(self.Folder, Figure_name)
+        Figure_name = "Figure_Accuracy_{}.png".format(self._Model_name)
+        Figure_name_folder = os.path.join(self._Folder, Figure_name)
 
         plt.savefig(Figure_name_folder)
 
@@ -485,7 +485,9 @@ class EulerNumberML3D(EulerNumberML):
 
         # * Saving model using .h5
         Model_name_save = '{}.h5'.format(self._Model_name)
-        Model.save(Model_name_save)
+        Model_folder_save = os.path.join(self._Folder, Model_name_save)
+
+        Model.save(Model_folder_save)
 
         # *
         print("Saving model...")
@@ -544,7 +546,9 @@ class EulerNumberML3D(EulerNumberML):
 
         # * Saving model using .h5
         Model_name_save = '{}.joblib'.format(self._Model_name)
-        joblib.dump(Model_RF, Model_name_save)
+        Model_folder_save = os.path.join(self._Folder, Model_name_save)
+
+        joblib.dump(Model_RF, Model_folder_save)
 
         # *
         print("Saving model...")
@@ -589,10 +593,13 @@ class EulerNumberML3D(EulerNumberML):
 
             True_result_3D = self.Predictions_3D(Model, Model_prediction, Array) ####
             Prediction_result_3D += True_result_3D
+
         print('\n')
 
         print('Euler: {}'.format(Prediction_result_3D))
         print('\n')
+
+        return Prediction_result_3D
 
 # ?
 class EulerNumberML2D(EulerNumberML):
@@ -740,6 +747,58 @@ class EulerNumberML2D(EulerNumberML):
 
     # ?
     @Utilities.time_func
+    def obtain_arrays_2D(self, Array) -> list[np.ndarray]:
+
+
+        # *
+        Arrays = []
+        Asterisks = 30
+
+        # *
+        Array_comparison = np.zeros((2, 2), dtype = 'int')
+        Array_prediction = np.zeros((4), dtype = 'int')
+
+        for i in range(Array.shape[0] - 1):
+            for j in range(Array.shape[1] - 1):
+
+                Array_comparison[0][0] = Array[i][j]
+                Array_comparison[1][0] = Array[i + 1][j]
+                Array_comparison[0][1] = Array[i][j + 1]
+                Array_comparison[1][1] = Array[i + 1][j + 1]
+
+                Array_prediction[0] = Array[i][j]
+                Array_prediction[1] = Array[i][j + 1]
+                Array_prediction[2] = Array[i + 1][j]
+                Array_prediction[3] = Array[i + 1][j + 1]
+
+                print('\n')
+                #print("*" * Asterisks)
+
+                # *
+                print("*" * Asterisks)
+                Array_prediction_list = Array_prediction.tolist()
+                Array_prediction_list_int = [int(i) for i in Array_prediction_list]
+
+                # *
+                print("Kernel array")
+                print(Array_comparison)
+                print('\n')
+                print("Prediction array")
+                print(Array_prediction)
+                print('\n')
+                Arrays.append(Array_prediction_list_int)
+                print("*" * Asterisks)
+                print('\n')
+
+        # *
+        for i in range(len(Arrays)):
+            print('{} ---- {}'.format(i, Arrays[i]))
+        print('\n')
+        
+        return Arrays
+
+    # ?
+    @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_euler_MLP_2D(self) -> Any:
@@ -831,6 +890,7 @@ class EulerNumberML2D(EulerNumberML):
         print('Euler: {}'.format(Prediction_result_2D))
         print('\n')
 
+        return Prediction_result_2D
     # ?
     @Utilities.time_func
     @profile

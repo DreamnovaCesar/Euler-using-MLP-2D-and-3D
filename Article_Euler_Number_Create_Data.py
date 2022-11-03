@@ -1,8 +1,15 @@
 from Article_Euler_Number_Libraries import *
 from Article_Euler_Number_Utilities import Utilities
+from Article_Euler_Number_2D_And_3D_ML import EulerNumberML
+from Article_Euler_Number_2D_And_3D_ML import EulerNumberML2D
+from Article_Euler_Number_2D_And_3D_ML import EulerNumberML3D
+
+from Article_Euler_Number_2D_General import Input_2D
+from Article_Euler_Number_2D_General import Output_2D_4_Connectivity
+from Article_Euler_Number_2D_General import Output_2D_8_Connectivity
 
 # ?
-class DataEuler(Utilities):
+class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
     def __init__(self, **kwargs) -> None:
         """
@@ -26,7 +33,10 @@ class DataEuler(Utilities):
         self.__Save_image = kwargs.get('SI', True);
 
         # *
-        self.__Euler_number = kwargs.get('EN', True);
+        self.__Euler_number = kwargs.get('EN', 1);
+
+        # *
+        self.__Model_trained = kwargs.get('MT', None);
 
     def __repr__(self):
 
@@ -127,23 +137,50 @@ class DataEuler(Utilities):
     @Utilities.time_func
     def create_data_euler_2D_settings(self) -> None:
         
+        global Input_2D
+        global Output_2D_4_Connectivity
+        global Output_2D_8_Connectivity
+
+        Prediction = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = self.__Folder);
+
         for i in range(self.__Number_of_images):
 
             #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
-            Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [0.2, 0.8]);
-            Data_2D = Data_2D.reshape(self.__Height, self.__Width);
 
-            print(Data_2D);
-            print('\n');
-            
+            Euler_number = 0
+
+            P_0 = 0.2
+            P_1 = 0.8
+
+            while(Euler_number != self.__Euler_number):
+                
+                Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [P_0, P_1]);
+                Data_2D = Data_2D.reshape(self.__Height, self.__Width);
+
+                print(Data_2D);
+                print('\n');
+
+                Array = Prediction.obtain_arrays_2D(Data_2D);
+                Euler_number = Prediction.model_prediction_2D(self.__Model_trained, Array);
+
+                if(Euler_number > self.__Euler_number):
+
+                    P_0 = P_0 - 0.05;
+                    P_1 = P_1 + 0.05;
+
+                else:
+                    
+                    P_0 = P_0 + 0.05;
+                    P_1 = P_1 - 0.05;
+
             if(self.__Save_image):
 
                 Image_name = "Image_2D_{}.png".format(i)
                 Image_path = os.path.join(self.__Folder, Image_name)
 
                 plt.imshow(Data_2D, cmap = 'gray', interpolation = 'nearest')
-                plt.show()
                 plt.savefig(Image_path)
+                #plt.show()
 
             File_name = 'Image_2D_{}.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
