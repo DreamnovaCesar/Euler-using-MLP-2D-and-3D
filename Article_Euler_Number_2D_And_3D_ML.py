@@ -175,10 +175,11 @@ class EulerNumberML(Utilities):
         Args:
             Hist_data (Any): _description_
         """
-        #plt.figure(figsize = (20, 20))
+        plt.figure(figsize = (8, 8))
         plt.title('Training loss')
         plt.xlabel ("# Epoch")
         plt.ylabel ("# Loss")
+        plt.ylim([0, 2.0])
         plt.plot(Hist_data.history["loss"])
         #plt.show()
 
@@ -198,10 +199,11 @@ class EulerNumberML(Utilities):
         Args:
             Hist_data (Any): _description_
         """
-        #plt.figure(figsize = (20, 20))
+        plt.figure(figsize = (8, 8))
         plt.title('Training accuracy')
         plt.xlabel ("# Epoch")
         plt.ylabel ("# Acuracy")
+        plt.ylim([0, 1])
         plt.plot(Hist_data.history["accuracy"])
         #plt.show()
 
@@ -815,7 +817,7 @@ class EulerNumberML2D(EulerNumberML):
 
         Model = Sequential()
         Model.add(Dense(units = 1, input_shape = [4]))
-        Model.add(Dense(9, activation = "sigmoid"))
+        Model.add(Dense(15, activation = "sigmoid"))
         Model.add(Dense(1, activation = 'tanh'))
 
         Opt = Adam(learning_rate = 0.1)
@@ -839,7 +841,8 @@ class EulerNumberML2D(EulerNumberML):
 
         # *
         Model_name_save = '{}.h5'.format(self._Model_name)
-        Model.save(Model_name_save)
+        Model_folder_save = os.path.join(self._Folder, Model_name_save)
+        Model.save(Model_folder_save)
 
         print("Saving model...")
         print('\n')
@@ -855,7 +858,7 @@ class EulerNumberML2D(EulerNumberML):
         self.plot_data_loss(Hist_data)
         
         # *
-        self.plot_data_accuracy(Hist_data)
+        #self.plot_data_accuracy(Hist_data)
         print('\n')
 
         return Hist_data

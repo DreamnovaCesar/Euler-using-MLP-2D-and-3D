@@ -154,37 +154,59 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
             while(Euler_number != self.__Euler_number):
                 
+                j = 1
+
                 Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [P_0, P_1]);
                 Data_2D = Data_2D.reshape(self.__Height, self.__Width);
 
                 print(Data_2D);
+
+                Data_2D_edges = np.zeros((Data_2D.shape[0] + 2, Data_2D.shape[1] + 2))
+                
+                print(Data_2D_edges);
+
+                Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 1:Data_2D_edges.shape[1] - 1] = Data_2D
+
+                print(Data_2D_edges);
                 print('\n');
 
-                Array = Prediction.obtain_arrays_2D(Data_2D);
+                Array = Prediction.obtain_arrays_2D(Data_2D_edges);
                 Euler_number = Prediction.model_prediction_2D(self.__Model_trained, Array);
+
+                Image_name = "Image_2D_Real_Time_{}.png".format(j)
+                Image_path = os.path.join(self.__Folder, Image_name)
+                plt.title('P_0: {}, P_1: {}, Euler_number: {}'.format(P_0, P_1, Euler_number))
+                plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
+                plt.savefig(Image_path)
+
 
                 if(Euler_number > self.__Euler_number):
 
-                    P_0 = P_0 - 0.05;
-                    P_1 = P_1 + 0.05;
+                    if(P_0 != 0.98):
+
+                        P_0 = P_0 - 0.02;
+                        P_1 = P_1 + 0.02;
 
                 else:
                     
-                    P_0 = P_0 + 0.05;
-                    P_1 = P_1 - 0.05;
+                    if(P_1 != 0.98):
+                        
+                        P_0 = P_0 + 0.02;
+                        P_1 = P_1 - 0.02;
+
 
             if(self.__Save_image):
 
                 Image_name = "Image_2D_{}.png".format(i)
                 Image_path = os.path.join(self.__Folder, Image_name)
 
-                plt.imshow(Data_2D, cmap = 'gray', interpolation = 'nearest')
+                plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
                 #plt.show()
 
             File_name = 'Image_2D_{}.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
-            np.savetxt(Path, Data_2D , fmt = '%0.0f', delimiter = ',');
+            np.savetxt(Path, Data_2D_edges , fmt = '%0.0f', delimiter = ',');
 
     # ?
     @Utilities.time_func
