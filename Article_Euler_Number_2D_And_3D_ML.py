@@ -441,6 +441,79 @@ class EulerNumberML3D(EulerNumberML):
 
     # ?
     @Utilities.time_func
+    @profile
+    def obtain_arrays_3D(self, Array_new: str) -> list[np.ndarray]:
+
+        #Array = np.loadtxt(self.Object, delimiter = ',')
+
+        # *
+        Arrays = []
+        Asterisks = 30
+
+        # *
+        #Array_new = self.read_image_with_metadata_3D(Object)
+
+        # *
+        Array_prediction_octov = np.zeros((2, 2, 2))
+        Array_prediction = np.zeros((8))
+
+        # *
+        for i in range(Array_new.shape[0] - 1):
+            for j in range(Array_new.shape[1] - 1):
+                for k in range(Array_new.shape[2] - 1):
+
+                    # *
+                    Array_prediction_octov[0][0][0] = Array_new[i][j][k]
+                    Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
+
+                    Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
+                    Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
+
+                    Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
+                    Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
+
+                    Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
+                    Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+
+                    # *
+                    Array_prediction[0] = Array_new[i + 1][j][k]
+                    Array_prediction[1] = Array_new[i + 1][j][k + 1]
+
+                    Array_prediction[2] = Array_new[i][j][k]
+                    Array_prediction[3] = Array_new[i][j][k + 1]
+
+                    Array_prediction[4] = Array_new[i + 1][j + 1][k]
+                    Array_prediction[5] = Array_new[i + 1][j + 1][k + 1]
+
+                    Array_prediction[6] = Array_new[i][j + 1][k]
+                    Array_prediction[7] = Array_new[i][j + 1][k + 1]
+                    print('\n')
+
+                    # *
+                    print("*" * Asterisks)
+                    Array_prediction_list = Array_prediction.tolist()
+                    Array_prediction_list_int = [int(i) for i in Array_prediction_list]
+
+                    # *
+                    print("Kernel array")
+                    print(Array_prediction_octov)
+                    print('\n')
+                    print("Prediction array")
+                    print(Array_prediction)
+                    print('\n')
+                    Arrays.append(Array_prediction_list_int)
+                    print("*" * Asterisks)
+                    print('\n')
+
+        # *
+        for i in range(len(Arrays)):
+            print('{} ---- {}'.format(i, Arrays[i]))
+        print('\n')
+        
+        return Arrays
+
+    # ?
+    @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_euler_MLP_3D(self) -> Any:

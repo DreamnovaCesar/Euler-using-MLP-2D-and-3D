@@ -113,7 +113,7 @@ def Euler_3D_test():
     global Input_3D_array
     global Output_3D_array
 
-    Euler_path_3D = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\Handcraft\3D'
+    Euler_path_3D = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\3D'
     Euler_path_3D_data = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\3D\Data'
     Object_1_3D = r"C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\3D\Image_3D_0.txt"
 
@@ -128,10 +128,11 @@ def Euler_3D_test():
     Euler_3D_RF.model_euler_RF_3D()
 
     #Array_MLP = Euler_3D_MLP.obtain_arrays_from_object_3D(Object_path_4)
-    #Array_RF = Euler_3D_RF.obtain_arrays_from_object_3D(Object_1_3D)
+    Array_RF = Euler_3D_RF.obtain_arrays_from_object_3D(Object_1_3D)
 
     #Euler_3D_MLP.model_prediction_3D('Model_MLP_3D.h5', Array_MLP)
-    #Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
+    Euler_3D_RF.model_prediction_3D('Model_RF_3D.joblib', Array_RF)
+    Euler_3D_RF.Show_array_3D(Object_1_3D)
 
 def Create_objects():
 
@@ -140,21 +141,21 @@ def Create_objects():
 
     Model_8 = r'C:\Users\Cesar\Desktop\Python software\Dr.Hermilo 3D\Objects\Handcraft\2D\Data\Model_MLP_2D_8.h5';
 
-    Images_2D = DataEuler(folder = Folder_2D, NI = 5, Height = 8, Width = 8, EN = 4, MT = Model_8);
-    Images_2D.create_data_euler_2D_settings();
+    Images_2D = DataEuler(folder = Folder_2D, NI = 5, Height = 8, Width = 8, EN = 4);
+    Images_2D.create_data_euler_2D_random();
 
-    #Images_3D = DataEuler(folder = Folder_3D, NI = 10, Height = 8, Width = 8, Depth = 8);
-    #Images_3D.create_data_euler_3D_settings();
+    Images_3D = DataEuler(folder = Folder_3D, NI = 10, Height = 8, Width = 8, Depth = 8);
+    Images_3D.create_data_euler_3D_random();
 
 def main():
 
     #Euler_2D_test_handcraft()
     #Euler_3D_test_handcraft()
 
-    Create_objects()
+    #Create_objects()
 
-    #Euler_3D_test()
-    #Euler_3D_test()
+    #Euler_2D_test()
+    Euler_3D_test()
 
 
 if __name__ == "__main__":

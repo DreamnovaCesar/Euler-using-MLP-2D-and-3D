@@ -8,6 +8,9 @@ from Article_Euler_Number_2D_General import Input_2D
 from Article_Euler_Number_2D_General import Output_2D_4_Connectivity
 from Article_Euler_Number_2D_General import Output_2D_8_Connectivity
 
+from Article_Euler_Number_3D_General import Input_3D_array
+from Article_Euler_Number_3D_General import Output_3D_array
+
 # ?
 class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
@@ -125,13 +128,19 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 Image_name = "Image_2D_{}.png".format(i)
                 Image_path = os.path.join(self.__Folder, Image_name)
 
-                plt.imshow(Data_2D, cmap = 'gray', interpolation = 'nearest')
-                plt.show()
+                Data_2D_edges = np.zeros((Data_2D.shape[0] + 2, Data_2D.shape[1] + 2))
+                
+                print(Data_2D_edges);
+
+                Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 1:Data_2D_edges.shape[1] - 1] = Data_2D
+
+                plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
+                #plt.show()
                 plt.savefig(Image_path)
 
             File_name = 'Image_2D_{}.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
-            np.savetxt(Path, Data_2D , fmt = '%0.0f', delimiter = ',');
+            np.savetxt(Path, Data_2D_edges, fmt = '%0.0f', delimiter = ',');
 
     # ?
     @Utilities.time_func
@@ -230,15 +239,70 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     @Utilities.time_func
     def create_data_euler_3D_settings(self) -> None:
         
+        global Input_3D_array
+        global Output_3D_array
+
+        Prediction = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = self.__Folder);
+
         for i in range(self.__Number_of_images):
 
-            #Data_3D = np.random.randint(0, 2, (self._Height * self._Depth * self._Width));
-            Data_3D = np.random.choice(2, self.__Height * self.__Depth * self.__Width, p = [0.2, 0.8]);
-            Data_3D = Data_3D.reshape((self.__Height * self.__Depth), self.__Width);
-            Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
+            #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
 
-            print(Data_3D_plot);
-            print('\n');
+            Euler_number = 0
+
+            P_0 = 0.2
+            P_1 = 0.8
+
+            while(Euler_number != self.__Euler_number):
+                
+                j = 1
+
+                Data_3D = np.random.choice(2, self.__Height * self.__Depth * self.__Width, p = [P_0, P_1]);
+                Data_3D = Data_3D.reshape((self.__Height * self.__Depth), self.__Width);
+
+                print(Data_3D);
+
+                Data_3D_edges = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
+                
+                print(Data_3D_edges);
+
+                Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1] = Data_3D
+
+                print(Data_3D_edges);
+                print('\n');
+
+                Array = Prediction.obtain_arrays_3D(Data_3D_edges);
+                Euler_number = Prediction.model_prediction_3D(self.__Model_trained, Array);
+
+                Image_name = "Image_3D_Real_Time_{}.png".format(j)
+                Image_path = os.path.join(self.__Folder, Image_name)
+                plt.title('P_0: {}, P_1: {}, Euler_number: {}'.format(P_0, P_1, Euler_number))
+                plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
+                plt.savefig(Image_path)
+
+                if(Euler_number > self.__Euler_number):
+
+                    if(P_0 != 0.98):
+
+                        P_0 = P_0 - 0.02;
+                        P_1 = P_1 + 0.02;
+
+                else:
+                    
+                    if(P_1 != 0.98):
+                        
+                        P_0 = P_0 + 0.02;
+                        P_1 = P_1 - 0.02;
+
+
+            if(self.__Save_image):
+
+                Image_name = "Image_2D_{}.png".format(i)
+                Image_path = os.path.join(self.__Folder, Image_name)
+
+                plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
+                plt.savefig(Image_path)
+                #plt.show()
 
             File_name = 'Image_3D_{}.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
