@@ -38,9 +38,3 @@ Input_2D = np.array([   [0, 0, 0, 0],
 Output_2D_4_Connectivity = np.array([0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, -1, 0], dtype = int)
 
 Output_2D_8_Connectivity = np.array([0, 0, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0, 0, -1, 0], dtype = int)
-
-# ?
-def project_diagram() -> None:
-
-    with Diagram("Project diagram", show = False):
-        ELB("lb") >> EC2("web") >> RDS("userdb")

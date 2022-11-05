@@ -739,9 +739,3 @@ def table_binary_multi_256(Number_iter: int) -> None:
 
             print('{}'.format(Array_prediction))
         print('\n')
-
-# ?
-def project_diagram() -> None:
-
-    with Diagram("Project diagram", show = False):
-        ELB("lb") >> EC2("web") >> RDS("userdb")

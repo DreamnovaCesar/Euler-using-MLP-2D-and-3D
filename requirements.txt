@@ -1,0 +1,16 @@
+joblib
+numpy
+pandas
+matplotlib
+matplotlib-inline
+tensorflow
+tensorflow-estimator
+tensorflow-gpu
+tensorflow-io-gcs-filesystem
+keras
+Keras-Preprocessing
+keras-tuner
+sklearn
+scikit-learn
+scipy
+memory-profiler
