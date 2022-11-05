@@ -24,6 +24,8 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         # * General parameters
         self.__Folder = kwargs.get('folder', None);
         self.__Number_of_images = kwargs.get('NI', None);
+        
+        self.__Number_of_images = int(self.__Number_of_images);
 
         # * Shape 2D and 3D
         self.__Height = kwargs.get('Height', 8);

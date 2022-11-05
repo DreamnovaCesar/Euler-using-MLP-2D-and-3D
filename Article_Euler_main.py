@@ -33,11 +33,11 @@ def Euler_2D_test_handcraft():
     global Output_2D_4_Connectivity
     global Output_2D_8_Connectivity
 
-    Euler_path_2D = r'\Objects\Handcraft\3D\Data'
-    Object_path_1 = r"\Objects\Handcraft\2D\Example_2D_1.txt"
-    Object_path_2 = r"\Objects\Handcraft\2D\Example_2D_2.txt"
-    Object_path_3 = r"\Objects\Handcraft\2D\Example_2D_3.txt"
-    Object_path_4 = r"\Objects\Handcraft\2D\Example_2D_4.txt"
+    Euler_path_2D = r'Objects\Handcraft\3D\Data'
+    Object_path_1 = r"Objects\Handcraft\2D\Example_2D_1.txt"
+    Object_path_2 = r"Objects\Handcraft\2D\Example_2D_2.txt"
+    Object_path_3 = r"Objects\Handcraft\2D\Example_2D_3.txt"
+    Object_path_4 = r"Objects\Handcraft\2D\Example_2D_4.txt"
 
     Euler_2D_MLP_4 = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 2000)
     Euler_2D_MLP_8 = EulerNumberML2D(input = Input_2D, output = Output_2D_8_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_8', epochs = 2000)
@@ -60,11 +60,11 @@ def Euler_3D_test_handcraft():
     global Input_3D_array
     global Output_3D_array
 
-    Euler_path_3D = r'\Objects\Handcraft\3D\Data'
-    Object_path_1 = r"\Objects\Handcraft\3D\Example_3D_1.txt"
-    Object_path_2 = r"\Objects\Handcraft\3D\Example_3D_2.txt"
-    Object_path_3 = r"\Objects\Handcraft\3D\Example_3D_3.txt"
-    Object_path_4 = r"\Objects\Handcraft\3D\Example_3D_4.txt"
+    Euler_path_3D = r'Objects\Handcraft\3D\Data'
+    Object_path_1 = r"Objects\Handcraft\3D\Example_3D_1.txt"
+    Object_path_2 = r"Objects\Handcraft\3D\Example_3D_2.txt"
+    Object_path_3 = r"Objects\Handcraft\3D\Example_3D_3.txt"
+    Object_path_4 = r"Objects\Handcraft\3D\Example_3D_4.txt"
 
     #Euler_3D_MLP = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, modelname = 'Model_MLP_3D', epochs = 100)
     Euler_3D_RF = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, MN = 'Model_RF_3D', epochs = 100)
@@ -88,9 +88,9 @@ def Euler_2D_test():
     global Output_2D_4_Connectivity
     global Output_2D_8_Connectivity
 
-    Euler_path_2D= r'\Objects\2D'
-    Euler_path_2D_data = r'\Objects\2D\Data'
-    Object_1_2D = r"\Objects\2D\Image_2D_0.txt"
+    Euler_path_2D= r'Objects\2D'
+    Euler_path_2D_data = r'Objects\2D\Data'
+    Object_1_2D = r"Objects\2D\Image_2D_0.txt"
 
 
     Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 1000)
@@ -110,9 +110,9 @@ def Euler_3D_test():
     global Input_3D_array
     global Output_3D_array
 
-    Euler_path_3D = r'\Objects\3D'
-    Euler_path_3D_data = r'\Objects\3D\Data'
-    Object_1_3D = r"\Objects\3D\Image_3D_0.txt"
+    Euler_path_3D = r'Objects\3D'
+    Euler_path_3D_data = r'Objects\3D\Data'
+    Object_1_3D = r"Objects\3D\Image_3D_0.txt"
 
 
     #Euler_3D_MLP = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D, modelname = 'Model_MLP_3D', epochs = 100)
@@ -133,12 +133,15 @@ def Euler_3D_test():
 
 def Create_objects():
 
-    Folder_2D = r'\Objects\2D';
-    Folder_3D = r'\Objects\3D';
+    global Input_3D_array
+    global Output_3D_array
+    
+    Folder_2D = r'Objects\2D\Images';
+    Folder_3D = r'Objects\3D\Images';
 
-    Model_8 = r'\Objects\Handcraft\2D\Data\Model_MLP_2D_8.h5';
+    Model_8 = r'Objects\Handcraft\2D\Data\Model_MLP_2D_8.h5';
 
-    Images_2D = DataEuler(folder = Folder_2D, NI = 5, Height = 8, Width = 8, EN = 4);
+    Images_2D = DataEuler(folder = Folder_2D, NI = 5, Height = 8, Width = 8);
     Images_2D.create_data_euler_2D_random();
 
     Images_3D = DataEuler(folder = Folder_3D, NI = 10, Height = 8, Width = 8, Depth = 8);
@@ -146,14 +149,69 @@ def Create_objects():
 
 def main():
 
-    #Euler_2D_test_handcraft()
-    #Euler_3D_test_handcraft()
+    Euler_path_2D= r'Objects\2D'
+    Euler_path_2D_data = r'Objects\2D\Data'
+    Object_1_2D = r"Objects\2D\Image_2D_0.txt"
 
-    Create_objects()
+    Folder_2D = r'Objects\2D\Images';
+    Folder_3D = r'Objects\3D\Images';
 
-    #Euler_2D_test()
-    #Euler_3D_test()
+    Menu = True
 
+    while(Menu):
+
+        print('What do you want to do:')
+        print('1: Create object 2D')
+        print('2: Create object 3D')
+
+        print('3: Train model 2D')
+        print('4: Train model 3D')
+
+        print('5: Prediction 2D')
+        print('6: Prediction 3D')
+
+        print('c: Close window')
+        
+        Options = input('Option: ')
+
+
+        if(Options == '1'):
+
+            Objects = input('How many objects: ')
+
+            Images_2D = DataEuler(folder = Folder_2D, NI = Objects, Height = 8, Width = 8);
+            Images_2D.create_data_euler_2D_random();
+
+        elif(Options == '2'):
+
+            Objects = input('How many objects: ')
+
+            Images_3D = DataEuler(folder = Folder_3D, NI = Objects, Height = 8, Width = 8, Depth = 8);
+            Images_3D.create_data_euler_3D_random();
+
+        elif(Options == '3'):
+
+            Train_model = input('Which 4-Connectivity')
+            Train_model = input('Train 4-Connectivity')
+
+            Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 1000)
+
+        elif(Options == '4'):
+
+            Train_model = input('Train 4-Connectivity')
+
+            Images_3D = DataEuler(folder = Folder_3D, NI = Objects, Height = 8, Width = 8, Depth = 8);
+            Images_3D.create_data_euler_3D_random();
+
+        elif(Options == 'c'):
+
+            Menu = False
+        
+        #Create_objects()
+        #Euler_2D_test()
+        #Euler_3D_test()
+
+    return -1
 
 if __name__ == "__main__":
     main()
