@@ -137,7 +137,9 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
                 # *
                 Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 1:Data_2D_edges.shape[1] - 1] = Data_2D
-                plt.savefig(Image_path)
+                print(Data_2D_edges);
+                plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
+                plt.savefig(Image_path);
                 #plt.show()
 
             # *
