@@ -50,9 +50,13 @@ class Menu():
             Objects_ = input('How many objects: ');
             Height_ = input('Height of the object: ');
             Width_ = input('Width of the object: ');
+            print('\n')
 
             print('These are the settings: Number of Objects: {}, Height: {}, Width: {}'.format(Objects_, Height_, Width_));
+            print('\n')
+
             Proceed = input('Do you want to proceed?: [y/n]');
+            print('\n')
 
             if(Proceed == 'y'):
 
@@ -76,8 +80,11 @@ class Menu():
             Height_ = input('Height of the object: ');
             Width_ = input('Width of the object: ');
             Depth_ = input('Depth of the object: ');
+            print('\n')
 
             print('These are the settings: Number of Objects: {}, Height: {}, Width: {}, Depth {}'.format(Objects_, Height_, Width_, Depth_));
+            print('\n')
+
             Proceed = input('Do you want to proceed?: [y/n]');
 
             if(Proceed == 'y'):
@@ -91,6 +98,106 @@ class Menu():
         Images_3D = DataEuler(folder = Folder_3D_, NI = Objects_, Height = Height_, Width = Width_, Depth = Depth_);
         Images_3D.create_data_euler_3D_random();
 
+    @staticmethod
+    def Train_model_2D(Euler_path_2D_):
+
+        Cycle = True
+
+        while(Cycle):
+
+            while(True):
+
+                Connectivity_ = input('Which Connectivity will be used: connectivity [4] or [8]: ');
+                Model_name_ = input('Name of the model trained: ');
+                Epochs_ = input('How many epochs for the model: ');
+                print('\n')
+
+                if(Connectivity_ == '4' or Connectivity_ == '8'):
+                    print('Connectivity is {}'.format(Connectivity_));
+                    print('\n')
+                    break;
+
+            print('These are the settings: Connectivity: {}, Model name: {}, Epochs: {}'.format(Connectivity_, Model_name_, Epochs_));
+            print('\n')
+
+            Proceed = input('Do you want to proceed? [y/n]: ');
+            print('\n')
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass
+
+        if(Connectivity_ == '4'):
+
+            Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D_, MN = Model_name_, epochs = Epochs_)
+            Euler_2D_MLP.model_euler_MLP_2D()
+
+        elif(Connectivity_ == '8'):
+
+            Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_8_Connectivity, folder = Euler_path_2D_, MN = Model_name_, epochs = Epochs_)
+            Euler_2D_MLP.model_euler_MLP_2D()
+
+        else:
+            pass
+
+        #Arrays = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
+        #Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP_4)
+        #Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP_4)
+    
+    @staticmethod
+    def Train_model_3D(Euler_path_3D_):
+        
+        while(True):
+
+            while(True):
+
+                Algorithm_ = input('Which algorithm will be used: Random Forest [RF] or Multi Layer Perceptron [MLP]: ');
+                Model_name_ = input('Name of the model trained: ');
+                Epochs_ = input('How many epochs for the model: ');
+                print('\n')
+
+                if(Algorithm_ == 'RF' or Algorithm_ == 'MLP'):
+                    print('Algorithm used is: {}'.format(Algorithm_));
+                    print('\n')
+                    break;
+
+            print('These are the settings: ML algorithm: {}, Model name: {}, Epochs: {}'.format(Algorithm_, Model_name_, Epochs_));
+            print('\n')
+
+            Proceed = input('Do you want to proceed? [y/n]: ');
+            print('\n')
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass
+
+        if(Algorithm_ == 'RF'):
+
+            Euler_train_3D = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D_, MN = Model_name_, epochs = Epochs_)
+            Euler_train_3D.model_euler_RF_3D()
+
+        elif(Algorithm_ == 'MLP'):
+
+            Euler_train_3D = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = Euler_path_3D_, MN = Model_name_, epochs = Epochs_)
+            Euler_train_3D.model_euler_MLP_3D()
+
+        else:
+            
+            pass
+
+        
+        #Arrays = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
+        #Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP_4)
+        #Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP_4)
+
     @Utilities.time_func  
     def menu(self):
 
@@ -101,15 +208,19 @@ class Menu():
             print('What do you want to do:')
             print('1: Create object 2D')
             print('2: Create object 3D')
+            print('\n')
 
             print('3: Train model 2D')
             print('4: Train model 3D')
+            print('\n')
 
             print('5: Prediction 2D')
             print('6: Prediction 3D')
+            print('\n')
 
             print('c: Close window')
-            
+            print('\n')
+
             Options = input('Option: ')
 
 
@@ -123,17 +234,11 @@ class Menu():
 
             elif(Options == '3'):
 
-                Train_model = input('Which 4-Connectivity')
-                Train_model = input('Train 4-Connectivity')
-
-                #Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D, MN = 'Model_MLP_2D_4', epochs = 1000)
+                self.Train_model_2D(self.__Euler_path_data_2D)
 
             elif(Options == '4'):
 
-                Train_model = input('Train 4-Connectivity')
-
-                #Images_3D = DataEuler(folder = Folder_3D, NI = Objects, Height = 8, Width = 8, Depth = 8);
-                #Images_3D.create_data_euler_3D_random();
+                self.Train_model_3D(self.__Euler_path_data_3D)
 
             elif(Options == 'c'):
 

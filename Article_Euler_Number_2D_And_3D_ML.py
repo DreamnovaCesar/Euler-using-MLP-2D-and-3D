@@ -19,7 +19,10 @@ class EulerNumberML(Utilities):
         self._Folder = kwargs.get('folder', None)
         self._Folder_data = kwargs.get('FD', False)
         self._Model_name = kwargs.get('MN', None)
+
         self._Epochs = kwargs.get('epochs', None)
+        self._Epochs = int(self._Epochs)
+
         self._Columns = ["Loss", "Accuracy"]
 
     def __repr__(self):
@@ -1021,7 +1024,7 @@ class EulerNumberML2D(EulerNumberML):
         Result_connected_8 = 0
 
         # *
-        for i, Array in enumerate(Arrays):
+        for _, Array in enumerate(Arrays):
 
             print(np.array(Array))
 
