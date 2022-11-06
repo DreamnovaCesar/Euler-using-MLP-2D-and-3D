@@ -21,9 +21,11 @@ class EulerNumberML(Utilities):
         self._Model_name = kwargs.get('MN', None)
 
         self._Epochs = kwargs.get('epochs', None)
-        self._Epochs = int(self._Epochs)
 
         self._Columns = ["Loss", "Accuracy"]
+
+        if(isinstance(self._Epochs, str)):
+            self._Epochs = int(self._Epochs)
 
     def __repr__(self):
 

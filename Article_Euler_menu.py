@@ -101,9 +101,7 @@ class Menu():
     @staticmethod
     def Train_model_2D(Euler_path_2D_):
 
-        Cycle = True
-
-        while(Cycle):
+        while(True):
 
             while(True):
 
@@ -133,20 +131,16 @@ class Menu():
 
         if(Connectivity_ == '4'):
 
-            Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D_, MN = Model_name_, epochs = Epochs_)
-            Euler_2D_MLP.model_euler_MLP_2D()
+            Euler_MLP_2D = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = Euler_path_2D_, MN = Model_name_, epochs = Epochs_)
+            Euler_MLP_2D.model_euler_MLP_2D()
 
         elif(Connectivity_ == '8'):
 
-            Euler_2D_MLP = EulerNumberML2D(input = Input_2D, output = Output_2D_8_Connectivity, folder = Euler_path_2D_, MN = Model_name_, epochs = Epochs_)
-            Euler_2D_MLP.model_euler_MLP_2D()
+            Euler_MLP_2D = EulerNumberML2D(input = Input_2D, output = Output_2D_8_Connectivity, folder = Euler_path_2D_, MN = Model_name_, epochs = Epochs_)
+            Euler_MLP_2D.model_euler_MLP_2D()
 
         else:
             pass
-
-        #Arrays = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
-        #Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP_4)
-        #Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP_4)
     
     @staticmethod
     def Train_model_3D(Euler_path_3D_):
@@ -190,59 +184,115 @@ class Menu():
             Euler_train_3D.model_euler_MLP_3D()
 
         else:
-            
+
             pass
 
-        
-        #Arrays = Euler_2D_MLP.obtain_arrays_from_object_2D(Object_path_4)
-        #Euler_2D_MLP.model_prediction_2D('Model_MLP_2D_4.h5', Array_MLP_4)
-        #Euler_2D_MLP.connectivity_4_prediction_2D(Array_MLP_4)
+    @staticmethod
+    def Prediction_2D():
+
+        while(True):
+
+            Model_path_ = input('Model path: ');
+            Images_path_ = input('Image path: ');
+            print('\n')
+
+            print('These are the paths: Model_path_: {}, Images_path_: {}'.format(Model_path_, Images_path_));
+            print('\n')
+
+            Proceed = input('Do you want to proceed? [y/n]: ');
+            print('\n')
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass
+
+        Euler_MLP_2D = EulerNumberML2D()
+
+        Array = Euler_MLP_2D.obtain_arrays_from_object_2D(Images_path_)
+        Euler_MLP_2D.model_prediction_2D(Model_path_, Array)
+
+    @staticmethod
+    def Prediction_3D():
+
+        while(True):
+
+            Model_path_ = input('Model path: ');
+            Images_path_ = input('Image path: ');
+            print('\n')
+
+            print('These are the paths: Model_path_: {}, Images_path_: {}'.format(Model_path_, Images_path_));
+            print('\n')
+
+            Proceed = input('Do you want to proceed? [y/n]: ');
+            print('\n')
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass
+
+        Euler_MLP_3D = EulerNumberML3D()
+
+        Array = Euler_MLP_3D.obtain_arrays_from_object_3D(Images_path_)
+        Euler_MLP_3D.model_prediction_3D(Model_path_, Array)
 
     @Utilities.time_func  
     def menu(self):
 
-        Menu = True
+        while(True):
 
-        while(Menu):
+            print('What do you want to do:');
+            print('1: Create object 2D');
+            print('2: Create object 3D');
+            print('\n');
 
-            print('What do you want to do:')
-            print('1: Create object 2D')
-            print('2: Create object 3D')
-            print('\n')
+            print('3: Train model 2D');
+            print('4: Train model 3D');
+            print('\n');
 
-            print('3: Train model 2D')
-            print('4: Train model 3D')
-            print('\n')
+            print('5: Prediction 2D');
+            print('6: Prediction 3D');
+            print('\n');
 
-            print('5: Prediction 2D')
-            print('6: Prediction 3D')
-            print('\n')
+            print('c: Close window');
+            print('\n');
 
-            print('c: Close window')
-            print('\n')
-
-            Options = input('Option: ')
-
+            Options = input('Option: ');
 
             if(Options == '1'):
 
-                self.create_objects_2D(self.__Euler_path_images_2D)
+                self.create_objects_2D(self.__Euler_path_images_2D);
 
             elif(Options == '2'):
 
-                self.create_objects_3D(self.__Euler_path_images_3D)
+                self.create_objects_3D(self.__Euler_path_images_3D);
 
             elif(Options == '3'):
 
-                self.Train_model_2D(self.__Euler_path_data_2D)
+                self.Train_model_2D(self.__Euler_path_data_2D);
 
             elif(Options == '4'):
 
-                self.Train_model_3D(self.__Euler_path_data_3D)
+                self.Train_model_3D(self.__Euler_path_data_3D);
+
+            elif(Options == '5'):
+                
+                self.Prediction_2D();
+
+            elif(Options == '6'):
+                
+                self.Prediction_3D();
 
             elif(Options == 'c'):
 
-                Menu = False
+                break;
             
             #Create_objects()
             #Euler_2D_test()

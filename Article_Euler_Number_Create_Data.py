@@ -30,13 +30,8 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         self.__Height = kwargs.get('Height', 8);
         self.__Width = kwargs.get('Width', 8);
 
-        self.__Height = int(self.__Height);
-        self.__Width = int(self.__Width);
-
         # * 3D
         self.__Depth = kwargs.get('Depth', 4);
-
-        self.__Depth = int(self.__Depth);
 
         # *
         self.__Save_image = kwargs.get('SI', True);
@@ -44,10 +39,20 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         # *
         self.__Euler_number = kwargs.get('EN', 1);
 
-        self.__Euler_number = int(self.__Euler_number);
-
         # *
         self.__Model_trained = kwargs.get('MT', None);
+
+        if(isinstance(self.__Height, str)):
+            self.__Height = int(self.__Height)
+        
+        if(isinstance(self.__Width, str)):
+            self.__Width = int(self.__Width)
+        
+        if(isinstance(self.__Depth, str)):
+            self.__Depth = int(self.__Depth)
+
+        if(isinstance(self.__Euler_number, str)):
+            self.__Euler_number = int(self.__Euler_number)
 
     def __repr__(self):
 
@@ -129,8 +134,8 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [0.2, 0.8]);
             Data_2D = Data_2D.reshape(self.__Height, self.__Width);
 
-            print(Data_2D);
-            print('\n');
+            #print(Data_2D);
+            #print('\n');
             
             if(self.__Save_image):
 
@@ -141,7 +146,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 # *
                 Data_2D_edges = np.zeros((Data_2D.shape[0] + 2, Data_2D.shape[1] + 2))
                 
-                print(Data_2D_edges);
+                #print(Data_2D_edges);
 
                 # *
                 Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 1:Data_2D_edges.shape[1] - 1] = Data_2D
@@ -247,7 +252,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             Data_3D = Data_3D.reshape((self.__Height * self.__Depth), self.__Width);
             Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
 
-            print(Data_3D_plot);
+            #print(Data_3D_plot);
             print('\n');
 
             File_name = 'Image_3D_{}.txt'.format(i);
