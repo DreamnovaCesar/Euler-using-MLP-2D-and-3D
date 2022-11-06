@@ -1,6 +1,5 @@
 from Article_Euler_Number_Libraries import *
 from Article_Euler_Number_Utilities import Utilities
-from Article_Euler_Number_2D_And_3D_ML import EulerNumberML
 from Article_Euler_Number_2D_And_3D_ML import EulerNumberML2D
 from Article_Euler_Number_2D_And_3D_ML import EulerNumberML3D
 
@@ -31,14 +30,21 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         self.__Height = kwargs.get('Height', 8);
         self.__Width = kwargs.get('Width', 8);
 
+        self.__Height = int(self.__Height);
+        self.__Width = int(self.__Width);
+
         # * 3D
         self.__Depth = kwargs.get('Depth', 4);
+
+        self.__Depth = int(self.__Depth);
 
         # *
         self.__Save_image = kwargs.get('SI', True);
 
         # *
         self.__Euler_number = kwargs.get('EN', 1);
+
+        self.__Euler_number = int(self.__Euler_number);
 
         # *
         self.__Model_trained = kwargs.get('MT', None);
