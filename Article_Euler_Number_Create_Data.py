@@ -276,10 +276,11 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
 
             # *
+            Data_3D_edges_complete = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
             Data_3D_edges_concatenate = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
             Data_3D_read = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
             
-            # *
+            # * 
             Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
             
             # * Get 3D image and interpretation of 3D from 2D .txt
@@ -293,6 +294,11 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             # * Concatenate np.zeros
             Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0)
             Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0)
+
+            for k in range(len(Data_3D_edges) - 2):
+                Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges[k + 1]), axis = 0)
+
+            Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0)
 
             #print(Data_3D_read);
 
@@ -324,7 +330,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
             File_name = 'Image_random_{}_3D.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
-            np.savetxt(Path, Data_3D_read, fmt = '%0.0f', delimiter = ',');
+            np.savetxt(Path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
 
     # ?
     @Utilities.time_func

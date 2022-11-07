@@ -296,6 +296,31 @@ class Menu():
 
         Array = Euler_MLP_3D.obtain_arrays_from_object_3D(Images_path_)
         Euler_MLP_3D.model_prediction_3D(Model_path_, Array)
+    
+    @staticmethod
+    def Show_3D():
+
+        while(True):
+
+            Path_model_3D = input('Path 3D model: ');
+            print('\n')
+
+            print('This is the path: Path_model_3D: {}'.format(Path_model_3D));
+            print('\n')
+
+            Proceed = input('Do you want to proceed? [y/n]: ');
+            print('\n')
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass
+        
+        Euler_3D = EulerNumberML3D()
+        Euler_3D.Show_array_3D(Path_model_3D)
 
     @Utilities.time_func  
     def menu(self):
@@ -318,6 +343,7 @@ class Menu():
             print('6: Train model 3D');
             print('7: Prediction 2D');
             print('8: Prediction 3D');
+            print('9: Show image 3D');
             print('c: Close window');
             print('\n');
             print("*" * Asterisk);
@@ -356,12 +382,12 @@ class Menu():
                 
                 self.Prediction_3D();
 
+            elif(Options == '9'):
+                
+                self.Show_3D();
+
             elif(Options == 'c'):
 
                 break;
-            
-            #Create_objects()
-            #Euler_2D_test()
-            #Euler_3D_test()
 
         return -1
