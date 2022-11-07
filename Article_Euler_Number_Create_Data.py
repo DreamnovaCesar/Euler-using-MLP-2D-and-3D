@@ -247,26 +247,67 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     @Utilities.time_func
     def create_data_euler_3D_random(self) -> None:
         
+        P_0 = 0.2
+        P_1 = 0.8
+
         # *
         for i in range(self.__Number_of_images):
 
             # *
             #Data_3D = np.random.randint(0, 2, (self._Height * self._Depth * self._Width));
-            Data_3D = np.random.choice(2, self.__Height * self.__Depth * self.__Width, p = [0.2, 0.8]);
+            Data_3D = np.random.choice(2, self.__Height * self.__Depth * self.__Width, p = [P_0, P_1]);
             Data_3D = Data_3D.reshape((self.__Height * self.__Depth), self.__Width);
             Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
 
             # *
+            Data_3D_edges_concatenate = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
+            Data_3D_read = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
+            
+            # *
             Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-
+            
+            # * Get 3D image and interpretation of 3D from 2D .txt
+            Data_3D_read[1:Data_3D_read.shape[0] - 1, 1:Data_3D_read.shape[1] - 1] = Data_3D
             Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot[i]
 
-            print(Data_3D_plot);
-            print('\n');
+            #print(Data_3D_read);
+            #print(Data_3D_edges);
+            #print('\n');
+
+            # * Concatenate np.zeros
+            Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0)
+            Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0)
+
+            #print(Data_3D_read);
+
+            for j in range(self.__Depth):
+                
+                # *
+                Dir_name_images = "Images_{}_3D".format(j)
+
+                # *
+                Dir_data_images = self.__Folder + '/' + Dir_name_images
+
+                # *
+                Exist_dir_images = os.path.isdir(Dir_data_images)
+                
+                if Exist_dir_images == False:
+                    Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
+                    os.mkdir(Folder_path_images)
+                    print(Folder_path_images)
+                else:
+                    Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
+                    print(Folder_path_images)
+
+                Image_name = "Image_slice_{}_{}_3D".format(i, j)
+                Image_path = os.path.join(Folder_path_images, Image_name)
+                plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
+                plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
+                plt.savefig(Image_path)
 
             File_name = 'Image_3D_{}.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
-            np.savetxt(Path, Data_3D , fmt = '%0.0f', delimiter = ',');
+            np.savetxt(Path, Data_3D_read, fmt = '%0.0f', delimiter = ',');
 
     # ?
     @Utilities.time_func
@@ -330,7 +371,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
             if(self.__Save_image):
 
-                Image_name = "Image_2D_{}.png".format(i)
+                Image_name = "Image_3D_{}.png".format(i)
                 Image_path = os.path.join(self.__Folder, Image_name)
 
                 plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
