@@ -22,11 +22,13 @@ class Menu():
         # *
         self.__Euler_path_2D = r'Objects\2D';
         self.__Euler_path_images_2D = r'Objects\2D\Images';
+        self.__Euler_path_images_settings_2D = r'Objects\2D\Images_with_euler'
         self.__Euler_path_data_2D = r'Objects\2D\Data';
 
         # *
         self.__Euler_path_3D = r'Objects\3D';
         self.__Euler_path_images_3D = r'Objects\3D\Images';
+        self.__Euler_path_images_settings_3D = r'Objects\3D\Images_with_euler'
         self.__Euler_path_data_3D = r'Objects\3D\Data';
 
         Menu = True
@@ -43,9 +45,7 @@ class Menu():
     @staticmethod
     def create_objects_2D(Folder_2D_):
 
-        Cycle = True
-
-        while(Cycle):
+        while(True):
 
             Objects_ = input('How many objects: ');
             Height_ = input('Height of the object: ');
@@ -55,16 +55,16 @@ class Menu():
             print('These are the settings: Number of Objects: {}, Height: {}, Width: {}'.format(Objects_, Height_, Width_));
             print('\n')
 
-            Proceed = input('Do you want to proceed?: [y/n]');
+            Proceed = input('Do you want to proceed?: [y/n]: ');
             print('\n')
 
             if(Proceed == 'y'):
 
-                Cycle = False;
+                break;
 
             else:
 
-                Cycle = True;
+                pass;
 
         Images_2D = DataEuler(folder = Folder_2D_, NI = Objects_, Height = Height_, Width = Width_);
         Images_2D.create_data_euler_2D_random();
@@ -72,9 +72,7 @@ class Menu():
     @staticmethod
     def create_objects_3D(Folder_3D_):
 
-        Cycle = True
-
-        while(Cycle):
+        while(True):
 
             Objects_ = input('How many objects: ');
             Height_ = input('Height of the object: ');
@@ -85,18 +83,74 @@ class Menu():
             print('These are the settings: Number of Objects: {}, Height: {}, Width: {}, Depth {}'.format(Objects_, Height_, Width_, Depth_));
             print('\n')
 
-            Proceed = input('Do you want to proceed?: [y/n]');
+            Proceed = input('Do you want to proceed?: [y/n]: ');
 
             if(Proceed == 'y'):
 
-                Cycle = False;
+                break;
 
             else:
 
-                Cycle = True;
+                pass;
 
         Images_3D = DataEuler(folder = Folder_3D_, NI = Objects_, Height = Height_, Width = Width_, Depth = Depth_);
         Images_3D.create_data_euler_3D_random();
+    
+    @staticmethod
+    def create_objects_settings_2D(Folder_2D_):
+
+        while(True):
+
+            Objects_ = input('How many objects: ');
+            Euler_Number_ = input('Which euler number do you want: ');
+            Height_ = input('Height of the object: ');
+            Width_ = input('Width of the object: ');
+            print('\n')
+
+            print('These are the settings: Number of Objects: {}, Height: {}, Width: {}'.format(Objects_, Height_, Width_));
+            print('\n')
+
+            Proceed = input('Do you want to proceed?: [y/n]: ');
+            print('\n')
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass;
+
+        Images_2D = DataEuler(folder = Folder_2D_, NI = Objects_, Height = Height_, Width = Width_, EN = Euler_Number_);
+        Images_2D.create_data_euler_2D_settings();
+
+    @staticmethod
+    def create_objects_settings_3D(Folder_3D_):
+
+        while(True):
+
+            Objects_ = input('How many objects: ');
+            Euler_Number_ = input('Which euler number do you want: ');
+            Height_ = input('Height of the object: ');
+            Width_ = input('Width of the object: ');
+            Depth_ = input('Depth of the object: ');
+            print('\n')
+
+            print('These are the settings: Number of Objects: {}, Height: {}, Width: {}, Depth {}'.format(Objects_, Height_, Width_, Depth_));
+            print('\n')
+
+            Proceed = input('Do you want to proceed?: [y/n]: ');
+
+            if(Proceed == 'y'):
+
+                break;
+
+            else:
+
+                pass;
+
+        Images_3D = DataEuler(folder = Folder_3D_, NI = Objects_, Height = Height_, Width = Width_, Depth = Depth_, EN = Euler_Number_);
+        Images_3D.create_data_euler_3D_settings();
 
     @staticmethod
     def Train_model_2D(Euler_path_2D_):
@@ -254,22 +308,18 @@ class Menu():
 
             print("*" * Asterisk);
             print('What do you want to do:');
+            print("*" * Asterisk);
+            print('\n');
             print('1: Create object 2D');
             print('2: Create object 3D');
-            print("*" * Asterisk);
-            print('\n');
-            print("*" * Asterisk);
-            print('3: Train model 2D');
-            print('4: Train model 3D');
-            print("*" * Asterisk);
-            print('\n');
-            print("*" * Asterisk);
-            print('5: Prediction 2D');
-            print('6: Prediction 3D');
-            print("*" * Asterisk);
-            print('\n');
-            print("*" * Asterisk);
+            print('3: Create object with predetermined euler number 2D');
+            print('4: Create object with predetermined euler number 3D');
+            print('5: Train model 2D');
+            print('6: Train model 3D');
+            print('7: Prediction 2D');
+            print('8: Prediction 3D');
             print('c: Close window');
+            print('\n');
             print("*" * Asterisk);
 
             Options = input('Option: ');
@@ -284,17 +334,25 @@ class Menu():
 
             elif(Options == '3'):
 
-                self.Train_model_2D(self.__Euler_path_data_2D);
+                self.create_objects_settings_2D(self.__Euler_path_images_settings_2D);
 
             elif(Options == '4'):
 
-                self.Train_model_3D(self.__Euler_path_data_3D);
+                self.create_objects_settings_3D(self.__Euler_path_images_settings_3D);
 
             elif(Options == '5'):
+
+                self.Train_model_2D(self.__Euler_path_data_2D);
+
+            elif(Options == '6'):
+
+                self.Train_model_3D(self.__Euler_path_data_3D);
+
+            elif(Options == '7'):
                 
                 self.Prediction_2D();
 
-            elif(Options == '6'):
+            elif(Options == '8'):
                 
                 self.Prediction_3D();
 

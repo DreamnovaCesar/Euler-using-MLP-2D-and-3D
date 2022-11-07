@@ -1,5 +1,6 @@
 from Article_Euler_Number_Libraries import *
 from Article_Euler_Number_Utilities import Utilities
+from Article_Euler_Number_Remove_Files import RemoveFiles
 from Article_Euler_Number_2D_And_3D_ML import EulerNumberML2D
 from Article_Euler_Number_2D_And_3D_ML import EulerNumberML3D
 
@@ -130,6 +131,10 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         P_0 = 0.2
         P_1 = 0.8
 
+        # *
+        Remove_files = RemoveFiles(folder = self.__Folder)
+        Remove_files.remove_all()
+
         for i in range(self.__Number_of_images):
 
             # *
@@ -173,7 +178,12 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         global Output_2D_4_Connectivity
         global Output_2D_8_Connectivity
 
+        # *
         Prediction = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = self.__Folder);
+        
+        # *
+        Remove_files = RemoveFiles(folder = self.__Folder)
+        Remove_files.remove_all()
 
         for i in range(self.__Number_of_images):
 
@@ -253,6 +263,10 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         P_1 = 0.8
 
         # *
+        Remove_files = RemoveFiles(folder = self.__Folder)
+        Remove_files.remove_all()
+
+        # *
         for i in range(self.__Number_of_images):
 
             # *
@@ -324,6 +338,10 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
         Prediction = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = self.__Folder);
 
         # *
+        Remove_files = RemoveFiles(folder = self.__Folder)
+        Remove_files.remove_all()
+
+        # *
         for i in range(self.__Number_of_images):
 
             #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
@@ -375,7 +393,6 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                         
                         P_0 = P_0 + 0.02;
                         P_1 = P_1 - 0.02;
-
 
             for j in range(self.__Depth):
                 
