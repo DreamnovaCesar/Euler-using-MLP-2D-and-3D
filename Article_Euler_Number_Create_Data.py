@@ -143,7 +143,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             if(self.__Save_image):
 
                 # *
-                Image_name = "Image_2D_{}.png".format(i)
+                Image_name = "Image_random_{}_2D.png".format(i)
                 Image_path = os.path.join(self.__Folder, Image_name)
                 
                 # *
@@ -158,9 +158,10 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path);
                 #plt.show()
+                plt.close()
 
             # *
-            File_name = 'Image_2D_{}.txt'.format(i);
+            File_name = 'Image_random_{}_2D.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
             np.savetxt(Path, Data_2D_edges, fmt = '%0.0f', delimiter = ',');
 
@@ -232,14 +233,15 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             # *
             if(self.__Save_image):
 
-                Image_name = "Image_2D_{}.png".format(i)
+                Image_name = "Image_with_euler_{}_2D.png".format(i)
                 Image_path = os.path.join(self.__Folder, Image_name)
 
                 plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
                 #plt.show()
+                plt.close()
 
-            File_name = 'Image_2D_{}.txt'.format(i);
+            File_name = 'Image_with_euler_{}_2D.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
             np.savetxt(Path, Data_2D_edges , fmt = '%0.0f', delimiter = ',');
 
@@ -268,7 +270,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             
             # * Get 3D image and interpretation of 3D from 2D .txt
             Data_3D_read[1:Data_3D_read.shape[0] - 1, 1:Data_3D_read.shape[1] - 1] = Data_3D
-            Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot[i]
+            Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot
 
             #print(Data_3D_read);
             #print(Data_3D_edges);
@@ -280,10 +282,10 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
             #print(Data_3D_read);
 
-            for j in range(self.__Depth):
+            for j in range(self.__Depth + 2):
                 
                 # *
-                Dir_name_images = "Images_{}_3D".format(j)
+                Dir_name_images = "Images_random_{}_3D".format(i)
 
                 # *
                 Dir_data_images = self.__Folder + '/' + Dir_name_images
@@ -299,13 +301,14 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                     Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
                     print(Folder_path_images)
 
-                Image_name = "Image_slice_{}_{}_3D".format(i, j)
+                Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
                 Image_path = os.path.join(Folder_path_images, Image_name)
                 plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
-                plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
+                plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
+                plt.close()
 
-            File_name = 'Image_3D_{}.txt'.format(i);
+            File_name = 'Image_random_{}_3D.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
             np.savetxt(Path, Data_3D_read, fmt = '%0.0f', delimiter = ',');
 
@@ -338,21 +341,26 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
 
                 # *
+                Data_3D_edges_concatenate = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
+                Data_3D_read = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
+                
+                # *
                 Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
+                
+                # * Get 3D image and interpretation of 3D from 2D .txt
+                Data_3D_read[1:Data_3D_read.shape[0] - 1, 1:Data_3D_read.shape[1] - 1] = Data_3D
+                Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot
 
-                Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot[i]
+                #print(Data_3D_read);
+                #print(Data_3D_edges);
+                #print('\n');
 
-                print(Data_3D_plot);
-                print('\n');
+                # * Concatenate np.zeros
+                Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0)
+                Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0)
 
                 Array = Prediction.obtain_arrays_3D(Data_3D_edges);
                 Euler_number = Prediction.model_prediction_3D(self.__Model_trained, Array);
-
-                Image_name = "Image_3D_Real_Time_{}.png".format(j)
-                Image_path = os.path.join(self.__Folder, Image_name)
-                plt.title('P_0: {}, P_1: {}, Euler_number: {}'.format(P_0, P_1, Euler_number))
-                plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
-                plt.savefig(Image_path)
 
                 if(Euler_number > self.__Euler_number):
 
@@ -369,15 +377,33 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                         P_1 = P_1 - 0.02;
 
 
-            if(self.__Save_image):
+            for j in range(self.__Depth):
+                
+                # *
+                Dir_name_images = "Images_with_euler_{}_3D".format(j)
 
-                Image_name = "Image_3D_{}.png".format(i)
-                Image_path = os.path.join(self.__Folder, Image_name)
+                # *
+                Dir_data_images = self.__Folder + '/' + Dir_name_images
 
-                plt.imshow(Data_3D_edges, cmap = 'gray', interpolation = 'nearest')
+                # *
+                Exist_dir_images = os.path.isdir(Dir_data_images)
+                
+                if Exist_dir_images == False:
+                    Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
+                    os.mkdir(Folder_path_images)
+                    print(Folder_path_images)
+                else:
+                    Folder_path_images = os.path.join(self.__Folder, Dir_name_images)
+                    print(Folder_path_images)
+
+                Image_name = "Image_slice_with_euler_{}_{}_3D".format(i, j)
+                Image_path = os.path.join(Folder_path_images, Image_name)
+                plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
+                plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
-                #plt.show()
+                plt.close()
 
-            File_name = 'Image_3D_{}.txt'.format(i);
+            File_name = 'Image_with_euler_{}_3D.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
-            np.savetxt(Path, Data_3D , fmt = '%0.0f', delimiter = ',');
+            np.savetxt(Path, Data_3D_read, fmt = '%0.0f', delimiter = ',');
+

@@ -247,22 +247,30 @@ class Menu():
     def menu(self):
 
         while(True):
+            
+            Asterisk = 60;
 
+            print("\n");
+
+            print("*" * Asterisk);
             print('What do you want to do:');
             print('1: Create object 2D');
             print('2: Create object 3D');
+            print("*" * Asterisk);
             print('\n');
-
+            print("*" * Asterisk);
             print('3: Train model 2D');
             print('4: Train model 3D');
+            print("*" * Asterisk);
             print('\n');
-
+            print("*" * Asterisk);
             print('5: Prediction 2D');
             print('6: Prediction 3D');
+            print("*" * Asterisk);
             print('\n');
-
+            print("*" * Asterisk);
             print('c: Close window');
-            print('\n');
+            print("*" * Asterisk);
 
             Options = input('Option: ');
 
