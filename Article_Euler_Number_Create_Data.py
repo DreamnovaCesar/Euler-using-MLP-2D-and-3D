@@ -127,11 +127,14 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     @Utilities.time_func
     def create_data_euler_2D_random(self) -> None:
         
+        P_0 = 0.2
+        P_1 = 0.8
+
         for i in range(self.__Number_of_images):
 
             # *
             #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
-            Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [0.2, 0.8]);
+            Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [P_0, P_1]);
             Data_2D = Data_2D.reshape(self.__Height, self.__Width);
 
             #print(Data_2D);
@@ -151,6 +154,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 # *
                 Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 1:Data_2D_edges.shape[1] - 1] = Data_2D
                 print(Data_2D_edges);
+                plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
                 plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path);
                 #plt.show()
@@ -206,7 +210,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 # *
                 Image_name = "Image_2D_Real_Time_{}.png".format(j)
                 Image_path = os.path.join(self.__Folder, Image_name)
-                plt.title('P_0: {}, P_1: {}, Euler_number: {}'.format(P_0, P_1, 1))
+                plt.title('P_0: {}, P_1: {}, Euler_number: {}'.format(P_0, P_1, Euler_number))
                 plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
 
@@ -252,7 +256,12 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             Data_3D = Data_3D.reshape((self.__Height * self.__Depth), self.__Width);
             Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
 
-            #print(Data_3D_plot);
+            # *
+            Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
+
+            Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot[i]
+
+            print(Data_3D_plot);
             print('\n');
 
             File_name = 'Image_3D_{}.txt'.format(i);
@@ -285,16 +294,14 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
                 # *
                 Data_3D = np.random.choice(2, self.__Height * self.__Depth * self.__Width, p = [P_0, P_1]);
                 Data_3D = Data_3D.reshape((self.__Height * self.__Depth), self.__Width);
+                Data_3D_plot = Data_3D.reshape((self.__Height, self.__Depth, self.__Width));
 
-                print(Data_3D);
+                # *
+                Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
 
-                Data_3D_edges = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
-                
-                print(Data_3D_edges);
+                Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot[i]
 
-                Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1] = Data_3D
-
-                print(Data_3D_edges);
+                print(Data_3D_plot);
                 print('\n');
 
                 Array = Prediction.obtain_arrays_3D(Data_3D_edges);
