@@ -84,7 +84,8 @@ class Menu():
             print('\n')
 
             Proceed = input('Do you want to proceed?: [y/n]: ');
-
+            print('\n')
+            
             if(Proceed == 'y'):
 
                 break;
@@ -353,47 +354,50 @@ class Menu():
             print('c: Close window');
             print('\n');
             print("*" * Asterisk);
+            print('\n');
 
-            Options = input('Option: ');
+            try: 
+                Options = input('Option: ');
 
-            if(Options == '1'):
+                if(Options == '1'):
 
-                self.create_objects_2D(self.__Euler_path_images_2D);
+                    self.create_objects_2D(self.__Euler_path_images_2D);
 
-            elif(Options == '2'):
+                elif(Options == '2'):
 
-                self.create_objects_3D(self.__Euler_path_images_3D);
+                    self.create_objects_3D(self.__Euler_path_images_3D);
 
-            elif(Options == '3'):
+                elif(Options == '3'):
 
-                self.create_objects_settings_2D(self.__Euler_path_images_settings_2D);
+                    self.create_objects_settings_2D(self.__Euler_path_images_settings_2D);
 
-            elif(Options == '4'):
+                elif(Options == '4'):
 
-                self.create_objects_settings_3D(self.__Euler_path_images_settings_3D);
+                    self.create_objects_settings_3D(self.__Euler_path_images_settings_3D);
 
-            elif(Options == '5'):
+                elif(Options == '5'):
 
-                self.Train_model_2D(self.__Euler_path_data_2D);
+                    self.Train_model_2D(self.__Euler_path_data_2D);
 
-            elif(Options == '6'):
+                elif(Options == '6'):
 
-                self.Train_model_3D(self.__Euler_path_data_3D);
+                    self.Train_model_3D(self.__Euler_path_data_3D);
 
-            elif(Options == '7'):
-                
-                self.Prediction_2D();
+                elif(Options == '7'):
+                    
+                    self.Prediction_2D();
 
-            elif(Options == '8'):
-                
-                self.Prediction_3D();
+                elif(Options == '8'):
+                    
+                    self.Prediction_3D();
 
-            elif(Options == '9'):
-                
-                self.Show_3D();
+                elif(Options == '9'):
+                    
+                    self.Show_3D();
 
-            elif(Options == 'c'):
+                elif(Options == 'c'):
 
-                break;
+                    break;
 
-        return -1
+            except:
+                pass

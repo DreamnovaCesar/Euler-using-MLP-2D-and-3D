@@ -187,6 +187,7 @@ class EulerNumberML(Utilities):
         plt.ylim([0, 2.0])
         plt.plot(Hist_data.history["loss"])
         #plt.show()
+        plt.close()
 
         Figure_name = "Figure_Loss_{}.png".format(self._Model_name)
         Figure_name_folder = os.path.join(self._Folder, Figure_name)
@@ -216,6 +217,7 @@ class EulerNumberML(Utilities):
         Figure_name_folder = os.path.join(self._Folder, Figure_name)
 
         plt.savefig(Figure_name_folder)
+        plt.close()
 
 # ?
 class EulerNumberML3D(EulerNumberML):

@@ -136,20 +136,16 @@ def Create_objects():
     global Output_3D_array
     
     Folder_2D = r'Objects\2D\Images';
-    Folder_3D = r'Objects\3D\Images';
 
-    Model_8 = r'Objects\Handcraft\2D\Data\Model_MLP_2D_8.h5';
-
-    Images_2D = DataEuler(folder = Folder_2D, NI = 5, Height = 8, Width = 8);
+    Images_2D = DataEuler(folder = Folder_2D, NI = 10, Height = 8, Width = 8);
     Images_2D.create_data_euler_2D_random();
 
-    Images_3D = DataEuler(folder = Folder_3D, NI = 10, Height = 8, Width = 8, Depth = 8);
-    Images_3D.create_data_euler_3D_random();
 
 def main():
 
-    config = Menu()
+    #Create_objects()
 
+    config = Menu()
     config.menu()
 
 if __name__ == "__main__":
