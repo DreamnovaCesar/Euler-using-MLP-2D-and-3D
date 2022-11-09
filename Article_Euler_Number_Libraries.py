@@ -8,6 +8,11 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 # ?
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+
+# ?
 import shutil
 
 # ?

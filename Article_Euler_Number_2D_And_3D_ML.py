@@ -630,6 +630,21 @@ class EulerNumberML3D(EulerNumberML):
 
         joblib.dump(Model_RF, Model_folder_save)
 
+        pred_Input = Model_RF.predict(self._Input)
+
+        print('Prediction output')
+        print(pred_Input)
+        print('\n')
+        print('Original output')
+        print(self._Output)
+
+        print('\n')
+        
+        AC = accuracy_score(self._Output, pred_Input)
+
+        print('Result: {}'.format(AC))
+        print('\n')
+
         # *
         print("Saving model...")
         print('\n')
@@ -895,7 +910,7 @@ class EulerNumberML2D(EulerNumberML):
 
         Model = Sequential()
         Model.add(Dense(units = 1, input_shape = [4]))
-        Model.add(Dense(15, activation = "sigmoid"))
+        Model.add(Dense(9, activation = "sigmoid"))
         Model.add(Dense(1, activation = 'tanh'))
 
         Opt = Adam(learning_rate = 0.1)

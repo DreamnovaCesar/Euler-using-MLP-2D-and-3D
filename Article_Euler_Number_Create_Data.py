@@ -128,8 +128,8 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     @Utilities.time_func
     def create_data_euler_2D_random(self) -> None:
         
-        P_0 = 0.2
-        P_1 = 0.8
+        P_0 = 0.4
+        P_1 = 0.6
 
         # *
         Remove_files = RemoveFiles(folder = self.__Folder)

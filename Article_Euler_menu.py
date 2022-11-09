@@ -71,7 +71,7 @@ class Menu():
 
     @staticmethod
     def create_objects_3D(Folder_3D_):
-
+        
         while(True):
 
             Objects_ = input('How many objects: ');
@@ -205,16 +205,22 @@ class Menu():
 
                 Algorithm_ = input('Which algorithm will be used: Random Forest [RF] or Multi Layer Perceptron [MLP]: ');
                 Model_name_ = input('Name of the model trained: ');
-                Epochs_ = input('How many epochs for the model: ');
-                print('\n')
-
+                
                 if(Algorithm_ == 'RF' or Algorithm_ == 'MLP'):
                     print('Algorithm used is: {}'.format(Algorithm_));
                     print('\n')
                     break;
 
-            print('These are the settings: ML algorithm: {}, Model name: {}, Epochs: {}'.format(Algorithm_, Model_name_, Epochs_));
-            print('\n')
+                if(Algorithm_ == 'MLP'):
+                    Epochs_ = input('How many epochs for the model: ');
+
+                    print('These are the settings: ML algorithm: {}, Model name: {}, Epochs: {}'.format(Algorithm_, Model_name_, Epochs_));
+                    print('\n')
+                elif(Algorithm_ == 'MLP'):
+                    
+                    print('These are the settings: ML algorithm: {}, Model name: {}'.format(Algorithm_, Model_name_));
+
+                print('\n')
 
             Proceed = input('Do you want to proceed? [y/n]: ');
             print('\n')
