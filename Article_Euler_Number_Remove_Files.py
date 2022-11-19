@@ -17,7 +17,8 @@ class RemoveFiles(Utilities):
         remove_all(): description
 
     """
-
+    
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         """
         Keyword Args:

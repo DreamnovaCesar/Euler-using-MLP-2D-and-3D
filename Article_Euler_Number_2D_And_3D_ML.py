@@ -19,6 +19,7 @@ class EulerNumberML(Utilities):
 
     """
 
+    # * Initializing (Constructor)
     def __init__(self, **kwargs) -> None:
         """
         Keyword Args:
@@ -175,10 +176,19 @@ class EulerNumberML(Utilities):
         print("Deleting columns names...")
         del self._Columns
 
-    # ? Create dataframes
+    # ? Static method to create dataframe from history
     @staticmethod
     @Utilities.time_func
     def create_dataframe_history(Column_names: Any, Folder_save: str, CSV_name: str, Hist_data: Any) -> None: 
+        """
+        Method to plot loss
+
+        Args:
+            Column_names (Any): description
+            Folder_save (str): description
+            CSV_name (str): description
+            Hist_data (Any): description
+        """
 
         # * Lists
         #Column_names = ['Folder', 'New Folder', 'Animal', 'Label']
@@ -203,16 +213,14 @@ class EulerNumberML(Utilities):
         # *
         Dataframe_created.to_csv(Dataframe_folder)
 
-    # ?
+    # ? Method to plot loss
     @Utilities.time_func
     def plot_data_loss(self, Hist_data: Any) -> None:
         """
-        _summary_
-
-        _extended_summary_
+        Method to plot loss
 
         Args:
-            Hist_data (Any): _description_
+            Hist_data (Any): description
         """
         plt.figure(figsize = (8, 8))
         plt.title('Training loss')
@@ -228,16 +236,14 @@ class EulerNumberML(Utilities):
 
         plt.savefig(Figure_name_folder)
 
-    # ?
+    # ? Method to plot accuracy
     @Utilities.time_func
     def plot_data_accuracy(self, Hist_data: Any) -> None:
         """
-        _summary_
-
-        _extended_summary_
+        Method to plot accuracy
 
         Args:
-            Hist_data (Any): _description_
+            Hist_data (Any): description
         """
         plt.figure(figsize = (8, 8))
         plt.title('Training accuracy')
@@ -255,14 +261,82 @@ class EulerNumberML(Utilities):
 
 # ?
 class EulerNumberML3D(EulerNumberML):
+    """
+    EulerNumberML inheritance
 
+    '''''
+
+    Methods:
+        data_dic(): description
+
+        print_octovoxel_order_3D(): description
+
+        read_image_with_metadata_3D(): description
+
+        Show_array_3D(): description
+
+        true_data_3D(): description
+
+        Predictions_3D(): description
+
+        obtain_arrays_from_object_3D(): description
+
+        obtain_arrays_3D(): description
+
+        model_euler_MLP_3D(): description
+        
+        model_euler_RF_3D(): description
+
+        model_prediction_3D(): description
+
+    """
+
+    # * Initializing (Constructor, super)
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
+        """
+        Keyword Args:
+            input (np.ndarray): description 
+            output (np.ndarray): description
+            folder (str): description
+            FD (bool):description
+            MN (str):description
+            epochs (int):description
+        """
 
-    # ?
+    # * Class variables
+    def __repr__(self):
+            return f'[{self._Input}, {self._Output}, {self._Folder}, {self._Folder_data}, {self._Model_name}, {self._Epochs}, {self._Columns}]';
+
+    # * Class description
+    def __str__(self):
+        return  f'.';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, Euler number class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Inputs': str(self._Input),
+                'Outputs': str(self._Output),
+                'Folder path': str(self._Folder),
+                'Folder path save': str(self._Folder_data),
+                'Model name': str(self._Model_name),
+                'Epochs': str(self._Epochs),
+                };
+
+    # ? Static method to print octovoxel.
     @staticmethod
     def print_octovoxel_order_3D() -> None:
-        
+        """
+        Static method to print octovoxel.
+
+        Args:
+            Array_file (str): description
+        """
+
         Letters = ('a', 'c', 'b', 'd', 'e', 'h', 'f', 'g')
         # *
         Array_prediction_octov = np.zeros((2, 2, 2))
@@ -285,16 +359,14 @@ class EulerNumberML3D(EulerNumberML):
             print('{} ------> {}'.format(i + 1, letter))
         print('\n')
 
-    # ?
+    # ? Static method to load txt and convert it into 3D tensor.
     @staticmethod
     def read_image_with_metadata_3D(Array_file: str) -> np.ndarray:
         """
-        _summary_
-
-        _extended_summary_
+        Static method to load txt and convert it into tensors
 
         Args:
-            Array_file (_type_): _description_
+            Array_file (str): description
         """
         # *
         Array = np.loadtxt(Array_file, delimiter = ',')
@@ -320,10 +392,16 @@ class EulerNumberML3D(EulerNumberML):
 
         return Array_new
 
-    # ?
+    # ? Static method to show array using plt 3D
     @staticmethod
     def Show_array_3D(Image: str) -> np.ndarray:
-        
+        """
+        Static method to show array using plt 3D
+
+        Args:
+            Image (str): description
+        """
+
         # *
         Data = np.genfromtxt(Image, delimiter = ",")
         
@@ -338,20 +416,19 @@ class EulerNumberML3D(EulerNumberML):
         ax.voxels(Data, edgecolors = 'gray')
         plt.show()
 
-    # ?
+    # ? Static method to change the result for a multiclass task
     @staticmethod
     def true_data_3D(Result: int) -> int:
         """
-        _summary_
-
-        _extended_summary_
+        Static method to change the result for a multiclass trask
 
         Args:
-            Result (int): _description_
-
+            Result (int): description
+        
         Returns:
-            _type_: _description_
+            int: description
         """
+
         if Result == 0:
             New_Result = 0
         elif Result == 1:
@@ -363,21 +440,20 @@ class EulerNumberML3D(EulerNumberML):
 
         return New_Result
 
-    # ? #Model_prediction, Array
+    # ? Method to utilize prediction models such as MLP and RF
     def Predictions_3D(self, Model_name: str, Model_prediction: Any, Prediction_value: Any) -> int:
         """
-        _summary_
-
-        _extended_summary_
+        Method to utilize prediction model such as MLP and RF
 
         Args:
-            Model_name (str): _description_
-            Model_prediction (Any): _description_
-            Prediction_value (Any): _description_
+            Model_name (str): description
+            Model_prediction (Any): description
+            Prediction_value (Any): description
 
         Returns:
-            int: _description_
+            int: description
         """
+
         #Asterisks = 30
 
         print("Prediction!")
@@ -407,10 +483,17 @@ class EulerNumberML3D(EulerNumberML):
 
         return True_result
 
-    # ?
+    # ? Method to obtain 1D arrays from a 3D array
     @Utilities.time_func
     @profile
     def obtain_arrays_from_object_3D(self, Object: str) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 3D array
+
+        Args:
+            Object (str): description
+
+        """
 
         #Array = np.loadtxt(self.Object, delimiter = ',')
 
@@ -421,7 +504,7 @@ class EulerNumberML3D(EulerNumberML):
         # *
         Array_new = self.read_image_with_metadata_3D(Object)
 
-        # *
+        # * Creation of empty numpy arrays 3D
         Array_prediction_octov = np.zeros((2, 2, 2))
         Array_prediction = np.zeros((8))
 
@@ -480,10 +563,17 @@ class EulerNumberML3D(EulerNumberML):
         
         return Arrays
 
-    # ?
+    # ? Method to obtain 1D arrays from a 3D array (np.ndarray)
     @Utilities.time_func
     @profile
     def obtain_arrays_3D(self, Array_new: str) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 3D array (np.ndarray)
+
+        Args:
+            Array_new (str): description
+
+        """
 
         #Array = np.loadtxt(self.Object, delimiter = ',')
 
@@ -553,19 +643,16 @@ class EulerNumberML3D(EulerNumberML):
         
         return Arrays
 
-    # ?
+    # ? Method to to train a MLP for a 3D image
     @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_euler_MLP_3D(self) -> Any:
         """
-        _summary_
+        Method to to train a MLP for a 3D image
 
-        _extended_summary_
-
-        Returns:
-            Any: _description_
         """
+
         # *
         print(self._Input.shape)
         print(self._Output.shape)
@@ -625,19 +712,16 @@ class EulerNumberML3D(EulerNumberML):
 
         return Hist_data
 
-    # ?
+    # ? Method to to train a RF for a 3D image
     @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_euler_RF_3D(self) -> None:
         """
-        _summary_
+        Method to to train a RF for a 3D image
 
-        _extended_summary_
-
-        Returns:
-            Any: _description_
         """
+
         # *
         print(self._Input.shape)
         print(self._Output.shape)
@@ -699,12 +783,16 @@ class EulerNumberML3D(EulerNumberML):
         #self.plot_data_accuracy(Hist_data)
         print('\n')
 
-    # ?
+    # ? Method to utilize prediction model such as MLP and RF
     @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_prediction_3D(self, Model, Arrays) -> None:
-    
+        """
+        Method to utilize prediction model such as MLP and RF
+
+        """
+
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
 
         # *
@@ -734,24 +822,55 @@ class EulerNumberML3D(EulerNumberML):
 
 # ?
 class EulerNumberML2D(EulerNumberML):
+    """
+    EulerNumberML inheritance
 
+    '''''
+
+    Methods:
+        data_dic(): description
+
+        read_image_with_metadata_2D(): description
+
+        true_data_2D(): description
+
+        Predictions_2D(): description
+
+        obtain_arrays_from_object_2D(): description
+
+        obtain_arrays_2D(): description
+
+        model_euler_MLP_2D(): description
+        
+        model_euler_RF_2D(): description
+
+        model_prediction_2D(): description
+
+    """
+    
+    # * Initializing (Constructor, super)
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
+        """
+        Keyword Args:
+            input (np.ndarray): description 
+            output (np.ndarray): description
+            folder (str): description
+            FD (bool):description
+            MN (str):description
+            epochs (int):description
+        """
 
-    # ?
+    # ? Static method to load txt and convert it into 2D tensor.
     @staticmethod
     def read_image_with_metadata_2D(Array_file: str) -> np.ndarray:
         """
-        _summary_
-
-        _extended_summary_
+        Static method to load txt and convert it into tensors
 
         Args:
-            Array_file (_type_): _description_
-
-        Returns:
-            _type_: _description_
+            Array_file (str): description
         """
+
         Array = np.loadtxt(Array_file, delimiter = ',')
         
         Array = Array.astype(int)
@@ -768,20 +887,19 @@ class EulerNumberML2D(EulerNumberML):
         
         return Array
 
-    # ?
+    # ? Static method to change the result for a binary task
     @staticmethod
     def true_data_2D(Result: int) -> int:
         """
-        _summary_
-
-        _extended_summary_
+        Static method to change the result for a binary task
 
         Args:
-            Result (int): _description_
-
+            Result (int): description
+        
         Returns:
-            _type_: _description_
+            int: description
         """
+
         if Result > 0.5:
             New_Result = 1
         elif Result < 0.5 and Result > -0.5:
@@ -791,19 +909,17 @@ class EulerNumberML2D(EulerNumberML):
 
         return New_Result
 
-    # ?
+    # ? Method to utilize prediction model such as MLP
     def Predictions_2D(self, Model: Any, Prediction_value: Any) -> int:
         """
-        _summary_
-
-        _extended_summary_
+        Method to utilize prediction model such as MLP and RF
 
         Args:
-            Model (Any): _description_
-            Prediction_value (Any): _description_
+            Model_prediction (Any): description
+            Prediction_value (Any): description
 
         Returns:
-            int: _description_
+            int: description
         """
         #Asterisks = 30
 
@@ -821,10 +937,16 @@ class EulerNumberML2D(EulerNumberML):
 
         return True_result
 
-    # ?
+    # ? Method to obtain 1D arrays from a 2D array
     @Utilities.time_func
     def obtain_arrays_from_object_2D(self, Object) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 2D array
 
+        Args:
+            Object (str): description
+
+        """
 
         # *
         Arrays = []
@@ -876,16 +998,22 @@ class EulerNumberML2D(EulerNumberML):
         
         return Arrays
 
-    # ?
+    # ? Method to obtain 1D arrays from a 2D array
     @Utilities.time_func
     def obtain_arrays_2D(self, Array) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 2D array (np.ndarray)
 
+        Args:
+            Array_new (str): description
+
+        """
 
         # *
         Arrays = []
         Asterisks = 30
 
-        # *
+        # * Creation of empty numpy arrays 2D
         Array_comparison = np.zeros((2, 2), dtype = 'int')
         Array_prediction = np.zeros((4), dtype = 'int')
 
@@ -928,19 +1056,16 @@ class EulerNumberML2D(EulerNumberML):
         
         return Arrays
 
-    # ?
+    # ? Method to to train a MLP for a 2D image
     @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_euler_MLP_2D(self) -> Any:
         """
-        _summary_
+        Method to to train a MLP for a 3D image
 
-        _extended_summary_
-
-        Returns:
-            Any: _description_
         """
+
         print(self._Input.shape)
         print(self._Output.shape)
 
@@ -992,12 +1117,16 @@ class EulerNumberML2D(EulerNumberML):
 
         return Hist_data
 
-    # ?
+    # ? Method to utilize prediction model such as MLP
     @Utilities.time_func
     @Utilities.detect_GPU
     @profile
     def model_prediction_2D(self, Model, Arrays):
+        """
+        Method to utilize prediction model such as MLP
 
+        """
+        
         #Array = np.loadtxt(r"C:\Users\Cesar\Dropbox\PC\Desktop\MLP_article_2D\Example_3D_1.txt", delimiter = ',')
 
         # *
@@ -1023,11 +1152,15 @@ class EulerNumberML2D(EulerNumberML):
         print('\n')
 
         return Prediction_result_2D
-    # ?
+
+    # ? Method to utilize connectivity 4 arrays to search for euler's number
     @Utilities.time_func
     @profile
     def connectivity_4_prediction_2D(self, Arrays)-> None:
+        """
+        Method to utilize connectivity 4 arrays to search for euler's number
 
+        """
 
         Connectivity_4_first_array = np.array([1, 0, 0, 0], dtype = 'int')
 
@@ -1061,11 +1194,14 @@ class EulerNumberML2D(EulerNumberML):
         print('Connectivity 4: {}'.format(Result_connected_4))
         print('\n')
 
-    # ?
+    # ? Method to utilize connectivity 8 arrays to search for euler's number
     @Utilities.time_func
     @profile
     def connectivity_8_prediction_2D(self, Arrays) -> None:
+        """
+        Method to utilize connectivity 8 arrays to search for euler's number
 
+        """
 
         Connectivity_8_first_array = np.array([1, 0, 0, 0], dtype = 'int')
 
