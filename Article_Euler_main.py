@@ -142,7 +142,8 @@ def Create_objects():
 
 
 def main():
-
+    """Main function
+    """
     #Create_objects()
 
     config = Menu()

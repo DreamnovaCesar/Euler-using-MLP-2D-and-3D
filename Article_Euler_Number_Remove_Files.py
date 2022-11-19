@@ -2,21 +2,51 @@ from Article_Euler_Number_Libraries import *
 from Article_Euler_Number_Utilities import Utilities
 
 class RemoveFiles(Utilities):
+    """
+    Utilities inheritance
+
+    A class used to remove files inside a folder.
+
+    Methods:
+        data_dic(): description
+
+        remove_all_files(): description
+
+        remove_random_files(): description
+
+        remove_all(): description
+
+    """
 
     def __init__(self, **kwargs) -> None:
+        """
+        Keyword Args:
+            folder (str): description 
+            NFR (int): description
+        """
 
         # * Instance attributes (Protected)
         self.__Folder_path = kwargs.get('folder', None);
         self.__Number_Files_to_remove = kwargs.get('NFR', None);
 
+    # * Class variables
     def __repr__(self):
+            return f'[{self.__Folder_path}, {self.__Number_Files_to_remove}]';
 
-        kwargs_info = "[{}, {}]".format(self.__Folder_path, self.__Number_Files_to_remove);
-
-        return kwargs_info
-
+    # * Class description
     def __str__(self):
-        pass
+        return  f'A class used to remove files inside a folder.';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, change format class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Folder path': str(self.__Folder_path),
+                'Number of files to remove': str(self.__Number_Files_to_remove),
+                };
     
     # * Folder_path attribute
     @property
@@ -50,17 +80,12 @@ class RemoveFiles(Utilities):
         print("Deleting Files_to_remove...");
         del self.__Files_to_remove
 
-    # ? Remove all files inside a dir
+    # ? Method to remove all the files inside the dir
     @Utilities.time_func
     def remove_all_files(self) -> None:
         """
-        Remove all files inside the folder path obtained.
+        Remove all the files inside the dir
 
-        Args:
-            Folder_path (str): Folder path obtained.
-
-        Returns:
-            None
         """
         
         # * Folder attribute (ValueError, TypeError)
@@ -75,16 +100,12 @@ class RemoveFiles(Utilities):
             print('Removing: {} . {} ✅'.format(Filename, Format));
             os.remove(os.path.join(self.__Folder_path, File));
 
+    # ? Method to files randomly inside a dir
     @Utilities.time_func
     def remove_random_files(self) -> None:
         """
-        Remove all files inside the folder path obtained.
+        Remove files randomly inside the folder path.
 
-        Args:
-            Folder_path (str): Folder path obtained.
-
-        Returns:
-            None
         """
 
         # * This function will remove all the files inside a folder
@@ -97,17 +118,11 @@ class RemoveFiles(Utilities):
             #print('Removing: {}{} ✅'.format(Filename, Format));
             os.remove(os.path.join(self.__Folder_path, File_sample));
 
-    # ? Remove all files inside a dir
+    # ? 
     @Utilities.time_func
     def remove_all(self) -> None:
         """
-        Remove all files inside the folder path obtained.
 
-        Args:
-            Folder_path (str): Folder path obtained.
-
-        Returns:
-            None
         """
         
         for Filename in os.listdir(self.__Folder_path):

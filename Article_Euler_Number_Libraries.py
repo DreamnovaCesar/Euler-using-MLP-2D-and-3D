@@ -6,6 +6,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+import tensorflow as keras
 import matplotlib.pyplot as plt
 
 # ?
@@ -23,17 +24,17 @@ from random import sample
 from typing import Any
 
 # ?
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 
 # ?
 from keras.models import Sequential
 from keras.layers import Dense
 
 # ?
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.optimizers import SGD
-from tensorflow.keras.optimizers import RMSprop
-from tensorflow.keras.optimizers import Adamax
+from keras.optimizers import Adam
+from keras.optimizers import SGD
+from keras.optimizers import RMSprop
+from keras.optimizers import Adamax
 
 # ?
 from sklearn.ensemble import RandomForestClassifier

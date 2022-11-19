@@ -11,12 +11,23 @@ from Article_Euler_Number_3D_General import Input_3D_array
 from Article_Euler_Number_3D_General import Output_3D_array
 
 class Menu():
+    """
 
-    def __init__(self, **kwargs) -> None:
+    Args:
+        Image_cropped (ndarray): Raw image cropped that is use.
+
+    Returns:
+        ndarray: The image after the safe rotation transformation.
+    """
+    def __init__(self) -> None:
         """
-        _summary_
 
-        _extended_summary_
+
+        Args:
+            Image_cropped (ndarray): Raw image cropped that is use.
+
+        Returns:
+            ndarray: The image after the safe rotation transformation.
         """
 
         # *

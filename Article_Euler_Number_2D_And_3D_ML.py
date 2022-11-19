@@ -3,13 +3,33 @@ from Article_Euler_Number_Utilities import Utilities
 
 # ?
 class EulerNumberML(Utilities):
+    """
+    Utilities inheritance
+
+    '''''
+
+    Methods:
+        data_dic(): description
+
+        create_dataframe_history(): description
+        
+        plot_data_loss(): description
+
+        plot_data_accuracy(): description
+
+    """
 
     def __init__(self, **kwargs) -> None:
         """
-        _summary_
-
-        _extended_summary_
+        Keyword Args:
+            input (np.ndarray): description 
+            output (np.ndarray): description
+            folder (str): description
+            FD (bool):description
+            MN (str):description
+            epochs (int):description
         """
+
         # * General parameters
         self._Input = kwargs.get('input', None)
         self._Output = kwargs.get('output', None)
@@ -18,8 +38,8 @@ class EulerNumberML(Utilities):
         # *
         self._Folder = kwargs.get('folder', None)
         self._Folder_data = kwargs.get('FD', False)
-        self._Model_name = kwargs.get('MN', None)
 
+        self._Model_name = kwargs.get('MN', None)
         self._Epochs = kwargs.get('epochs', None)
 
         self._Columns = ["Loss", "Accuracy"]
@@ -27,14 +47,28 @@ class EulerNumberML(Utilities):
         if(isinstance(self._Epochs, str)):
             self._Epochs = int(self._Epochs)
 
+    # * Class variables
     def __repr__(self):
+            return f'[{self._Input}, {self._Output}, {self._Folder}, {self._Folder_data}, {self._Model_name}, {self._Epochs}, {self._Columns}]';
 
-        kwargs_info = "{}, {}, {}, {}, {}, {}".format(self._Input, self._Output, self._Folder, self._Model_name, self._Epochs, self._Columns)
-
-        return kwargs_info
-
+    # * Class description
     def __str__(self):
-        pass
+        return  f'.';
+    
+    # * Deleting (Calling destructor)
+    def __del__(self):
+        print('Destructor called, Euler number class destroyed.');
+
+    # * Get data from a dic
+    def data_dic(self):
+
+        return {'Inputs': str(self._Input),
+                'Outputs': str(self._Output),
+                'Folder path': str(self._Folder),
+                'Folder path save': str(self._Folder_data),
+                'Model name': str(self._Model_name),
+                'Epochs': str(self._Epochs),
+                };
 
     # * _Input attribute
     @property
