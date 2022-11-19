@@ -6,7 +6,7 @@ from Article_Euler_Number_3D_General import Input_3D_array
 from Article_Euler_Number_3D_General import Output_3D_array
 
 from Article_Euler_Number_Create_Data import DataEuler
-from Article_Euler_menu import Menu
+from Article_Euler_Menu_Console import Menu
 
 from Article_Euler_Number_2D_And_3D_ML import *
 

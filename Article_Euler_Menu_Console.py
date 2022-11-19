@@ -10,14 +10,9 @@ from Article_Euler_Number_2D_General import Output_2D_8_Connectivity
 from Article_Euler_Number_3D_General import Input_3D_array
 from Article_Euler_Number_3D_General import Output_3D_array
 
-class Menu():
+class Menu(Utilities):
     """
 
-    Args:
-        Image_cropped (ndarray): Raw image cropped that is use.
-
-    Returns:
-        ndarray: The image after the safe rotation transformation.
     """
     def __init__(self) -> None:
         """
@@ -42,17 +37,6 @@ class Menu():
         self.__Euler_path_images_settings_3D = r'Objects\3D\Images_with_euler'
         self.__Euler_path_data_3D = r'Objects\3D\Data';
 
-        Menu = True
-
-    def __repr__(self):
-
-        kwargs_info = '';
-
-        return kwargs_info
-
-    def __str__(self):
-        pass
-    
     @staticmethod
     def create_objects_2D(Folder_2D_):
 
