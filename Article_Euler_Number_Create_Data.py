@@ -127,7 +127,12 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     # ?
     @Utilities.time_func
     def create_data_euler_2D_random(self) -> None:
-        
+        """
+        _summary_
+
+        _extended_summary_
+        """
+
         P_0 = 0.4
         P_1 = 0.6
 
@@ -173,7 +178,12 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     # ?
     @Utilities.time_func
     def create_data_euler_2D_settings(self) -> None:
-        
+        """
+        _summary_
+
+        _extended_summary_
+        """
+
         global Input_2D
         global Output_2D_4_Connectivity
         global Output_2D_8_Connectivity
@@ -258,7 +268,12 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     # ?
     @Utilities.time_func
     def create_data_euler_3D_random(self) -> None:
-        
+        """
+        _summary_
+
+        _extended_summary_
+        """
+
         P_0 = 0.2
         P_1 = 0.8
 
@@ -335,6 +350,11 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
     # ?
     @Utilities.time_func
     def create_data_euler_3D_settings(self) -> None:
+        """
+        _summary_
+
+        _extended_summary_
+        """
         
         # *
         global Input_3D_array
