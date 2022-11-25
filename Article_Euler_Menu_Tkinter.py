@@ -36,7 +36,7 @@ class MenuTkinter(Utilities):
 # ?
 class App(customtkinter.CTk):
 
-    WIDTH = 780;
+    WIDTH = 700;
     HEIGHT = 700;
 
     def __init__(self):
@@ -290,14 +290,23 @@ class App(customtkinter.CTk):
         # * 1 Button to load .h5
         self.Button_model = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Choose model!",
-                                                        command = self.open_txt);
+                                                        command = self.open_model);
         self.Button_model.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        self.entryVariable_file_one = tkinter.StringVar()
+        self.entry_file_one = tkinter.Entry(self.Labelframe_info, width = 20, textvariable = self.entryVariable_file_one)
+        self.entry_file_one.grid(column = 0, row = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x)
 
         # * 2 Button to load .txt
         self.Button_txt = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Choose .txt!",
-                                                        command = self.open_txt);
+                                                        command = self.open_file_txt);
         self.Button_txt.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        self.entryVariable_file_two = tkinter.StringVar()
+        self.entry_file_two = tkinter.Entry(self.Labelframe_info, width = 20, textvariable = self.entryVariable_file_two)
+        self.entry_file_two.grid(column = 0, row = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x)
+
 
         # * 3 Button to recolect the information.
         self.Button_add_data = customtkinter.CTkButton( self.Labelframe_data,
@@ -514,8 +523,14 @@ class App(customtkinter.CTk):
 
         Euler_2D = EulerNumberML2D()
 
-        Array = Euler_2D.obtain_arrays_from_object_2D(self.Button_txt.get())
-        Euler_2D.model_prediction_2D(self.Button_model.get(), Array)
+        Array = Euler_2D.obtain_arrays_from_object_2D(self.entry_file_two.get())
+        Euler_Number_2D = Euler_2D.model_prediction_2D(self.entry_file_one.get(), Array)
+
+        # * Label
+        self.Label_stage = customtkinter.CTkLabel(  master = self.Labelframe_info,
+                                                    text = "Euler Number: {}".format(Euler_Number_2D),
+                                                    text_font = ("Roboto Medium", -16));  # font name and size in px
+        self.Label_stage.grid(row = 3, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
     # ?
     def create_objects_3D(self):
@@ -553,10 +568,23 @@ class App(customtkinter.CTk):
     def change_appearance_mode(self, new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
-    def open_txt(event = None):
-        Filename = filedialog.askopenfilename()
-        print('Selected:', Filename)
+    def open_model(self, event = None):
+        self.entryVariable_file_one.set(filedialog.askopenfilename())
+        self.entry_file_one.focus_set()
+        self.entry_file_one.selection_range(0, tkinter.END)
 
+        #Filename = filedialog.askopenfilename()
+
+        print('Selected:', self.entry_file_one.get())
+
+    def open_file_txt(self, event = None):
+        self.entryVariable_file_two.set(filedialog.askopenfilename())
+        self.entry_file_two.focus_set()
+        self.entry_file_two.selection_range(0, tkinter.END)
+
+        #Filename = filedialog.askopenfilename()
+
+        print('Selected:', self.entry_file_two.get())
         
     # ?
     def on_closing(self, event = 0):

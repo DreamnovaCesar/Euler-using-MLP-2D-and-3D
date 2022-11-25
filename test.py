@@ -1,24 +1,41 @@
-from tkinter import *
-from tkinter.filedialog import askopenfilename
+import tkinter as tk
+from tkinter import ttk
+from tkinter import filedialog as fd
+from tkinter.messagebox import showinfo
 
-windows = Tk()
-windows.title("File Dialog Example")
-windows.geometry("500x500")
-
-
-def file_open():
-    text_window.delete('1.0', END)
-    filePath = askopenfilename(
-        initialdir='C:/', title='Select a File', filetype=(("Text File", ".txt"), ("All Files", "*.*")))
-    with open(filePath, 'r+') as askedFile:
-        fileContents = askedFile.read()
-
-    text_window.insert(INSERT, fileContents)
-    print(filePath)
+# create the root window
+root = tk.Tk()
+root.title('Tkinter Open File Dialog')
+root.resizable(False, False)
+root.geometry('300x150')
 
 
-open_button = Button(windows, text="Open File", command=file_open).grid(row=4, column=3)
-text_window = Text(windows, bg="white",width=200, height=150)
-text_window.place(x=50, y=50)
+def select_file():
+    filetypes = (
+        ('text files', '*.txt'),
+        ('All files', '*.*')
+    )
 
-windows.mainloop()
+    filename = fd.askopenfilename(
+        title='Open a file',
+        initialdir='/',
+        filetypes=filetypes)
+
+    showinfo(
+        title='Selected File',
+        message=filename
+    )
+
+
+# open button
+open_button = ttk.Button(
+    root,
+    text='Open a File',
+    command=select_file
+)
+
+open_button.pack(expand=True)
+
+
+# run the application
+root.mainloop()
