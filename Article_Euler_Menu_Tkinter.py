@@ -36,9 +36,6 @@ class MenuTkinter(Utilities):
 # ?
 class App(customtkinter.CTk):
 
-    WIDTH = 700;
-    HEIGHT = 700;
-
     def __init__(self):
         super().__init__()
 
@@ -54,12 +51,15 @@ class App(customtkinter.CTk):
         self.__Euler_path_images_settings_3D = r'Objects\3D\Images_with_euler'
         self.__Euler_path_data_3D = r'Objects\3D\Data';
         
+        self.WIDTH = 180;
+        self.HEIGHT = 700;
+
         # * set default values padding
         self.__Padding_button_x = 20;
         self.__Padding_button_y = 20;
 
         self.title("Article Euler 2D and 3D");
-        self.geometry(f"{App.WIDTH}x{App.HEIGHT}");
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
         self.protocol("WM_DELETE_WINDOW", self.on_closing);  # call .on_closing() when app gets closed
 
         # ================================================ create two frames ================================================
@@ -148,8 +148,10 @@ class App(customtkinter.CTk):
     # ?
     def button_change_menu_create_objects_2D(self):
 
+        self.WIDTH = 490
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
         # =============================================== frame_right ===============================================
-        
+
         # * Destroy frame_right and create another one
         self.frame_right.destroy();
 
@@ -167,8 +169,8 @@ class App(customtkinter.CTk):
         self.Labelframe_data = customtkinter.CTkFrame(self.frame_info);
         self.Labelframe_data.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
 
-        self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
-        self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
+        #self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
+        #self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
 
         # * Label
         self.Label_stage = customtkinter.CTkLabel(  master = self.frame_info,
@@ -204,6 +206,9 @@ class App(customtkinter.CTk):
     # ?
     def button_change_menu_train_models_2D(self):
 
+        self.WIDTH = 490
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
+
         # =============================================== frame_right ===============================================
         
         # * Destroy frame_right and create another one
@@ -223,8 +228,8 @@ class App(customtkinter.CTk):
         self.Labelframe_data = customtkinter.CTkFrame(self.frame_info);
         self.Labelframe_data.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
 
-        self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
-        self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
+        #self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
+        #self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
 
         # * Label
         self.Label_stage = customtkinter.CTkLabel(  master = self.frame_info,
@@ -258,6 +263,9 @@ class App(customtkinter.CTk):
 
     # ?
     def button_change_menu_prediction_2D(self):
+
+        self.WIDTH = 690
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
 
         # =============================================== frame_right ===============================================
         
@@ -317,6 +325,9 @@ class App(customtkinter.CTk):
     # ?
     def button_change_menu_create_objects_3D(self):
 
+        self.WIDTH = 490
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
+
         # =============================================== frame_right ===============================================
 
         self.frame_right.destroy();
@@ -336,8 +347,8 @@ class App(customtkinter.CTk):
         self.Labelframe_data = customtkinter.CTkFrame(self.frame_info);
         self.Labelframe_data.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
 
-        self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
-        self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
+        #self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
+        #self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
 
         # * Label
         self.Label_stage = customtkinter.CTkLabel(  master = self.frame_info,
@@ -379,6 +390,9 @@ class App(customtkinter.CTk):
     # ?
     def button_change_menu_train_models_3D(self):
 
+        self.WIDTH = 490
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
+
         # =============================================== frame_right ===============================================
         
         # * Destroy frame_right and create another one
@@ -392,14 +406,14 @@ class App(customtkinter.CTk):
 
         # =============================================== frame_info ===============================================
 
-        self.frame_info.rowconfigure(0, weight = 2);
-        self.frame_info.columnconfigure(1, weight = 2);
+        #self.frame_info.rowconfigure(0, weight = 2);
+        #self.frame_info.columnconfigure(1, weight = 2);
 
-        self.Labelframe_data = customtkinter.CTkFrame(self.frame_info);
+        self.Labelframe_data = customtkinter.CTkFrame(master = self.frame_info);
         self.Labelframe_data.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "nsew");
 
-        self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
-        self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "nsew");
+        #self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
+        #self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "nsew");
         
         # * Label
         self.Label_stage = customtkinter.CTkLabel(  master = self.frame_info,
@@ -438,6 +452,9 @@ class App(customtkinter.CTk):
     # ?
     def button_change_menu_prediction_3D(self):
 
+        self.WIDTH = 690
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
+
         # =============================================== frame_right ===============================================
         
         # * Destroy frame_right and create another one
@@ -469,13 +486,13 @@ class App(customtkinter.CTk):
         # * 1 Button to load .h5
         self.Button_model = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Choose model!",
-                                                        command = self.open_txt);
+                                                        command = self.open_model);
         self.Button_model.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 2 Button to load .txt
         self.Button_txt = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Choose .txt!",
-                                                        command = self.open_txt);
+                                                        command = self.open_file_txt);
         self.Button_txt.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 3 Button to recolect the information.
@@ -486,6 +503,9 @@ class App(customtkinter.CTk):
 
     # ?
     def button_back_menu(self):
+
+        self.WIDTH = 180
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
 
         self.frame_right = customtkinter.CTkFrame(master = self);
         self.frame_right.grid(row = 0, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "nswe");

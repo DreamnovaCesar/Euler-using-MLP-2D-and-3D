@@ -501,11 +501,13 @@ class EulerNumberML3D(EulerNumberML):
         Arrays = []
         Asterisks = 30
 
+        l = 2
+
         # *
         Array_new = self.read_image_with_metadata_3D(Object)
 
         # * Creation of empty numpy arrays 3D
-        Array_prediction_octov = np.zeros((2, 2, 2))
+        Array_prediction_octov = np.zeros((l, l, l))
         Array_prediction = np.zeros((8))
 
         # *
@@ -514,17 +516,19 @@ class EulerNumberML3D(EulerNumberML):
                 for k in range(Array_new.shape[2] - 1):
 
                     # *
-                    Array_prediction_octov[0][0][0] = Array_new[i][j][k]
-                    Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
+                    #Array_prediction_octov[0][0][0] = Array_new[i][j][k]
+                    #Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
 
-                    Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
-                    Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
+                    #Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
+                    #Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
 
-                    Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
-                    Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
+                    #Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
+                    #Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
 
-                    Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
-                    Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+                    #Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
+                    #Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+
+                    Array_new[i:l + i, j:l + j, k:l + k]
 
                     # *
                     Array_prediction[0] = Array_new[i + 1][j][k]
@@ -547,7 +551,7 @@ class EulerNumberML3D(EulerNumberML):
 
                     # *
                     print("Kernel array")
-                    print(Array_prediction_octov)
+                    print(Array_new[i:l + i, j:l + j, k:l + k])
                     print('\n')
                     print("Prediction array")
                     print(Array_prediction)
@@ -581,11 +585,13 @@ class EulerNumberML3D(EulerNumberML):
         Arrays = []
         Asterisks = 30
 
+        l = 2
+
         # *
         #Array_new = self.read_image_with_metadata_3D(Object)
 
         # *
-        Array_prediction_octov = np.zeros((2, 2, 2))
+        Array_prediction_octov = np.zeros((l, l, l))
         Array_prediction = np.zeros((8))
 
         # *
@@ -594,17 +600,19 @@ class EulerNumberML3D(EulerNumberML):
                 for k in range(Array_new.shape[2] - 1):
 
                     # *
-                    Array_prediction_octov[0][0][0] = Array_new[i][j][k]
-                    Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
+                    #Array_prediction_octov[0][0][0] = Array_new[i][j][k]
+                    #Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
 
-                    Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
-                    Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
+                    #Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
+                    #Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
 
-                    Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
-                    Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
+                    #Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
+                    #Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
 
-                    Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
-                    Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+                    #Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
+                    #Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+
+                    Array_new[i:l + i, j:l + j, k:l + k]
 
                     # *
                     Array_prediction[0] = Array_new[i + 1][j][k]
@@ -627,7 +635,7 @@ class EulerNumberML3D(EulerNumberML):
 
                     # *
                     print("Kernel array")
-                    print(Array_prediction_octov)
+                    print(Array_new[i:l + i, j:l + j, k:l + k])
                     print('\n')
                     print("Prediction array")
                     print(Array_prediction)
@@ -952,20 +960,24 @@ class EulerNumberML2D(EulerNumberML):
         Arrays = []
         Asterisks = 30
 
+        k = 2
+
         # *
         Array = self.read_image_with_metadata_2D(Object)
 
         # *
-        Array_comparison = np.zeros((2, 2), dtype = 'int')
+        Array_comparison = np.zeros((k, k), dtype = 'int')
         Array_prediction = np.zeros((4), dtype = 'int')
 
         for i in range(Array.shape[0] - 1):
             for j in range(Array.shape[1] - 1):
 
-                Array_comparison[0][0] = Array[i][j]
-                Array_comparison[1][0] = Array[i + 1][j]
-                Array_comparison[0][1] = Array[i][j + 1]
-                Array_comparison[1][1] = Array[i + 1][j + 1]
+                #Array_comparison[0][0] = Array[i][j]
+                #Array_comparison[1][0] = Array[i + 1][j]
+                #Array_comparison[0][1] = Array[i][j + 1]
+                #Array_comparison[1][1] = Array[i + 1][j + 1]
+
+                Array[i:k + i, j:k + j]
 
                 Array_prediction[0] = Array[i][j]
                 Array_prediction[1] = Array[i][j + 1]
@@ -982,7 +994,7 @@ class EulerNumberML2D(EulerNumberML):
 
                 # *
                 print("Kernel array")
-                print(Array_comparison)
+                print(Array[i:k + i, j:k + j])
                 print('\n')
                 print("Prediction array")
                 print(Array_prediction)
@@ -1013,8 +1025,10 @@ class EulerNumberML2D(EulerNumberML):
         Arrays = []
         Asterisks = 30
 
+        k = 2
+
         # * Creation of empty numpy arrays 2D
-        Array_comparison = np.zeros((2, 2), dtype = 'int')
+        Array_comparison = np.zeros((k, k), dtype = 'int')
         Array_prediction = np.zeros((4), dtype = 'int')
 
         for i in range(Array.shape[0] - 1):
@@ -1024,6 +1038,8 @@ class EulerNumberML2D(EulerNumberML):
                 Array_comparison[1][0] = Array[i + 1][j]
                 Array_comparison[0][1] = Array[i][j + 1]
                 Array_comparison[1][1] = Array[i + 1][j + 1]
+                
+                Array[i:k + i, j:k + j]
 
                 Array_prediction[0] = Array[i][j]
                 Array_prediction[1] = Array[i][j + 1]
@@ -1040,7 +1056,7 @@ class EulerNumberML2D(EulerNumberML):
 
                 # *
                 print("Kernel array")
-                print(Array_comparison)
+                print(Array[i:k + i, j:k + j])
                 print('\n')
                 print("Prediction array")
                 print(Array_prediction)
