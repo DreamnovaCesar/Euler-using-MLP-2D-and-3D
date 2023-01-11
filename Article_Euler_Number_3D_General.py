@@ -613,8 +613,8 @@ def decimal_to_binary(Decimal_value: int) -> int:
     Decimal_value = int(Decimal_value)
     Binary_value = format(Decimal_value, '08b')
 
-    print(Binary_value)
     print('\n')
+    print(Binary_value)
 
     return Binary_value
 
@@ -719,13 +719,14 @@ def table_binary_multi_256(Number_iter: int) -> None:
     
     # *
     Array_prediction = np.zeros((8), dtype = 'int')
-
     # * Conversion to int
     Number_iter = int(Number_iter)
 
     # *
     if(Number_iter <= 256):
 
+        Qs = []
+        
         for i in range(Number_iter):
 
             Value = decimal_to_binary(i)
@@ -740,5 +741,14 @@ def table_binary_multi_256(Number_iter: int) -> None:
             Array_prediction[6] = Value[6]   # b
             Array_prediction[7] = Value[7]   # a
 
-            print('{}'.format(Array_prediction))
+            Array = np.reshape(Array_prediction, (2, 2, 2))
+            Array_list = Array.tolist()
+            Qs.append(Array_list)
+
+            print('{}'.format(Qs[i]))
+
+        Qs = np.array(Qs)
         print('\n')
+        #print(Qs)
+
+    return Qs

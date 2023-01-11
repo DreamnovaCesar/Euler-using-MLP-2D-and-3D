@@ -101,46 +101,52 @@ class App(customtkinter.CTk):
                                                     command = self.button_change_menu_create_objects_3D);
         self.button_C3DI.grid(row = 3, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
+        # * 2.4 button left frame
+        self.button_C3DIE = customtkinter.CTkButton( master = self.frame_left,
+                                                    text = "Create 3D images (Euler)",
+                                                    command = self.button_change_menu_create_objects_3D_with_euler);
+        self.button_C3DIE.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
         # * 3 button left frame
         self.button_T2DM = customtkinter.CTkButton( master = self.frame_left,
                                                     text = "Training 2D model",
                                                     command = self.button_change_menu_train_models_2D);
-        self.button_T2DM.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.button_T2DM.grid(row = 5, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 4 button left frame
         self.button_T3DM = customtkinter.CTkButton( master = self.frame_left,
                                                     text = "Training 3D model",
                                                     command = self.button_change_menu_train_models_3D);
-        self.button_T3DM.grid(row = 5, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.button_T3DM.grid(row = 6, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 5 button left frame
         self.button_P2D = customtkinter.CTkButton(  master = self.frame_left,
                                                     text = "Prediction 2D",
                                                     command = self.button_change_menu_prediction_2D);
-        self.button_P2D.grid(row = 6, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.button_P2D.grid(row = 7, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 6 button left frame
         self.button_P3D = customtkinter.CTkButton(  master = self.frame_left,
                                                     text = "Prediction 3D",
                                                     command = self.button_change_menu_prediction_3D);
-        self.button_P3D.grid(row = 7, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.button_P3D.grid(row = 8, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 7 button left frame
         self.button_BACK = customtkinter.CTkButton( master = self.frame_left,
                                                     text = "BACK",
                                                     command = self.button_back_menu);
-        self.button_BACK.grid(row = 8, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        self.button_BACK.grid(row = 9, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
         # * 8 button appearance mode: (Black and white)
         self.label_mode = customtkinter.CTkLabel(   master = self.frame_left, 
                                                     text = "Appearance Mode:");
-        self.label_mode.grid(row = 9, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "w");
+        self.label_mode.grid(row = 10, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "w");
 
         # * 8 button appearance mode: (Black and white) options
         self.optionmenu_1 = customtkinter.CTkOptionMenu(master = self.frame_left,
                                                         values = ["Light", "Dark", "System"],
                                                         command = self.change_appearance_mode);
-        self.optionmenu_1.grid(row = 10, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "w");
+        self.optionmenu_1.grid(row = 11, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "w");
 
     # * set default values
         self.optionmenu_1.set("Dark")
@@ -388,6 +394,81 @@ class App(customtkinter.CTk):
         self.Button_add_data.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
     # ?
+    def button_change_menu_create_objects_3D_with_euler(self):
+
+        self.WIDTH = 690
+        self.geometry(f"{self.WIDTH}x{self.HEIGHT}");
+
+        # =============================================== frame_right ===============================================
+
+        self.frame_right.destroy();
+
+        self.frame_right = customtkinter.CTkFrame(master = self);
+        self.frame_right.grid(row = 0, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "nswe");
+
+        self.frame_info = customtkinter.CTkFrame(master = self.frame_right);
+        self.frame_info.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky = "nsew");
+
+        # =============================================== frame_info ===============================================
+
+        # configure grid layout (1x1)
+        self.frame_info.rowconfigure(0, weight = 1);
+        self.frame_info.columnconfigure(1, weight = 1);
+
+        self.Labelframe_data = customtkinter.CTkFrame(self.frame_info);
+        self.Labelframe_data.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
+
+        self.Labelframe_info = customtkinter.CTkFrame(self.frame_info);
+        self.Labelframe_info.grid(row = 1, column = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x, sticky="nsew");
+
+        # * Label
+        self.Label_stage = customtkinter.CTkLabel(  master = self.frame_info,
+                                                    text = "Create 3D images",
+                                                    text_font = ("Roboto Medium", -16));  # font name and size in px
+        self.Label_stage.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        # * 1 Entry(Add number of objects)
+        self.Entry_NO = customtkinter.CTkEntry( self.Labelframe_data, 
+                                                width = 150,
+                                                placeholder_text = "Number of objects");
+        self.Entry_NO.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        # * 2 Entry(Add height of each object)
+        self.Entry_height = customtkinter.CTkEntry( self.Labelframe_data, 
+                                                    width = 150,
+                                                    placeholder_text = "Height");
+        self.Entry_height.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        
+        # * 3 Entry(Add width of each object)
+        self.Entry_width = customtkinter.CTkEntry(  self.Labelframe_data, 
+                                                    width = 150,
+                                                    placeholder_text = "Width");
+        self.Entry_width.grid(row = 2, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        # * 4 Entry(Add depth of each object)
+        self.Entry_depth = customtkinter.CTkEntry(  self.Labelframe_data, 
+                                                    width = 150,
+                                                    placeholder_text = "Depth");
+        self.Entry_depth.grid(row = 3, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        # * 1 Button to load .h5
+        self.Button_model = customtkinter.CTkButton( self.Labelframe_data,
+                                                        text = "Choose model!",
+                                                        command = self.open_model);
+        self.Button_model.grid(row = 4, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        self.entryVariable_file_one = tkinter.StringVar()
+        self.entry_file_one = tkinter.Entry(self.Labelframe_info, width = 20, textvariable = self.entryVariable_file_one)
+        self.entry_file_one.grid(column = 0, row = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x)
+
+        # * 1 Button to recolect the information from entries.
+        self.Button_add_data = customtkinter.CTkButton( self.Labelframe_data,
+                                                        text = "Go!",
+                                                        command = self.create_objects_3D_with_euler);
+
+        self.Button_add_data.grid(row = 5, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+        
+    # ?
     def button_change_menu_train_models_3D(self):
 
         self.WIDTH = 490
@@ -489,11 +570,19 @@ class App(customtkinter.CTk):
                                                         command = self.open_model);
         self.Button_model.grid(row = 0, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
 
+        self.entryVariable_file_one = tkinter.StringVar()
+        self.entry_file_one = tkinter.Entry(self.Labelframe_info, width = 20, textvariable = self.entryVariable_file_one)
+        self.entry_file_one.grid(column = 0, row = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x)
+        
         # * 2 Button to load .txt
         self.Button_txt = customtkinter.CTkButton( self.Labelframe_data,
                                                         text = "Choose .txt!",
                                                         command = self.open_file_txt);
         self.Button_txt.grid(row = 1, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+        self.entryVariable_file_two = tkinter.StringVar()
+        self.entry_file_two = tkinter.Entry(self.Labelframe_info, width = 20, textvariable = self.entryVariable_file_two)
+        self.entry_file_two.grid(column = 0, row = 1, pady = self.__Padding_button_y, padx = self.__Padding_button_x)
 
         # * 3 Button to recolect the information.
         self.Button_add_data = customtkinter.CTkButton( self.Labelframe_data,
@@ -581,8 +670,21 @@ class App(customtkinter.CTk):
 
         Euler_3D = EulerNumberML3D()
 
-        Array = Euler_3D.obtain_arrays_from_object_3D(self.Button_txt.get())
-        Euler_3D.model_prediction_3D(self.Button_model.get(), Array)
+        Array = Euler_3D.obtain_arrays_from_object_3D(self.entry_file_two.get())
+        Euler_Number_3D = Euler_3D.model_prediction_3D(self.entry_file_one.get(), Array)
+
+        # * Label
+        self.Label_stage = customtkinter.CTkLabel(  master = self.Labelframe_info,
+                                                    text = "Euler Number: {}".format(Euler_Number_3D),
+                                                    text_font = ("Roboto Medium", -16));  # font name and size in px
+        self.Label_stage.grid(row = 3, column = 0, pady = self.__Padding_button_y, padx = self.__Padding_button_x);
+
+    # ?
+    def create_objects_3D_with_euler(self):
+        Images_3D = DataEuler(folder = self.__Euler_path_images_3D, NI = self.Entry_NO.get(), MT = self.entry_file_one.get(),
+                                Height = self.Entry_height.get(), Width = self.Entry_width.get(), Depth = self.Entry_depth.get());
+
+        Images_3D.create_data_euler_3D();
 
     # ?
     def change_appearance_mode(self, new_appearance_mode):

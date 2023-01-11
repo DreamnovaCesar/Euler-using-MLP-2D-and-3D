@@ -5,6 +5,8 @@ from Article_Euler_Number_2D_General import Output_2D_8_Connectivity
 from Article_Euler_Number_3D_General import Input_3D_array
 from Article_Euler_Number_3D_General import Output_3D_array
 
+from Article_Euler_Number_3D_General import *
+
 from Article_Euler_Number_Create_Data import DataEuler
 from Article_Euler_Menu_Console import Menu
 from Article_Euler_Menu_Tkinter import MenuTkinter
@@ -141,14 +143,285 @@ def Create_objects():
     Images_2D = DataEuler(folder = Folder_2D, NI = 10, Height = 8, Width = 8);
     Images_2D.create_data_euler_2D_random();
 
+def read_image_with_metadata_2D(Array_file: str) -> np.ndarray:
+        """
+        Static method to load txt and convert it into tensors
+
+        Args:
+            Array_file (str): description
+        """
+
+        Array = np.loadtxt(Array_file, delimiter = ',')
+        
+        Array = Array.astype(int)
+
+        print('\n')
+        print('Array obtained')
+        print('\n')
+        print(Array)
+        print('\n')
+        print('Number of rows: {}'.format(Array.shape[0]))
+        print('\n')
+        print('Number of columns: {}'.format(Array.shape[1]))
+        print('\n')
+        
+        return Array
+
+def obtain_arrays_from_object_2D(Object) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 2D array
+
+        Args:
+            Object (str): description
+
+        """
+
+        # *
+        Arrays = []
+        Asterisks = 30
+
+        k = 2
+
+        # *
+        Array = read_image_with_metadata_2D(Object)
+        Qs = []
+        
+        # *
+        Q1 = np.array([ [ 0,  0],
+                        [ 0,  0]    ], dtype = 'int')
+
+        Q2 = np.array([ [ 0,  0],
+                        [ 0,  1]    ], dtype = 'int')
+        
+        Q3 = np.array([ [ 0,  0],
+                        [ 1,  0]    ], dtype = 'int')
+
+        Q4 = np.array([ [ 0,  0],
+                        [ 1,  1]    ], dtype = 'int')
+
+        Q5 = np.array([ [ 0,  1],
+                        [ 0,  0]    ], dtype = 'int')
+
+        Q6 = np.array([ [ 0,  1],
+                        [ 0,  1]    ], dtype = 'int')
+
+        Q7 = np.array([ [ 0,  1],
+                        [ 1,  0]    ], dtype = 'int')
+
+        Q8 = np.array([ [ 0,  1],
+                        [ 1,  1]    ], dtype = 'int')
+
+        Q9 = np.array([ [ 1,  0],
+                        [ 0,  0]    ], dtype = 'int')
+
+        Q10 = np.array([ [ 1,  0],
+                         [ 0,  1]    ], dtype = 'int')
+
+        Q11 = np.array([    [ 1,  0],
+                            [ 1,  0]    ], dtype = 'int')
+
+        Q12 = np.array([    [ 1,  0],
+                            [ 1,  1]    ], dtype = 'int')
+        
+        Q13 = np.array([    [ 1,  1],
+                            [ 0,  0]    ], dtype = 'int')
+        
+        Q14 = np.array([    [ 1,  1],
+                            [ 0,  1]    ], dtype = 'int')
+        
+        Q15 = np.array([    [ 1,  1],
+                            [ 1,  0]    ], dtype = 'int')
+        
+        Q16 = np.array([    [ 1,  1],
+                            [ 1,  1]    ], dtype = 'int')
+        
+        Qs.extend((Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, Q15, Q16))
+        Qs_value = np.zeros((16), dtype = 'int')
+
+        Array_comparison = np.zeros((k, k), dtype = 'int')
+        Array_prediction = np.zeros((4), dtype = 'int')
+
+        for i in range(Array.shape[0] - 1):
+            for j in range(Array.shape[1] - 1):
+                
+                #Array_comparison[0][0] = Array[i][j]
+                #Array_comparison[1][0] = Array[i + 1][j]
+                #Array_comparison[0][1] = Array[i][j + 1]
+                #Array_comparison[1][1] = Array[i + 1][j + 1]
+
+                #Array_prediction[0] = Array[i][j]
+                #Array_prediction[1] = Array[i][j + 1]
+                #Array_prediction[2] = Array[i + 1][j]
+                #Array_prediction[3] = Array[i + 1][j + 1]
+
+                for Index in range(len(Qs)):
+                    
+                    print('Kernel: {}'.format(Array[i:k + i, j:k + j]))
+                    print('Qs: {}'.format(Qs[Index]))
+                    print('\n')
+                    print('\n')
+
+                    if(np.array_equal(Array[i:k + i, j:k + j], Qs[Index])):
+                        Qs_value[Index] += 1
+                        print('Q{}_value: {}'.format(Index, Qs_value[Index]))
+                
+                print(Qs_value)
+                print('\n')
+                #print("*" * Asterisks)
+
+                # *
+                print("*" * Asterisks)
+                #Array_prediction_list = Array_prediction.tolist()
+                #Array_prediction_list_int = [int(i) for i in Array_prediction_list]
+
+                # *
+                #print("Kernel array")
+                #print(Array[i:k + i, j:k + j])
+                #print('\n')
+                #print("Prediction array")
+                #print(Array_prediction)
+                #print('\n')
+                #Arrays.append(Array_prediction_list_int)
+                print("*" * Asterisks)
+                print('\n')
+
+        # *
+        #for i in range(len(Arrays)):
+            #print('{} ---- {}'.format(i, Arrays[i]))
+        #print('\n')
+        
+        return Arrays
+
+def read_image_with_metadata_3D(Array_file: str) -> np.ndarray:
+        """
+        Static method to load txt and convert it into tensors
+
+        Args:
+            Array_file (str): description
+        """
+        # *
+        Array = np.loadtxt(Array_file, delimiter = ',')
+        
+        # *
+        Height = Array.shape[0]/Array.shape[1]
+        Array_new = Array.reshape(int(Height), int(Array.shape[1]), int(Array.shape[1]))
+
+        # *
+        Array_new = Array_new.astype(int)
+
+        print('\n')
+        print('Array obtained')
+        print('\n')
+        print(Array_new)
+        print('\n')
+        print('Number of channels: {}'.format(Array_new.shape[0]))
+        print('\n')
+        print('Number of rows: {}'.format(Array_new.shape[1]))
+        print('\n')
+        print('Number of columns: {}'.format(Array_new.shape[2]))
+        print('\n')
+
+        return Array_new
+
+def obtain_arrays_from_object_3D(Object: str) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 3D array
+
+        Args:
+            Object (str): description
+
+        """
+
+        #Array = np.loadtxt(self.Object, delimiter = ',')
+
+        # *
+        Arrays = []
+        Asterisks = 30
+
+        l = 2
+
+        # *
+        Array_new = read_image_with_metadata_3D(Object)
+
+        # * Creation of empty numpy arrays 3D
+
+        Qs = table_binary_multi_256(256)
+        Qs_value = np.zeros((256), dtype = 'int')
+
+        # *
+        for i in range(Array_new.shape[0] - 1):
+            for j in range(Array_new.shape[1] - 1):
+                for k in range(Array_new.shape[2] - 1):
+
+                    # *
+                    #Array_prediction_octov[0][0][0] = Array_new[i][j][k]
+                    #Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
+
+                    #Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
+                    #Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
+
+                    #Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
+                    #Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
+
+                    #Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
+                    #Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+
+                    #Array_new[i:l + i, j:l + j, k:l + k]
+
+                    # *
+                    #Array_prediction[0] = Array_new[i + 1][j][k]
+                    #Array_prediction[1] = Array_new[i + 1][j][k + 1]
+
+                    #Array_prediction[2] = Array_new[i][j][k]
+                    #Array_prediction[3] = Array_new[i][j][k + 1]
+
+                    #Array_prediction[4] = Array_new[i + 1][j + 1][k]
+                    #Array_prediction[5] = Array_new[i + 1][j + 1][k + 1]
+
+                    #Array_prediction[6] = Array_new[i][j + 1][k]
+                    #Array_prediction[7] = Array_new[i][j + 1][k + 1]
+                    #print('\n')
+
+                    for Index in range(len(Qs)):
+                    
+                        #print('Kernel: {}'.format(Array_new[i:l + i, j:l + j, k:l + k]))
+                        #print('Qs: {}'.format(Qs[Index]))
+                        #print('\n')
+                        #print('\n')
+
+                        if(np.array_equal(np.array(Array_new[i:l + i, j:l + j, k:l + k]), np.array(Qs[Index]))):
+                            Qs_value[Index] += 1
+                            print('Q{}_value: {}'.format(Index, Qs_value[Index]))
+                    
+                    print(Qs_value)
+                    print('\n')
+
+        #           
+        List_string = ''
+
+        for i in range(256):
+            List_string = List_string + str(Qs_value[i]) + ', '
+
+        print('[{}]'.format(List_string))
+
+        return Arrays
+
 # ?
 def main():
     """Main function
     """
     #Create_objects()
 
-    config = MenuTkinter()
-    config.menu()
+    #obtain_arrays_from_object_2D(r'Objects\2D\Images\Image_random_0_2D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_0_3D.txt')
+    obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_1_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_2_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_3_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_4_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_5_3D.txt')
+
+    #config = MenuTkinter()
+    #config.menu()
 
 # ?
 if __name__ == "__main__":

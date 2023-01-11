@@ -7,6 +7,10 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 import tensorflow as keras
+
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 
 # ?
