@@ -26,7 +26,7 @@ for i in range(10000):
   Result.extend(Solution)
   Result.append(Target_result)
 
-  with open('Combination2.csv', 'a') as f:
+  with open('Combination3.csv', 'a') as f:
         
       # * using csv.writer method from CSV package
       write = csv.writer(f)
