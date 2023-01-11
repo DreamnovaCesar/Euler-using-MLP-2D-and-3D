@@ -8,6 +8,9 @@ import pandas as pd
 import tensorflow as tf
 import tensorflow as keras
 
+import random
+import csv 
+
 import matplotlib
 matplotlib.use('Agg')
 
