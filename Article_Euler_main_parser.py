@@ -5,11 +5,14 @@ from Article_Euler_Number_3D_General import *
 from Article_Euler_Number_2D_And_3D_ML import *
 
 from Article_Euler_Number_Create_Data import DataEuler
+from Article_Euler_Menu_Tkinter import MenuTkinter
 
 def parse_opt():
 
     # * Construct the argument parser
     parser = argparse.ArgumentParser()
+
+    parser.add_argument('-r', action = 'store_true')
 
     # * Add the arguments to the parser
     parser.add_argument("--savefolder2D", default = r'ObjectsArg\2D\Images', 
@@ -44,6 +47,11 @@ def parse_opt():
 
         Images_3D = DataEuler(folder = opt.savefolder3D, NI = opt.P3D[0], Height = opt.P3D[1], Width = opt.P3D[2], Depth = opt.P3D[3]);
         Images_3D.create_data_euler_3D_random();
+
+    if(opt.r):
+        
+        MT = MenuTkinter()
+        MT.menu()
 
 # ?
 def main():

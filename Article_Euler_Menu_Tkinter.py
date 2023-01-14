@@ -27,7 +27,7 @@ class MenuTkinter(Utilities):
     """
     """
 
-    @Utilities.time_func  
+    @Utilities.time_func 
     def menu(self):
 
         app = App();
