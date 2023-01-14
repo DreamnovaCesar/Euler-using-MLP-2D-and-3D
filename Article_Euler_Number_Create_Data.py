@@ -13,8 +13,6 @@ from Article_Euler_Number_3D_General import Output_3D_array
 
 import random
 
-
-
 # ?
 class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
