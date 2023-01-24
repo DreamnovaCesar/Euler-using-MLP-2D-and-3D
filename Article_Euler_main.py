@@ -323,89 +323,6 @@ def read_image_with_metadata_3D(Array_file: str) -> np.ndarray:
 
         return Array_new
 
-def obtain_arrays_from_object_3D(Object: str) -> list[np.ndarray]:
-        """
-        Method to obtain 1D arrays from a 3D array
-
-        Args:
-            Object (str): description
-
-        """
-
-        #Array = np.loadtxt(self.Object, delimiter = ',')
-
-        # *
-        Arrays = []
-        Asterisks = 30
-
-        l = 2
-
-        # *
-        Array_new = read_image_with_metadata_3D(Object)
-
-        # * Creation of empty numpy arrays 3D
-
-        Qs = table_binary_multi_256(256)
-        Qs_value = np.zeros((256), dtype = 'int')
-
-        # *
-        for i in range(Array_new.shape[0] - 1):
-            for j in range(Array_new.shape[1] - 1):
-                for k in range(Array_new.shape[2] - 1):
-
-                    # *
-                    #Array_prediction_octov[0][0][0] = Array_new[i][j][k]
-                    #Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
-
-                    #Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
-                    #Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
-
-                    #Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
-                    #Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
-
-                    #Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
-                    #Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
-
-                    #Array_new[i:l + i, j:l + j, k:l + k]
-
-                    # *
-                    #Array_prediction[0] = Array_new[i + 1][j][k]
-                    #Array_prediction[1] = Array_new[i + 1][j][k + 1]
-
-                    #Array_prediction[2] = Array_new[i][j][k]
-                    #Array_prediction[3] = Array_new[i][j][k + 1]
-
-                    #Array_prediction[4] = Array_new[i + 1][j + 1][k]
-                    #Array_prediction[5] = Array_new[i + 1][j + 1][k + 1]
-
-                    #Array_prediction[6] = Array_new[i][j + 1][k]
-                    #Array_prediction[7] = Array_new[i][j + 1][k + 1]
-                    #print('\n')
-
-                    for Index in range(len(Qs)):
-                    
-                        #print('Kernel: {}'.format(Array_new[i:l + i, j:l + j, k:l + k]))
-                        #print('Qs: {}'.format(Qs[Index]))
-                        #print('\n')
-                        #print('\n')
-
-                        if(np.array_equal(np.array(Array_new[i:l + i, j:l + j, k:l + k]), np.array(Qs[Index]))):
-                            Qs_value[Index] += 1
-                            print('Q{}_value: {}'.format(Index, Qs_value[Index]))
-                    
-                    print(Qs_value)
-                    print('\n')
-
-        #           
-        List_string = ''
-
-        for i in range(256):
-            List_string = List_string + str(Qs_value[i]) + ', '
-
-        print('[{}]'.format(List_string))
-
-        return Arrays
-
 # ?
 def main():
     """Main function
@@ -414,14 +331,17 @@ def main():
 
     #obtain_arrays_from_object_2D(r'Objects\2D\Images\Image_random_0_2D.txt')
     #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_0_3D.txt')
-    obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_1_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_1_3D.txt')
     #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_2_3D.txt')
     #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_3_3D.txt')
     #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_4_3D.txt')
     #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_5_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_6_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_12_3D.txt')
+    #obtain_arrays_from_object_3D(r'Objects\3D\Images\Image_random_16_3D.txt')
 
-    #config = MenuTkinter()
-    #config.menu()
+    config = MenuTkinter()
+    config.menu()
 
 # ?
 if __name__ == "__main__":

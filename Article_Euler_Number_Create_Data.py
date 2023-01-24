@@ -1,3 +1,7 @@
+import os
+import numpy as np
+import pandas as pd
+
 from Article_Euler_Number_Libraries import *
 from Article_Euler_Number_Utilities import Utilities
 from Article_Euler_Number_Remove_Files import RemoveFiles
@@ -11,7 +15,123 @@ from Article_Euler_Number_2D_General import Output_2D_8_Connectivity
 from Article_Euler_Number_3D_General import Input_3D_array
 from Article_Euler_Number_3D_General import Output_3D_array
 
+from Article_Euler_Number_3D_General import *
+
 import random
+
+def read_image_with_metadata_3D(Array_file: str) -> np.ndarray:
+        """
+        Static method to load txt and convert it into tensors
+
+        Args:
+            Array_file (str): description
+        """
+        # *
+        Array = np.loadtxt(Array_file, delimiter = ',')
+        
+        # *
+        Height = Array.shape[0]/Array.shape[1]
+        Array_new = Array.reshape(int(Height), int(Array.shape[1]), int(Array.shape[1]))
+
+        # *
+        Array_new = Array_new.astype(int)
+
+        print('\n')
+        print('Array obtained')
+        print('\n')
+        print(Array_new)
+        print('\n')
+        print('Number of channels: {}'.format(Array_new.shape[0]))
+        print('\n')
+        print('Number of rows: {}'.format(Array_new.shape[1]))
+        print('\n')
+        print('Number of columns: {}'.format(Array_new.shape[2]))
+        print('\n')
+
+        return Array_new
+
+def get_octovoxel_3D(Object: str) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 3D array
+
+        Args:
+            Object (str): description
+
+        """
+
+        #Array = np.loadtxt(self.Object, delimiter = ',')
+
+        # *
+        Arrays = []
+        Asterisks = 30
+
+        l = 2
+
+        # *
+        Array_new = read_image_with_metadata_3D(Object)
+
+        # * Creation of empty numpy arrays 3D
+
+        Qs = table_binary_multi_256(256)
+        Qs_value = np.zeros((256), dtype = 'int')
+
+        # *
+        for i in range(Array_new.shape[0] - 1):
+            for j in range(Array_new.shape[1] - 1):
+                for k in range(Array_new.shape[2] - 1):
+
+                    # *
+                    #Array_prediction_octov[0][0][0] = Array_new[i][j][k]
+                    #Array_prediction_octov[0][0][1] = Array_new[i][j][k + 1]
+
+                    #Array_prediction_octov[0][1][0] = Array_new[i][j + 1][k]
+                    #Array_prediction_octov[0][1][1] = Array_new[i][j + 1][k + 1]
+
+                    #Array_prediction_octov[1][0][0] = Array_new[i + 1][j][k]
+                    #Array_prediction_octov[1][0][1] = Array_new[i + 1][j][k + 1]
+
+                    #Array_prediction_octov[1][1][0] = Array_new[i + 1][j + 1][k]
+                    #Array_prediction_octov[1][1][1] = Array_new[i + 1][j + 1][k + 1]
+
+                    #Array_new[i:l + i, j:l + j, k:l + k]
+
+                    # *
+                    #Array_prediction[0] = Array_new[i + 1][j][k]
+                    #Array_prediction[1] = Array_new[i + 1][j][k + 1]
+
+                    #Array_prediction[2] = Array_new[i][j][k]
+                    #Array_prediction[3] = Array_new[i][j][k + 1]
+
+                    #Array_prediction[4] = Array_new[i + 1][j + 1][k]
+                    #Array_prediction[5] = Array_new[i + 1][j + 1][k + 1]
+
+                    #Array_prediction[6] = Array_new[i][j + 1][k]
+                    #Array_prediction[7] = Array_new[i][j + 1][k + 1]
+                    #print('\n')
+
+                    for Index in range(len(Qs)):
+                    
+                        #print('Kernel: {}'.format(Array_new[i:l + i, j:l + j, k:l + k]))
+                        #print('Qs: {}'.format(Qs[Index]))
+                        #print('\n')
+                        #print('\n')
+
+                        if(np.array_equal(np.array(Array_new[i:l + i, j:l + j, k:l + k]), np.array(Qs[Index]))):
+                            Qs_value[Index] += 1
+                            print('Q{}_value: {}'.format(Index, Qs_value[Index]))
+
+                    print(Qs_value)
+                    print('\n')
+
+        #           
+        List_string = ''
+
+        for i in range(256):
+            List_string = List_string + str(Qs_value[i]) + ', '
+
+        print('[{}]'.format(List_string))
+
+        return Qs_value
 
 # ?
 class DataEuler(EulerNumberML2D, EulerNumberML3D):
@@ -358,7 +478,8 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
         _extended_summary_
         """
-
+        DataFrame = pd.DataFrame()
+        
         # *
         Prediction = EulerNumberML3D(input = Input_3D_array, output = Output_3D_array, folder = self.__Folder);
 
@@ -438,6 +559,22 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
             File_name = 'Image_random_{}_3D.txt'.format(i);
             Path = os.path.join(self.__Folder, File_name);
             np.savetxt(Path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
+
+            Array = get_octovoxel_3D(Path)
+
+            print(Array)
+            print('///// ' + str(Euler_number))
+
+            Array = np.append(Array, Euler_number)
+
+            print(Array)
+
+            # * Return the new dataframe with the new data
+            DataFrame = DataFrame.append(pd.Series(Array), ignore_index = True)
+                
+            Dataframe_name = 'Dataframe_test.csv'.format()
+            Dataframe_folder = os.path.join(r'Objects\3D\Data', Dataframe_name)
+            DataFrame.to_csv(Dataframe_folder)
 
     # ?
     @Utilities.time_func
