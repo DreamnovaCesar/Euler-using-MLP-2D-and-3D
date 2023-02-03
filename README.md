@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/anfederico/clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/clairvoyant)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
+<a name="readme-top"></a>
 
 # # Euler-number-3D-using-IA
 
@@ -24,7 +25,7 @@ In the context of finding the Euler number, ANNs can be used to analyze images o
 
 For example, an ANN could be trained on a large dataset of 2D or 3D objects, and then used to classify new objects based on their Euler number. The ANN could be trained to recognize patterns in the data that correspond to objects with specific Euler numbers, and then make predictions based on those patterns.
 
-For this problem, we decided to develop a new method in which each combination of octo-voxels we found is added to a list. This list, which had a range of 255 elements for each combination, was utilized for the input layer of the artificial neural network we were using. The output was the number of eulers that we calculated.
+We developed a new method to calculate the Euler number using an Artificial Neural Network (ANN). We found X number of combinations of octo-voxels and added each one to a list. The list, which had a range of 255 elements for each combination, represented the feature set of the data used as input for the ANN. The output was the number of eulers that we calculated. We developed another technique to calculate the Euler number using an artificial neural network from this paper.
 
 ## Setup
 
@@ -61,8 +62,7 @@ CUDA is a parallel computing platform and programming model developed by NVIDIA 
 The following document gives every link used for this process.
 
 ```bash
-Install tensorflow GPU.txt
-```
+tensorflow GPU.txt```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
