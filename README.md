@@ -1,37 +1,88 @@
 
-![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
+![Python](https://img.shields.io/badge/python-v3.10+-blue.svg)
 [![Build Status](https://travis-ci.org/anfederico/clairvoyant.svg?branch=master)](https://travis-ci.org/anfederico/clairvoyant)
-![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-[![GitHub Issues](https://img.shields.io/github/issues/anfederico/clairvoyant.svg)](https://github.com/anfederico/clairvoyant/issues)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 
 # # Euler-number-3D-using-IA
 
-Foobar is a Python library for dealing with word pluralization.
+Hey there! I see you're interested in learning about the Euler number. This is a fundamental concept in mathematics that helps us understand the topology of objects in 2D and 3D space.
 
-## Installation
+Let's start with 2D objects. In this case, the Euler number is calculated as the number of connected components (also known as "holes") in a given object minus the number of its boundaries (also known as "genus"). Essentially, it tells us how many holes an object has, and if it's open or closed. The formula for the Euler number in 2D is:
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Euler number = Number of connected components - Number of boundaries
 
-```bash
-pip install foobar
-```
+It's important to note that the Euler number is always an integer and can be negative, zero, or positive. For example, if an object has one hole and one boundary, the Euler number would be zero. Now, let's move on to 3D objects. The Euler number in this case is calculated in a similar way, but it takes into account not only the number of holes and boundaries, but also the number of handles (or "tunnels"). The formula for the Euler number in 3D is:
 
-## Usage
+Euler number = Number of connected components - Number of handles + Number of boundaries
+
+The Euler number in 3D also has some practical applications, such as in computer graphics, where it can be used to detect topological changes in objects or surfaces. In summary, the Euler number is a powerful tool that helps us understand the topology of objects in 2D and 3D space. It's calculated by counting the number of connected components, boundaries, and handles, and it can be negative, zero, or positive.
+
+Artificial Neural Networks (ANNs) are machine learning models that are designed to mimic the structure and function of the human brain. They are particularly well-suited for solving complex problems, such as those involving pattern recognition, data classification, and regression analysis.
+
+In the context of finding the Euler number, ANNs can be used to analyze images or other types of data and identify the underlying topological features, such as the number of connected components, boundaries, and handles. This is because ANNs are able to process large amounts of data, identify patterns, and make predictions based on that data.
+
+For example, an ANN could be trained on a large dataset of 2D or 3D objects, and then used to classify new objects based on their Euler number. The ANN could be trained to recognize patterns in the data that correspond to objects with specific Euler numbers, and then make predictions based on those patterns.
+
+For this problem, we decided to develop a new method in which each combination of octo-voxels we found is added to a list. This list, which had a range of 255 elements for each combination, was utilized for the input layer of the artificial neural network we were using. The output was the number of eulers that we calculated.
+
+## Setup
+
+To create a virtual environment with TensorFlow using Anaconda, follow these steps:
+
+Open the Anaconda Prompt by clicking the Start button and typing "Anaconda Prompt".
+Type the following command to create a new virtual environment called "tfenv":
 
 ```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+conda create --name tfenv
 ```
+
+Activate the virtual environment by typing:
+
+```python
+conda activate tfenv
+```
+
+Finally, install requirements.txt.
+
+```python
+conda install requirements.txt
+```
+
+## GPU setup
+
+CUDA is a parallel computing platform and programming model developed by NVIDIA for general computing on graphics processing units (GPUs), and cuDNN is a library developed by NVIDIA for deep learning applications. Here are the steps to install both CUDA and cuDNN on your system:
+
+- Check the version of [TensorFlow](https://www.tensorflow.org/install/source#gpu) that you can use.
+- You need to install Visual Studio; the documentation explains which version of VS you need. The one we used was [Visual Studio 2019.](https://my.visualstudio.com/Downloads?q=Visual%20Studio%202019)
+- Check if your system has an NVIDIA GPU and if it is compatible with CUDA. You can check the list of CUDA-compatible GPUs at the NVIDIA website.
+- Download the CUDA Toolkit and cuDNN from the NVIDIA website. You will need to create an NVIDIA developer account to access the downloads.
+
+The following document gives every link used for this process.
+
+```bash
+Install tensorflow GPU.txt
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Connect with me
+
+- Contact me CesareduardoMucha@hotmail.com
+- Follow me on [Linkedin](https://www.linkedin.com/in/cesar-eduardo-mu%C3%B1oz-chavez-a00674186/) and [Twitter](https://twitter.com/CesarEd43166481) 💡
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Co-authors
+
+- Dr. Hermilo Sanchez Cruz
+
+### Built With
+
+* [![Python][Python.com]][Python-url]
+* [![TensorFlow][TensorFlow.com]][TensorFlow-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Contributing
 
@@ -40,6 +91,10 @@ to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
