@@ -43,6 +43,7 @@ class OctovoxelEulerANN(Utilities):
         self._Folder = kwargs.get('folder', None)
         self._Model_name = kwargs.get('MN', None)
         self._Epochs = kwargs.get('epochs', None)
+        self._Epochs = kwargs.get('epochs', None)
 
         self._Columns = ["Loss", "Accuracy"]
 
@@ -305,30 +306,48 @@ class OctovoxelEulerANN(Utilities):
     # ? Method to to train a MLP for a 2D image
     @Utilities.time_func
     @Utilities.detect_GPU
-    def MLP_octovoxel_training_3D(self, Dataframe_:pd.DataFrame) -> Any:
+    def MLP_octovoxel_training_3D(self, Dataframe_:pd.DataFrame, Opt: str = "ADAM", lr: float = 0.000001) -> Any:
         """
         Method to to train a MLP for a 3D image
 
         """
+        
+        # *
+        Optimizers = ("ADAM", "NADAM", "ADAMAX", "ADAGRAD", "ADADELTA", "SGD", "RMSPROP", "FTRL");
 
         # *
-        Dataframe = pd.read_csv(Dataframe_)
+        Dataframe = pd.read_csv(Dataframe_);
 
         # * Return a dataframe with only the data without the labels
-        X = Dataframe.iloc[:, 1:257].values
+        X = Dataframe.iloc[:, 1:257].values;
 
         # * Return a dataframe with only the labels
-        Y = Dataframe.iloc[:, -1].values
+        Y = Dataframe.iloc[:, -1].values;
 
         #X = np.expand_dims(X, axis = 1)
-        Y = np.expand_dims(Y, axis = 1)
+        Y = np.expand_dims(Y, axis = 1);
 
-        Model = tf.keras.Sequential()
-        Model.add(tf.keras.layers.Input(shape = X.shape[1],))
-        Model.add(tf.keras.layers.Dense(units = 1200, activation = 'relu', kernel_initializer = 'normal'))
-        Model.add(tf.keras.layers.Dense(units = 1))
-
-        Opt = Adam(learning_rate = 0.000001)
+        Model = tf.keras.Sequential();
+        Model.add(tf.keras.layers.Input(shape = X.shape[1],));
+        Model.add(tf.keras.layers.Dense(units = 1200, activation = 'relu'));
+        Model.add(tf.keras.layers.Dense(units = 1));
+        
+        if(Opt == Optimizers[0]):
+            Opt = Adam(learning_rate = lr);
+        elif(Opt == Optimizers[1]):
+            Opt = Nadam(learning_rate = lr);
+        elif(Opt == Optimizers[2]):
+            Opt = Adamax(learning_rate = lr);
+        elif(Opt == Optimizers[3]):
+            Opt = Adagrad(learning_rate = lr);
+        elif(Opt == Optimizers[4]):
+            Opt = Adadelta(learning_rate = lr);
+        elif(Opt == Optimizers[5]):
+            Opt = SGD(learning_rate = lr);
+        elif(Opt == Optimizers[6]):
+            Opt = RMSprop(learning_rate = lr);
+        elif(Opt == Optimizers[7]):
+            Opt = Ftrl(learning_rate = lr);
 
         Model.compile(
             optimizer = Opt, 
