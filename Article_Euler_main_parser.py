@@ -8,7 +8,29 @@ from Article_Euler_Number_Create_Data import DataEuler
 from Article_Euler_Menu_Tkinter import MenuTkinter
 
 def parse_opt():
+    """
+    Examples
+    --------
+    Use ArgumentParser()
 
+    Activate Tkinter menu
+    >>> python Article_Euler_main_parser.py -r
+    >>> python3 Article_Euler_main_parser.py -r
+
+    Create new images 2D.
+
+    The default folder is r'ObjectsArg\2D\Images'.
+
+    >>> python Article_Euler_main_parser.py --P2D 8 8 8 --C2D
+    >>> python3 Article_Euler_main_parser.py --P2D 8 8 8 --C2D
+
+    Create new images 3D.
+
+    The default folder is r'ObjectsArg\3D\Images'.
+
+    >>> python Article_Euler_main_parser.py --P3D 8 8 8 8 --C3D
+    >>> python3 Article_Euler_main_parser.py --P3D 8 8 8 8 --C3D
+    """
     # * Construct the argument parser
     parser = argparse.ArgumentParser()
 
