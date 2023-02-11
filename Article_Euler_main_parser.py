@@ -31,6 +31,7 @@ def parse_opt():
     >>> python Article_Euler_main_parser.py --P3D 8 8 8 8 --C3D
     >>> python3 Article_Euler_main_parser.py --P3D 8 8 8 8 --C3D
     """
+    
     # * Construct the argument parser
     parser = argparse.ArgumentParser()
 

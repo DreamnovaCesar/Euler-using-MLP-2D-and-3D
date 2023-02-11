@@ -264,8 +264,6 @@ class OctovoxelEulerANN(Utilities):
 
         """
 
-        l = 2
-
         # * Saving the function into a varible array
         Array_new = self.read_image_with_metadata_3D(Object);
 
@@ -274,6 +272,8 @@ class OctovoxelEulerANN(Utilities):
 
         # * Create a empty numpy array
         Qs_value = np.zeros((256), dtype = 'int');
+        
+        l = 2
 
         # * From each combination of the truth table, subtract the number of times each octovovel combination is presented.
         for i in range(Array_new.shape[0] - 1):
@@ -285,12 +285,61 @@ class OctovoxelEulerANN(Utilities):
                         # * Compare arrays with different dimensions.
                         if(np.array_equal(np.array(Array_new[i:l + i, j:l + j, k:l + k]), np.array(Qs[Index]))):
                             Qs_value[Index] += 1;
-                            print('Q{}_value: {}'.format(Index, Qs_value[Index]));
+                            #print('Q{}_value: {}'.format(Index, Qs_value[Index]));
 
                     # * print the difference between arrays
-                    print(Qs_value)
-                    print('\n')
+                    #print(Qs_value)
+                    #print('\n')
+
+        #List_string = ''
+
+        """
+        for i in range(256):
+
+            List_string = List_string + str(Qs_value[i]) + ', ';
+            if(i == 255):
+                List_string = List_string + str(Qs_value[i]) + ', ';
+
+        print('[{}]'.format(List_string))
+        """
         
+        return Qs_value
+
+    # ? Method to obtain the combination of octovoxel in a 3D object
+    @Utilities.time_func
+    def get_octovoxel_3D_test(self, Object: str) -> list[np.ndarray]:
+        """
+        Method to obtain 1D arrays from a 3D array
+
+        Args:
+            Object (str): description
+
+        """
+
+        # * Saving the function into a varible array
+        Array_new = self.read_image_with_metadata_3D(Object);
+
+        # * Extract the truth table
+        Qs = table_binary_multi_256(256);
+
+        # * Create a empty numpy array
+        Qs_value = np.zeros((256), dtype = 'int');
+        
+        l = 2
+    
+        # * From each combination of the truth table, subtract the number of times each octovovel combination is presented.
+        Qs_value = np.zeros(len(Qs), dtype=int)
+
+        for i in range(Array_new.shape[0] - l + 1):
+            for j in range(Array_new.shape[1] - l + 1):
+                for k in range(Array_new.shape[2] - l + 1):
+                    subarray = Array_new[i:i+l, j:j+l, k:k+l]
+                    match = [np.all(subarray == q) for q in Qs]
+                    Qs_value[np.where(match)] += 1
+
+        print(Qs_value)
+
+        """
         List_string = ''
 
         for i in range(256):
@@ -300,6 +349,7 @@ class OctovoxelEulerANN(Utilities):
                 List_string = List_string + str(Qs_value[i]) + ', ';
 
         print('[{}]'.format(List_string))
+        """
 
         return Qs_value
 
@@ -312,6 +362,9 @@ class OctovoxelEulerANN(Utilities):
 
         """
         
+        # *
+        Opt_uppercase = Opt.upper()
+
         # *
         Optimizers = ("ADAM", "NADAM", "ADAMAX", "ADAGRAD", "ADADELTA", "SGD", "RMSPROP", "FTRL");
 

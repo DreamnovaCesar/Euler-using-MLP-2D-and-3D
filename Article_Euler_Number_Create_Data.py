@@ -529,6 +529,7 @@ class DataEuler(EulerNumberML2D, EulerNumberML3D):
 
             #print(Data_3D_read);
 
+            # * 
             for j in range(self.__Depth + 2):
                 
                 # *
