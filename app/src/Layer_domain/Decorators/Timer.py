@@ -25,9 +25,9 @@ class Timer(object):
             result = func(*args, **kwargs)
             end_time = time.time()
             print("\n")
-            print("*" * 60)
-            print('Function {} executed in {:.4f}'.format(func.__name__, end_time - start_time))
-            print("*" * 60)
+            print("*" * 60);
+            print('Function {} executed in {:.4f}'.format(func.__name__, end_time - start_time));
+            print("*" * 60);
             print("\n")
             return result
         return wrapper

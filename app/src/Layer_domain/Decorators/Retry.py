@@ -29,8 +29,8 @@ class Retry(object):
                         result = func(*args, **kwargs)
                         return result
                     except Exception as e:
-                        print(f"Error occurred: {e}. Retrying in {delay} seconds...")
-                        time.sleep(delay)
+                        print(f"Error occurred: {e}. Retrying in {delay} seconds...");
+                        time.sleep(delay);
                 raise Exception("Function failed after 3 retries.")
             return wrapper
         return decorator

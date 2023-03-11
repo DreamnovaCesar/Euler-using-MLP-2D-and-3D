@@ -1,3 +1,3 @@
-from .Class_AllFileRemover import AllFileRemover
-from .Class_FileRemover import FileRemover
-from .Class_RandomFileRemover import RandomFileRemover
+from .AllFileRemover import AllFileRemover
+from .FileRemover import FileRemover
+from .RandomFileRemover import RandomFileRemover

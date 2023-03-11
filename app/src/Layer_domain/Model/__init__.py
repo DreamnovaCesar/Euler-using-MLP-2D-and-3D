@@ -1,4 +1,4 @@
 from .Optimizer import *
-from .Class_MLP import MLP
-from .Class_Model import Model
-from .Class_RF import RF
+from .MLP import MLP
+from .Model import Model
+from .RF import RF

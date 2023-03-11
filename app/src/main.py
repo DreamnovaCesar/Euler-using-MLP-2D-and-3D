@@ -1,12 +1,12 @@
-from .Layer_application.Class_ExtractorPixels import ExtractorPixels
-from .Layer_application.Class_ExtractorOctovoxels import ExtractorOctovoxels
+from .Layer_application.ExtractorPixels import ExtractorPixels
+from .Layer_application.ExtractorOctovoxels import ExtractorOctovoxels
 
-from .Layer_domain.Convertion.Class_BinaryStorageList import BinaryStorageList
-from .Layer_domain.Convertion.Class_ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
-from .Layer_domain.Convertion.Class_ConvertionDecimalBinaryNibble import ConvertionDecimalBinaryNibble
-from .Layer_domain.getArray.Class_OctovoxelHander import OctovoxelHandler
-from .Layer_domain.getArray.Class_PixelHander import PixelHandler
-from .Layer_domain.Class_TextDataLoader import TextDataLoader 
+from .Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
+from .Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
+from .Layer_domain.Convertion.ConvertionDecimalBinaryNibble import ConvertionDecimalBinaryNibble
+from .Layer_domain.Arrays.OctovoxelHander import OctovoxelHandler
+from .Layer_domain.Arrays.PixelHander import PixelHandler
+from .Layer_domain.TextDataLoader import TextDataLoader 
 
 
 class TODO:

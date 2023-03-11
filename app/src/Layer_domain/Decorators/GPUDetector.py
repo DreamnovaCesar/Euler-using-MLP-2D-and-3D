@@ -20,18 +20,22 @@ class GPUDetector(object):
         """
         @wraps(func)  
         def wrapper(*args, **kwargs):  
-            gpu_name = tf.test.gpu_device_name()
-            gpu_available = tf.config.list_physical_devices('GPU')
-            print("\n")
-            print(gpu_available)
-            print("\n")
+            gpu_name = tf.test.gpu_device_name();
+            gpu_available = tf.config.list_physical_devices('GPU');
+
+            print("\n");
+            print(gpu_available);
+            print("\n");
+
             if not gpu_available:
-                print("GPU device not found")
+                print("GPU device not found");
             elif "GPU" not in gpu_name:
-                print("GPU device not found")
+                print("GPU device not found");
             else:
-                print('Found GPU at: {}'.format(gpu_name))
-            print("\n")
-            result = func(*args, **kwargs)
+                print('Found GPU at: {}'.format(gpu_name));
+            
+            print("\n");
+            result = func(*args, **kwargs);
+            
             return result
         return wrapper
