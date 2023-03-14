@@ -1,6 +1,6 @@
 from keras.optimizers import Adagrad
 
-from .Class_Optimizer import Optimizer
+from .Optimizer import Optimizer
 
 class AdagradOptimizer(Optimizer):
     def get_optimizer(self, learning_rate: float = 0.0000001):

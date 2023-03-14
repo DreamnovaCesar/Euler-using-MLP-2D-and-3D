@@ -21,12 +21,12 @@ class ConvertionDecimalBinaryNibble(ConvertionSystem):
         """
 
         # * Conversion to int and binary
-        Value_to_convert = int(Value_to_convert)
-        Binary_value = format(Value_to_convert, '04b')
+        Value_to_convert = int(Value_to_convert);
+        Binary_value = format(Value_to_convert, '04b');
 
-        Shape = (2,) * 2
-        Binary_array = [int(x) for x in Binary_value]
-        Binary_array = np.reshape([Binary_array], Shape)
+        Shape = (2,) * 2;
+        Binary_array = [int(x) for x in Binary_value];
+        Binary_array = np.reshape([Binary_array], Shape);
 
         return Binary_array
     

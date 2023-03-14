@@ -39,7 +39,7 @@ class ModelBuilderMLP(ModelBuilder):
         """
 
         model = Sequential()
-        model.add(Input(shape = input_shape))
+        model.add(Input(shape = input_shape.shape[1],))
         model.add(Dense(dense_1, activation = activation_1))
         model.add(Dense(output, activation = activation_output))
 

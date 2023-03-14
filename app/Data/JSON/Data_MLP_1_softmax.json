@@ -1,0 +1,1 @@
+{"dense_1": 256, "output": 4, "activation_1": "relu", "activation_output": "softmax", "loss": "mean_squared_error", "metrics": "accuracy"}

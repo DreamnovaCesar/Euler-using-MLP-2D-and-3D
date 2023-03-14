@@ -1,6 +1,6 @@
 from keras.optimizers import Nadam
 
-from .Class_Optimizer import Optimizer
+from .Optimizer import Optimizer
 
 class NadamOptimizer(Optimizer):
     def get_optimizer(self, learning_rate: float = 0.0000001):

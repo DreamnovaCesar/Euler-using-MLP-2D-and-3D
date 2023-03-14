@@ -2,7 +2,7 @@
 
 from .EulerExtractor import EulerExtractor
 
-class EulerExtractorImage(EulerExtractor):
+class EulerExtractorObject(EulerExtractor):
     
     def __init__(self, data_reader, initial_x, final_x):
         self.data_reader = data_reader

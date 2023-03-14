@@ -6,5 +6,5 @@ from .RemoveFiles import *
 
 from .DataFrameCreator import DataFrameCreator
 from .DataLoader import DataLoader
-from .CSVDataLoader import CSVReader
+from .DataLoaderCSV import DataLoaderCSV
 from .ModelDataLoader import DataLoaderModel

@@ -1,9 +1,9 @@
 import numpy as np 
 
-from .CSVDataLoader import CSVReader
+from .DataLoaderCSV import DataLoaderCSV
 
 class DataProcessor:
-    def __init__(self, Data_reader : CSVReader, 
+    def __init__(self, Data_reader : DataLoaderCSV, 
                  initial_x : int = 1, 
                  final_x : int = 257):
         
@@ -11,9 +11,9 @@ class DataProcessor:
         self.initial_x = initial_x
         self.final_x = final_x
 
-    def process_data(self, source):
+    def process_data(self, Path):
         # read the data from the source using the data reader
-        dataframe = self.Data_reader.load_data(source)
+        dataframe = self.Data_reader.load_data(Path)
 
         # extract the input data and labels from the dataframe
         X = dataframe.iloc[:, self.initial_x:self.final_x].values

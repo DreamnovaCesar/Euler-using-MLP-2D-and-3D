@@ -3,7 +3,7 @@
 from abc import ABC
 from abc import abstractmethod
 
-class Extractor(object):
+class Extractor(ABC):
     
     def extractor(self):
         pass

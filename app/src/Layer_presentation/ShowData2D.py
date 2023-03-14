@@ -1,6 +1,6 @@
 import numpy as np 
 
-from Class_ShowDataFromTxt import ShowDataFromTxt
+from ShowDataFromTxt import ShowDataFromTxt
 
 class ShowData2D(ShowDataFromTxt):
     """

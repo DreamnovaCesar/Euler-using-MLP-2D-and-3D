@@ -1,6 +1,6 @@
 from keras.optimizers import Adadelta
 
-from .Class_Optimizer import Optimizer
+from .Optimizer import Optimizer
 
 class AdadeltaOptimizer(Optimizer):
     """A class for creating an Adadelta optimizer in Keras.

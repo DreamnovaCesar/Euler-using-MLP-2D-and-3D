@@ -1,0 +1,1 @@
+{"dense_1": 256, "output": 1, "activation_1": "sigmoid", "activation_output": "tanh", "loss": "mean_squared_error", "metrics": "accuracy"}

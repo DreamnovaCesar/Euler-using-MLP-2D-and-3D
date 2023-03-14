@@ -12,7 +12,7 @@ class Model(ABC):
     """
 
     @abstractmethod
-    def compile(self, optimizer, loss, metrics):
+    def compile_model(self, optimizer, loss, metrics):
         """Compile the model with an optimizer, loss function, and metrics.
 
         Parameters
@@ -32,7 +32,7 @@ class Model(ABC):
         pass
 
     @abstractmethod
-    def fit(self, x, y, epochs, verbose):
+    def fit_model(self, x, y, epochs, verbose):
         """Fit the model to the training data.
 
         Parameters
@@ -54,7 +54,7 @@ class Model(ABC):
         pass
 
     @abstractmethod
-    def predict(self, data) -> Union[None, Any]:
+    def predict_model(self, data) -> Union[None, Any]:
         """Use the trained model to make predictions.
 
         Parameters
