@@ -31,7 +31,8 @@ class EulerObjectGenerator(EulerGenerator):
         super().__init__(_Folder_path, _Number_of_objects, _Height, _Width, _Model)
 
         self._Depth = Depth
-    
+        self._Depth = int(self._Depth)
+
     def generate_euler_samples_random(self, Prob_0: float = 0.2, Prob_1: float = 0.8):
         """
         _summary_
@@ -167,7 +168,7 @@ class EulerObjectGenerator(EulerGenerator):
 
             np.savetxt(Object_path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
 
-            Euler_number = MLPPrediction.prediction(self, self._Model, Object_path);
+            Euler_number = MLPPrediction.prediction(self._Model, Object_path);
             Combination_octovoxels = Extraction_octovoxels.extractor(Object_path);
 
             print(Combination_octovoxels)
@@ -180,8 +181,8 @@ class EulerObjectGenerator(EulerGenerator):
             # * Return the new dataframe with the new data
             DataFrame = DataFrame.append(pd.Series(Combination_octovoxels), ignore_index = True)
                 
-            Dataframe_name = 'Dataframe_test.csv'.format()
-            Dataframe_folder = os.path.join(r'Objects\3D\Data', Dataframe_name)
+            Dataframe_name = 'Dataframe_test_1.csv'.format()
+            Dataframe_folder = os.path.join(r'app\data\3D\Data', Dataframe_name)
             DataFrame.to_csv(Dataframe_folder)
 
             #Array = Prediction.obtain_arrays_3D(Data_3D_edges);
