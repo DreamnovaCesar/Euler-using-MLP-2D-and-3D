@@ -3,6 +3,8 @@ from abc import abstractmethod
 
 class Optimizer(ABC):
 
+    @property
+    @staticmethod
     @abstractmethod
-    def get_optimizer(self, learning_rate: float = 0.0000001):
+    def get_optimizer(learning_rate : float):
         pass

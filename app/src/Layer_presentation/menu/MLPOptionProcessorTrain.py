@@ -1,9 +1,9 @@
 from .MenuOption import MenuOption
-from ...Layer_application.MLPStandard import MLPStandard
+from ...Layer_application.MLPProcessor import MLPProcessor
 from ...Layer_domain.Model.MLP import MLP
-from ...Utilities import General_Info_3D
+from ...Layer_domain.DataProcessor import DataProcessor
 
-class MLPOption(MenuOption):
+class MLPOptionProcessorTrain(MenuOption):
     """
     A MenuOption class that allows the user to download random images of girls.
 
@@ -18,14 +18,14 @@ class MLPOption(MenuOption):
         Prompts the user to input a path to a number of folders and the Nnumber of images to download. 
     """
 
-    def __init__(self, 
-                 MLP_standard : MLPStandard):
+    def __init__(self,
+                 MLP_processor : MLPProcessor):
 
         """
         Constructs a new DownloadRandomly object.
         """
         
-        self.MLP_standard = MLP_standard;
+        self.MLP_processor = MLP_processor;
 
     def execute(self):
         """
@@ -34,10 +34,17 @@ class MLPOption(MenuOption):
         """
         
         self.JSON_file = input('JSON_file: ');
+        self.CSV_file = input('CSV_file: ');
         self.Model_name = input("Model's name: ");
+        self.Epochs = input("Epochs: ");
+        self.Lr = input("Learning rate: ");
         
-        MLP_standard = self.MLP_standard(MLP);
-        MLP_standard.train(General_Info_3D._INPUT_3D_, 
-                           General_Info_3D._OUTPUT_3D_, 
-                           self.JSON_file, 
-                           self.Model_name);
+        self.Epochs = int(self.Epochs)
+        self.Lr = float(self.Lr)
+
+        MLP_processor = self.MLP_processor(DataProcessor, MLP);
+        MLP_processor.train(self.JSON_file,
+                           self.CSV_file, 
+                           self.Model_name,
+                           self.Epochs,
+                           self.Lr );

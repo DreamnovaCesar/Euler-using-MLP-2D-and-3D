@@ -5,7 +5,7 @@ from keras.layers import Input
 
 from .ModelBuilder import ModelBuilder
 
-class ModelBuilderMLP(ModelBuilder):
+class ModelBuilderMLPV2(ModelBuilder):
     """A class for building a Multi-Layer Perceptron model using Keras.
     """
 
@@ -13,8 +13,8 @@ class ModelBuilderMLP(ModelBuilder):
     def build_model(input_shape : Tuple[int, ...], 
                     dense_1 : int, 
                     output : int, 
-                    activation_1 : str, 
-                    activation_output : str) -> Sequential:
+                    activation_1 : str
+                    ) -> Sequential:
 
         """Builds a Multi-Layer Perceptron model using Keras.
 
@@ -41,7 +41,7 @@ class ModelBuilderMLP(ModelBuilder):
         model = Sequential()
         model.add(Input(shape = input_shape.shape[1],))
         model.add(Dense(dense_1, activation = activation_1))
-        model.add(Dense(output, activation = activation_output))
+        model.add(Dense(output))
 
         return model
     

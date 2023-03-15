@@ -1,3 +1,5 @@
+import numpy as np
+
 from .Extractor import Extractor
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
@@ -28,6 +30,11 @@ class ExtractorOctovoxels(Extractor):
         Octovoxel_handler_object = self.Octovoxel_handler(Arrays, Storage_list)
         Combinations_int = Octovoxel_handler_object.get_number()
 
+        # *
+        Combinations_int = np.expand_dims(Combinations_int, axis = 0)
+
         print(Combinations_int)
+
+        return Combinations_int
 
     

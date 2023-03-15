@@ -6,14 +6,20 @@ from .Layer_application.ExtractorPixels import ExtractorPixels
 from .Layer_application.ExtractorOctovoxels import ExtractorOctovoxels
 
 from .Layer_application.MLPStandard import MLPStandard
-from .Layer_presentation.menu.MLPOption import MLPOption
+from .Layer_application.MLPProcessor import MLPProcessor
+from .Layer_application.MLPPredictionRegression import MLPPredictionRegression
+from .Layer_presentation.menu.MLPOptionStandardTrain import MLPOptionStandardTrain
+from .Layer_presentation.menu.MLPOptionProcessorTrain import MLPOptionProcessorTrain
+from .Layer_presentation.menu.MLPOptionPrediction import MLPOptionPrediction
 
 from .Layer_presentation.menu.Menu import Menu
 
 # ? Define the options for the menu
 options = {
 
-    "Train MLP" : MLPOption(MLPStandard)
+    "MLP Train Standard" : MLPOptionStandardTrain(MLPStandard),
+    "MLP Train Processor" : MLPOptionProcessorTrain(MLPProcessor),
+    "MLP Prediction Processor" : MLPOptionPrediction(MLPPredictionRegression)
 
 };
 

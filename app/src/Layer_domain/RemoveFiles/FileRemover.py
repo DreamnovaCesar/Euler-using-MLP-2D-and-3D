@@ -15,12 +15,12 @@ class FileRemover(ABC):
     remove_files(): Removes all files and subdirectories in the specified folder.
     """
 
-    def __init__(self, folder_path: str) -> None:
+    def __init__(self, Folder_path: str) -> None:
         """
         Constructor method for the FileRemover class.
 
         """
-        self.folder_path = folder_path
+        self.Folder_path = Folder_path
 
     @abstractmethod
     def remove_files(self) -> None:

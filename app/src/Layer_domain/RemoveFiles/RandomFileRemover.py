@@ -22,6 +22,11 @@ class RandomFileRemover(FileRemover):
         Prints the name of each removed file to the console.
     """
 
+    def __init__(self, Folder_path: str):
+        super().__init__(Folder_path)
+
+        self.Folder_path = Folder_path
+        
     def remove_files(self, number_files_to_remove: int) -> None:
         """
         Removes a random selection of files from the specified folder path.

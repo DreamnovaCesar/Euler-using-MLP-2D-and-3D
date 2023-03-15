@@ -21,7 +21,12 @@ class AllFileRemover(FileRemover):
         Raises an exception if the removal process fails for any file/directory.
 
     """
-    
+
+    def __init__(self, Folder_path: str):
+        super().__init__(Folder_path)
+
+        self.Folder_path = Folder_path
+
     def remove_files(self) -> None:
         """
         Removes all files and directories from the specified folder path.
@@ -38,8 +43,8 @@ class AllFileRemover(FileRemover):
         """
 
         # * Loop through all files and directories in the specified folder path
-        for filename in os.listdir(self.folder_path):
-            file_path = os.path.join(self.folder_path, filename);
+        for filename in os.listdir(self.Folder_path):
+            file_path = os.path.join(self.Folder_path, filename);
             try:
                 # * If the path is a file or a symbolic link, delete it
                 if os.path.isfile(file_path) or os.path.islink(file_path):

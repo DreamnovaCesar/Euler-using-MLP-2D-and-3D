@@ -15,7 +15,7 @@ from ..Layer_domain.Model.Optimizer.NadamOptimizer import NadamOptimizer
 from ..Layer_domain.Model.Optimizer.RMSpropOptimizer import RMSpropOptimizer
 from ..Layer_domain.Model.Optimizer.SGDOptimizer import SGDOptimizer
 
-from ..Layer_domain.Model.ModelBuilderMLP import ModelBuilderMLP
+from ..Layer_domain.Model.ModelBuilderMLPV1 import ModelBuilderMLPV1
 
 from ..Layer_domain.DataLoaderCSV import DataLoaderCSV
 from ..Layer_presentation.DataPlotterDL import DataPlotterDL
@@ -29,7 +29,7 @@ class MLPStandard(MLPTrain):
         
         self.MLP_training = MLP_training
 
-    def train(self, X, Y, JSON_file, Model_name, epochs = 100):
+    def train(self, X, Y, JSON_file, Model_name, epochs = 10000):
 
         # * Prints that training has completed
         print('\n')
@@ -41,8 +41,8 @@ class MLPStandard(MLPTrain):
                                 Y, 
                                 JsonFileHandler, 
                                 JSON_file, 
-                                AdamaxOptimizer,
-                                ModelBuilderMLP,
+                                AdamOptimizer,
+                                ModelBuilderMLPV1,
                                 epochs)
         
         MLP.compile_model()
