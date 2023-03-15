@@ -20,7 +20,9 @@ class OctovoxelHandler(ArrayHandler):
         Calculate q_values based on the given Storage_list and returns them as a numpy array.
     """
     
-    def __init__(self, Arrays: np.ndarray, Storage_list: list[str]):
+    def __init__(self, 
+                 Arrays: np.ndarray, 
+                 Storage_list: list[str]):
         """
         Initialize OctovoxelHandler.
 
@@ -35,7 +37,7 @@ class OctovoxelHandler(ArrayHandler):
         self.Arrays = Arrays;
         self.Storage_list = Storage_list;
 
-    def get_number(self) -> np.ndarray:
+    def get_array(self) -> np.ndarray:
         """
         Calculate Combinations_int based on the given Storage_list and return them as a numpy array.
         """
@@ -56,7 +58,10 @@ class OctovoxelHandler(ArrayHandler):
             for j in range(self.Arrays.shape[1] - 1):
                 for k in range(self.Arrays.shape[2] - 1):
                     for index in range(len(self.Storage_list)):
-                        if np.array_equal(np.array(self.Arrays[i:Octovoxel_size + i, j:Octovoxel_size + j, k:Octovoxel_size + k]), 
+                        if np.array_equal(np.array(self.Arrays[i:Octovoxel_size + i, 
+                                                               j:Octovoxel_size + j, 
+                                                               k:Octovoxel_size + k]), 
+                                                               
                                           np.array(self.Storage_list[index])):
                             
                             Combinations_int[index] += 1;

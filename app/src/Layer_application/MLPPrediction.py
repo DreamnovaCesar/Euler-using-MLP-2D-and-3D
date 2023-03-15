@@ -11,6 +11,7 @@ class MLPPrediction(ABC):
         
         self.MLP_prediction = MLP_prediction
 
+    @abstractmethod
     def prediction(self, Data):
         pass
 

@@ -15,15 +15,13 @@ class EulerGenerator(EulerGenerator):
                  _Folder_path : str, 
                  _Number_of_objects : int,
                  _Height : int,
-                 _Width : int) -> None:
+                 _Width : int,
+                 _Model : str) -> None:
         
-        super().__init__(_Folder_path, _Number_of_objects, _Height, _Width)
+        super().__init__(_Folder_path, _Number_of_objects, _Height, _Width, _Model)
 
     
-    def generate_euler_samples_random(self):
-
-        P_0 = 0.5
-        P_1 = 0.5
+    def generate_euler_samples_random(self, Prob_0: float = 0.2, Prob_1: float = 0.8):
 
         # *
         Remove_files = AllFileRemover(self._Folder_path)
@@ -33,7 +31,7 @@ class EulerGenerator(EulerGenerator):
 
             # *
             #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
-            Data_2D = np.random.choice(2, self._Height * self._Width, p = [P_0, P_1]);
+            Data_2D = np.random.choice(2, self._Height * self._Width, p = [Prob_0, Prob_1]);
             Data_2D = Data_2D.reshape(self._Height, self._Width);
 
             #print(Data_2D);
@@ -42,7 +40,7 @@ class EulerGenerator(EulerGenerator):
             if(Save_image):
 
                 Image_name = "Image_random_{}_2D.png".format(i)
-                Image_path = os.path.join(self.__Folder, Image_name)
+                Image_path = os.path.join(self._Folder_path, Image_name)
                 
                 Data_2D_edges = np.zeros((Data_2D.shape[0] + 2, Data_2D.shape[1] + 2))
 
@@ -59,16 +57,16 @@ class EulerGenerator(EulerGenerator):
             Path = os.path.join(self.__Folder, File_name);
             np.savetxt(Path, Data_2D_edges, fmt = '%0.0f', delimiter = ',');
     
-    def generate_euler_samples_settings():
+    def generate_euler_samples_settings(self):
 
         # *
         Prediction = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = self.__Folder);
         
         # *
-        Remove_files = RemoveFiles(folder = self.__Folder)
-        Remove_files.remove_all()
+        Remove_files = AllFileRemover(self._Folder_path)
+        Remove_files.remove_files()
 
-        for i in range(self.__Number_of_images):
+        for i in range(self._Number_of_objects):
 
             #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
 
@@ -78,11 +76,11 @@ class EulerGenerator(EulerGenerator):
             P_0 = 0.2
             P_1 = 0.8
 
-            while(Euler_number != self.__Euler_number):
+            while(Euler_number != self._Euler_number):
 
                 # *
-                Data_2D = np.random.choice(2, self.__Height * self.__Width, p = [P_0, P_1]);
-                Data_2D = Data_2D.reshape(self.__Height, self.__Width);
+                Data_2D = np.random.choice(2, self._Height * self._Width, p = [P_0, P_1]);
+                Data_2D = Data_2D.reshape(self._Height, self._Width);
 
                 print(Data_2D);
 
@@ -103,7 +101,7 @@ class EulerGenerator(EulerGenerator):
 
                 # *
                 Image_name = "Image_2D_Real_Time_{}.png".format(j)
-                Image_path = os.path.join(self.__Folder, Image_name)
+                Image_path = os.path.join(self._Folder_path, Image_name)
                 plt.title('P_0: {}, P_1: {}, Euler_number: {}'.format(P_0, P_1, Euler_number))
                 plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)

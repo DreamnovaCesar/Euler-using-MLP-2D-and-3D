@@ -23,7 +23,9 @@ class PixelHandler(ArrayHandler):
     The array of pixel data is searched in Quadra_size of size 2. The binary combinations in the storage list are compared
     with each Octovoxel and the number of occurrences of each combination is recorded in the output array.
     """
-    def __init__(self, Arrays: np.ndarray, Storage_list: list[str]):
+    def __init__(self, 
+                 Arrays: np.ndarray, 
+                 Storage_list: list[str]):
         """
         Initialize OctovoxelHandler.
 
@@ -39,7 +41,7 @@ class PixelHandler(ArrayHandler):
         self.Arrays = Arrays;
         self.Storage_list = Storage_list;
 
-    def get_number(self) -> np.ndarray:
+    def get_array(self) -> np.ndarray:
         """
         Calculate Combinations_int based on the given Storage_list and return them as a numpy array.
         """
@@ -54,7 +56,9 @@ class PixelHandler(ArrayHandler):
         for i in range(self.Arrays.shape[0] - 1):
             for j in range(self.Arrays.shape[1] - 1):
                 for index in range(len(self.Storage_list)):
-                    if np.array_equal(np.array(self.Arrays[i:Quadra_size + i, j:Quadra_size + j]), 
+                    if np.array_equal(np.array(self.Arrays[i:Quadra_size + i, 
+                                                           j:Quadra_size + j]), 
+                                                           
                                       np.array(self.Storage_list[index])):
                         
                         Combinations_int[index] += 1;

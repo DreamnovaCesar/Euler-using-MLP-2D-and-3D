@@ -1,7 +1,3 @@
-
-from abc import ABC
-from abc import abstractmethod
-
 from keras.models import load_model
 
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
@@ -23,16 +19,15 @@ class MLPPredictionRegression(MLPPrediction):
         self.Extractor_octovoxel = Extractor_octovoxel
         self.MLP_prediction = MLP_prediction
 
+        self.Octovoxels = self.Extractor_octovoxel(BinaryStorageList,
+                                                   ConvertionDecimalBinaryByte,
+                                                   OctovoxelHandler,
+                                                   TextDataLoader
+                                                   )
+        
     def prediction(self, Model, Object):
 
-        Octovoxels = self.Extractor_octovoxel(BinaryStorageList,
-                                                    ConvertionDecimalBinaryByte,
-                                                    OctovoxelHandler,
-                                                    TextDataLoader,
-                                                    Object)
-
-        Combinations_int = Octovoxels.extractor()
-
+        Combinations_int = self.Octovoxels.extractor(Object)
 
         # * Read multilayer perceptron model
         if Model.endswith('.h5'):

@@ -27,6 +27,6 @@ class ExtractorPixels(Extractor):
         Arrays = self.TextDataLoader.load_data(self.File)
 
         Pixel_handler_object = self.Pixel_handler(Arrays, Storage_list)
-        Combinations_int = Pixel_handler_object.get_number()
+        Combinations_int = Pixel_handler_object.get_array()
 
         print(Combinations_int)

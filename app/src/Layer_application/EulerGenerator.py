@@ -9,7 +9,8 @@ class EulerGenerator(ABC):
                  Folder_path: str, 
                  Number_of_objects : int,
                  Height : int,
-                 Width : int) -> None:
+                 Width : int,
+                 Model : str) -> None:
 
         self._Folder_path = Folder_path
         self._Number_of_objects = Number_of_objects
@@ -17,6 +18,8 @@ class EulerGenerator(ABC):
     
         self._Height = Height
         self._Width = Width
+
+        self._Model = Model
 
     @Timer.timer
     @abstractmethod

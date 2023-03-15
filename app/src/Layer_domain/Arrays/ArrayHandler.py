@@ -9,7 +9,7 @@ class ArrayHandler(ABC):
 
     """
     @abstractmethod
-    def get_number(self, Storage_list: list[str]) -> np.ndarray:
+    def get_array(self, Storage_list: list[str]) -> np.ndarray:
         """
         Convert a list of strings to a numpy array of numbers.
 
