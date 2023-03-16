@@ -21,13 +21,13 @@ class PixelHandler(ArrayHandler):
     Notes
     -----
     The array of pixel data is searched in Quadra_size of size 2. The binary combinations in the storage list are compared
-    with each Octovoxel and the number of occurrences of each combination is recorded in the output array.
+    with each Pixel and the number of occurrences of each combination is recorded in the output array.
     """
     def __init__(self, 
                  Arrays: np.ndarray, 
                  Storage_list: list[str]):
         """
-        Initialize OctovoxelHandler.
+        Initialize PixelHandler.
 
         Parameters:
         ----------

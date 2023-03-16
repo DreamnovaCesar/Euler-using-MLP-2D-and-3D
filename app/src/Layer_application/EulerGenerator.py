@@ -10,7 +10,8 @@ class EulerGenerator(ABC):
                  Number_of_objects : int,
                  Height : int,
                  Width : int,
-                 Model : str) -> None:
+                 Model : str 
+                 ) -> None:
 
         self._Folder_path = Folder_path;
 

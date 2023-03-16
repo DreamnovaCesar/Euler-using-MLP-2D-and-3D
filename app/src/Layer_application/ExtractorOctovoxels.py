@@ -4,7 +4,7 @@ from .Extractor import Extractor
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
 from ..Layer_domain.Arrays.OctovoxelHander import OctovoxelHandler
-from ..Layer_domain.TextDataLoader import TextDataLoader 
+from ..Layer_domain.DataLoaderText import TextDataLoader 
 
 class ExtractorOctovoxels(Extractor):
     

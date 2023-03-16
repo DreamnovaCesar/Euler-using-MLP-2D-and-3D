@@ -8,9 +8,13 @@ from .EulerGenerator import EulerGenerator
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
 from ..Layer_domain.Arrays.OctovoxelHander import OctovoxelHandler
-from ..Layer_domain.TextDataLoader import TextDataLoader 
+from ..Layer_domain.DataLoaderText import DataLoaderText
 from ..Layer_domain.RemoveFiles.AllFileRemover import AllFileRemover
 from ..Layer_domain.Model.MLP import MLP
+
+from ..Layer_domain.SaverCSV import SaverCSV
+from ..Layer_domain.SaverFile import SaverFile
+from ..Layer_domain.SaverObjects import SaverObjects
 
 from .ExtractorArrays import ExtractorArrays
 from .ExtractorOctovoxels import ExtractorOctovoxels
@@ -74,25 +78,29 @@ class EulerObjectGenerator(EulerGenerator):
 
             Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0)
 
+            File_name = 'Image_random_{}_3D.txt'.format(i);
+            Path = os.path.join(self._Folder_path, File_name);
+            np.savetxt(Path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
+
+            # *
+            Dir_name_images = "Images_random_{}_3D".format(i)
+
+            # *
+            Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images)
+
+            # *
+            Exist_dir_images = os.path.isdir(Dir_data_images)
+            
+            if Exist_dir_images == False:
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
+                os.mkdir(Folder_path_images)
+                print(Folder_path_images)
+            else:
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
+                print(Folder_path_images)
+
             for j in range(self._Depth + 2):
-                
-                # *
-                Dir_name_images = "Images_random_{}_3D".format(i)
-
-                # *
-                Dir_data_images = self._Folder_path + '/' + Dir_name_images
-
-                # *
-                Exist_dir_images = os.path.isdir(Dir_data_images)
-                
-                if Exist_dir_images == False:
-                    Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                    os.mkdir(Folder_path_images)
-                    print(Folder_path_images)
-                else:
-                    Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                    print(Folder_path_images)
-
+        
                 Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
                 Image_path = os.path.join(Folder_path_images, Image_name)
                 #plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
@@ -100,10 +108,6 @@ class EulerObjectGenerator(EulerGenerator):
                 plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
                 plt.close()
-
-            File_name = 'Image_random_{}_3D.txt'.format(i);
-            Path = os.path.join(self._Folder_path, File_name);
-            np.savetxt(Path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
     
     def generate_euler_samples_settings(self):
         """
@@ -120,7 +124,11 @@ class EulerObjectGenerator(EulerGenerator):
         Extraction_octovoxels = ExtractorOctovoxels(BinaryStorageList,
                                                     ConvertionDecimalBinaryByte,
                                                     OctovoxelHandler,
-                                                    TextDataLoader)
+                                                    DataLoaderText)
+
+        Saver_CSV = SaverCSV()
+
+        Saver_objects = SaverObjects()
 
         # *
         Remove_files = AllFileRemover(self._Folder_path);
@@ -171,14 +179,13 @@ class EulerObjectGenerator(EulerGenerator):
             Euler_number = MLPPrediction.prediction(self._Model, Object_path);
             Combination_octovoxels = Extraction_octovoxels.extractor(Object_path);
 
-            print(Combination_octovoxels)
-            print('///// ' + str(Euler_number))
-
             Combination_octovoxels = np.append(Combination_octovoxels, Euler_number)
 
             print(Combination_octovoxels)
 
-            # * Return the new dataframe with the new data
+            Saver_CSV.save_file(r'app\data\3D\Data', Combination_octovoxels)
+
+            '''# * Return the new dataframe with the new data
             DataFrame = DataFrame.append(pd.Series(Combination_octovoxels), ignore_index = True)
                 
             Dataframe_name = 'Dataframe_test_1.csv'.format()
@@ -188,32 +195,38 @@ class EulerObjectGenerator(EulerGenerator):
             #Array = Prediction.obtain_arrays_3D(Data_3D_edges);
             #Euler_number = Prediction.model_prediction_3D(self.__Model_trained, Array);
 
-            #print(Data_3D_read);
+            #print(Data_3D_read);'''
+
+            # *
+            Dir_name_images = "Images_random_{}_3D".format(i)
+
+            # *
+            Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images)
+
+            # *
+            Exist_dir_images = os.path.isdir(Dir_data_images)
+            
+            if Exist_dir_images == False:
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
+                os.mkdir(Folder_path_images)
+                print(Folder_path_images)
+            else:
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
+                print(Folder_path_images)
 
             # * 
             for j in range(self._Depth + 2):
                 
-                # *
-                Dir_name_images = "Images_random_{}_3D".format(i)
+                Saver_objects.save_file(Folder_path_images, 
+                                        Euler_number,
+                                        Data_3D_edges,
+                                        i,
+                                        j)
 
-                # *
-                Dir_data_images = self._Folder_path + '/' + Dir_name_images
-
-                # *
-                Exist_dir_images = os.path.isdir(Dir_data_images)
-                
-                if Exist_dir_images == False:
-                    Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                    os.mkdir(Folder_path_images)
-                    print(Folder_path_images)
-                else:
-                    Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                    print(Folder_path_images)
-
-                Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
+                '''Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
                 Image_path = os.path.join(Folder_path_images, Image_name)
                 #plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
                 plt.title('Euler: {}'.format(Euler_number))
                 plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path)
-                plt.close()
+                plt.close()'''

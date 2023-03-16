@@ -3,7 +3,7 @@ from .Extractor import Extractor
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryNibble import ConvertionDecimalBinaryNibble
 from ..Layer_domain.Arrays.PixelHander import PixelHandler
-from ..Layer_domain.TextDataLoader import TextDataLoader 
+from ..Layer_domain.DataLoaderText import TextDataLoader 
 
 class ExtractorPixels(Extractor):
     

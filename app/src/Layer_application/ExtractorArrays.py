@@ -2,7 +2,7 @@ import numpy as np
 
 from .Extractor import Extractor
 from ..Layer_domain.Arrays.ArraysHander import ArraysHandlder
-from ..Layer_domain.TextDataLoader import TextDataLoader 
+from ..Layer_domain.DataLoaderText import TextDataLoader 
 
 class ExtractorArrays(Extractor):
     
