@@ -3,7 +3,7 @@ import numpy as np
 from keras.models import load_model
 
 from ..Layer_domain.Arrays.ArraysHander import ArraysHandlder
-from ..Layer_domain.DataLoaderText import TextDataLoader 
+from ..Layer_domain.DataLoaderText import DataLoaderText 
 from ..Layer_domain.Model.MLP import MLP
 
 from .ExtractorArrays import ExtractorArrays
@@ -22,7 +22,7 @@ class MLPPredictionStandard(MLPPrediction):
     def prediction(self, Model, Object):
 
         Arrays = self.Extractor_arrays(ArraysHandlder,
-                                       TextDataLoader,
+                                       DataLoaderText,
                                        Object)
 
         Arrays = Arrays.extractor()

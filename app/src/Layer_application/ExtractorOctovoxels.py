@@ -4,14 +4,14 @@ from .Extractor import Extractor
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
 from ..Layer_domain.Arrays.OctovoxelHander import OctovoxelHandler
-from ..Layer_domain.DataLoaderText import TextDataLoader 
+from ..Layer_domain.DataLoaderText import DataLoaderText  
 
 class ExtractorOctovoxels(Extractor):
     
     def __init__(self, Binary_storage_list : BinaryStorageList, 
                  Convertion_decimal_binary_byte : ConvertionDecimalBinaryByte, 
                  Octovoxel_handler : OctovoxelHandler, 
-                 TextDataLoader : TextDataLoader
+                 TextDataLoader : DataLoaderText 
                  ):
         
         self.Binary_storage_list = Binary_storage_list

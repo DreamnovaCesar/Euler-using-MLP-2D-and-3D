@@ -3,14 +3,14 @@ from .Extractor import Extractor
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryNibble import ConvertionDecimalBinaryNibble
 from ..Layer_domain.Arrays.PixelHander import PixelHandler
-from ..Layer_domain.DataLoaderText import TextDataLoader 
+from ..Layer_domain.DataLoaderText import DataLoaderText 
 
 class ExtractorPixels(Extractor):
     
     def __init__(self, Binary_storage_list : BinaryStorageList, 
                  Convertion_decimal_binary_nibble : ConvertionDecimalBinaryNibble, 
                  Pixel_handler : PixelHandler, 
-                 TextDataLoader : TextDataLoader,
+                 TextDataLoader : DataLoaderText ,
                  File : str):
         
         self.Binary_storage_list = Binary_storage_list
