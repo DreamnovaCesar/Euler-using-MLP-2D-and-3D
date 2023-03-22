@@ -4,7 +4,15 @@ from abc import abstractmethod
 from typing import List
 
 class DataFrameCreator(ABC):
+    """
+    An abstract base class that defines the interface for creating 
+    a pandas DataFrame from historical data.
+    """
 
+    @staticmethod
     @abstractmethod
-    def create_dataframe_history(Column_names: list[str], Folder_save: str, CSV_name: str, Hist_data: object) -> None:
+    def create_dataframe_history() -> None:
+        """
+        An abstract method that creates a pandas DataFrame from historical data.
+        """
         pass

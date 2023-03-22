@@ -1,15 +1,27 @@
 import os
+import random
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from abc import ABC
-from abc import abstractmethod
 
 from .EulerGenerator import EulerGenerator
+from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
+from ..Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
+from ..Layer_domain.Arrays.OctovoxelHander import OctovoxelHandler
+from ..Layer_domain.DataLoaderText import DataLoaderText
 from ..Layer_domain.RemoveFiles.AllFileRemover import AllFileRemover
+from ..Layer_domain.Model.MLP import MLP
 
-class EulerGenerator(EulerGenerator):
+from ..Layer_domain.SaverCSV import SaverCSV
+from ..Layer_domain.SaverObjectsSettings import SaverObjectsSettings
+from ..Layer_domain.SaverObjectsRandomly import SaverObjectsRandomly
+
+from .ExtractorArrays import ExtractorArrays
+from .ExtractorOctovoxels import ExtractorOctovoxels
+
+from .MLPPredictionStandard import MLPPredictionStandard
+
+from .GeneratorImage import GeneratorImage
+
+class EulerImageGenerator(EulerGenerator):
 
     def __init__(self, 
                  _Folder_path : str, 
@@ -18,24 +30,36 @@ class EulerGenerator(EulerGenerator):
                  _Width : int,
                  _Model : str) -> None:
         
-        super().__init__(_Folder_path, _Number_of_objects, _Height, _Width, _Model)
+        super().__init__(
+            _Folder_path, 
+            _Number_of_objects, 
+            _Height, 
+            _Width, 
+            _Model
+        )
 
     
-    def generate_euler_samples_random(self, Prob_0: float = 0.2, Prob_1: float = 0.8):
+    def generate_euler_samples_random(
+            self, 
+            Prob_0: float = 0.2, 
+            Prob_1: float = 0.8
+        ):
+
+        GeneratorImages = GeneratorImage()
 
         # *
-        Remove_files = AllFileRemover(self._Folder_path)
-        Remove_files.remove_files()
+        Remove_files = AllFileRemover(self._Folder_path);
+        Remove_files.remove_files();
+
 
         for i in range(self._Number_of_objects):
 
-            # *
-            #Data_2D = np.random.randint(0, 2, (self._Height * self._Width))
-            Data_2D = np.random.choice(2, self._Height * self._Width, p = [Prob_0, Prob_1]);
-            Data_2D = Data_2D.reshape(self._Height, self._Width);
-
-            #print(Data_2D);
-            #print('\n');
+            Object = GeneratorImages.generator(
+                Prob_0, 
+                Prob_1,
+                self._Height,
+                self._Width
+            )
             
             if(Save_image):
 
@@ -46,7 +70,7 @@ class EulerGenerator(EulerGenerator):
 
                 Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 1:Data_2D_edges.shape[1] - 1] = Data_2D
                 print(Data_2D_edges);
-                plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
+                plt.title('P_0: {}, P_1: {}'.format(Prob_0, Prob_1))
                 plt.imshow(Data_2D_edges, cmap = 'gray', interpolation = 'nearest')
                 plt.savefig(Image_path);
                 #plt.show()
@@ -59,8 +83,19 @@ class EulerGenerator(EulerGenerator):
     
     def generate_euler_samples_settings(self):
 
-        # *
-        Prediction = EulerNumberML2D(input = Input_2D, output = Output_2D_4_Connectivity, folder = self.__Folder);
+        #DataFrame = pd.DataFrame()
+        
+        MLPPrediction = MLPPredictionStandard(ExtractorArrays,
+                                              MLP);
+        
+        Extraction_octovoxels = ExtractorOctovoxels(BinaryStorageList,
+                                                    ConvertionDecimalBinaryByte,
+                                                    OctovoxelHandler,
+                                                    DataLoaderText)
+
+        Saver_CSV = SaverCSV()
+
+        Saver_objects = SaverObjectsSettings()
         
         # *
         Remove_files = AllFileRemover(self._Folder_path)

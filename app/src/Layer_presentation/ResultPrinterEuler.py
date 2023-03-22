@@ -1,6 +1,6 @@
 import numpy as np
 
-class ResultPrinter:
+class ResultPrinter(object):
     def print_results(self, arrays: np.ndarray, results: np.ndarray) -> None:
         for array, result in zip(arrays, results):
             print('{} -------------- {}'.format(array, result))

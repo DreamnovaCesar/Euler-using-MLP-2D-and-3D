@@ -1,7 +1,15 @@
 from functools import wraps
 
 class Singleton(object):
-    """A decorator to create singleton instances of a class."""
+    """A decorator to create singleton instances of a class.
+    
+    Notes
+    -----
+    This class decorator uses the `functools.wraps` decorator to preserve the
+    metadata of the original function, such as the function name, docstring, and
+    parameter information.
+    
+    """
     
     @staticmethod
     def singleton(cls):

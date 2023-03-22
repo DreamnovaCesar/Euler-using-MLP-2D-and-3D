@@ -14,6 +14,7 @@ class ModelBuilder(ABC):
 
     """
 
+    @staticmethod
     @abstractmethod
     def build_model(self) -> Sequential:
         """

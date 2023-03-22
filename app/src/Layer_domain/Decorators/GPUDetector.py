@@ -3,7 +3,28 @@ from functools import wraps
 import tensorflow as tf
 
 class GPUDetector(object):
-    """A decorator to detect whether a GPU is available."""
+    """
+    A class for detecting the availability of a GPU for a function using the GPUDetector.detect_GPU method.
+
+    Examples:
+    ---------
+    >>> @GPUDetector.detect_GPU
+    ... def my_func():
+    ...     return tf.reduce_sum(tf.random.normal([1000, 1000]))
+    ...
+    >>> my_func()
+    [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+    Found GPU at: /device:GPU:0
+    <tf.Tensor: shape=(), dtype=float32, numpy=-508.8744
+
+    Notes
+    -----
+    This class decorator uses the `functools.wraps` decorator to preserve the
+    metadata of the original function, such as the function name, docstring, and
+    parameter information.
+    
+
+    """
 
     @staticmethod  
     def detect_GPU(func):  

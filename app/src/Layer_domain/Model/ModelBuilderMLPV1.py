@@ -5,43 +5,70 @@ from keras.layers import Input
 
 from .ModelBuilder import ModelBuilder
 
+from ..Json.JsonFileHander import JsonFileHandler
+from ...Layer_application.OptimizerOptions import OptimizerOptions
+
 class ModelBuilderMLPV1(ModelBuilder):
-    """A class for building a Multi-Layer Perceptron model using Keras.
+    """
+    A class for building a Multi-Layer Perceptron model using Keras.
+
+    Methods
+    -------
+    build_model(Input_shape : Tuple[int, ...], JSON_file : str) -> Tuple[Sequential, List[str, str, str]]:
+        Builds a multi-layer perceptron model using Keras.
+
+    Examples
+    --------
+    >>> builder = ModelBuilderMLPV1()
+    >>> input_shape = (32, 32, 3)
+    >>> json_file_path = "/path/to/hyperparameters.json"
+    >>> model, [optimizer, loss, metrics] = builder.build_model(input_shape, json_file_path)
     """
 
-    @staticmethod
-    def build_model(input_shape : Tuple[int, ...], 
-                    dense_1 : int, 
-                    output : int, 
-                    activation_1 : str, 
-                    activation_output : str) -> Sequential:
-
-        """Builds a Multi-Layer Perceptron model using Keras.
+    def build_model(
+        Input_shape : Tuple[int, ...],
+        JSON_file : str
+    ) -> Tuple[Sequential, List[str, str, str]]:
+        """
+        Builds a multi-layer perceptron model using Keras.
 
         Parameters
         ----------
-        input_shape : Tuple[int, ...]
-            The shape of the input data.
-        dense_1 : int
-            The number of units in the first dense layer.
-        output : int
-            The number of units in the output layer.
-        activation_1 : str
-            The activation function to use in the first dense layer.
-        activation_output : str
-            The activation function to use in the output layer.
+        Input_shape : Tuple[int, ...]
+            A tuple of integers representing the input shape of the model.
+        JSON_file : str
+            A string representing the path of the JSON file containing the model hyperparameters.
 
         Returns
         -------
-        model : Sequential
-            The built MLP model.
+        Tuple[Sequential, List[str, str, str]]
+            A tuple of a Keras Sequential model object and a list of optimizer object, loss function object, and 
+            metric object.
 
         """
 
-        model = Sequential()
-        model.add(Input(shape = input_shape.shape[1],))
-        model.add(Dense(dense_1, activation = activation_1))
-        model.add(Dense(output, activation = activation_output))
+        # * Read the model hyperparameters from the JSON file
+        MLP_hp = JsonFileHandler.read_json_file(JSON_file);
 
-        return model
+        # * Extract the hyperparameters from the dictionary
+        dense_1 = MLP_hp['dense_1'];
+        output = MLP_hp['output'];
+        activation_1 = MLP_hp['activation_1'];
+        activation_output = MLP_hp['activation_output'];
+        Opt = MLP_hp['optimizer'];
+        Lr = MLP_hp['lr'];
+        Loss = MLP_hp['loss'];
+        Metrics = MLP_hp['metrics'];
+
+        # * Choose the optimizer based on the optimizer option and learning rate
+        Optimizer = OptimizerOptions.choose_optimizer(Opt, Lr);
+        
+        # * Define the Keras Sequential model
+        Model = Sequential()
+        Model.add(Input(shape = Input_shape.shape[1],))
+        Model.add(Dense(dense_1, activation = activation_1))
+        Model.add(Dense(output, activation = activation_output))
+
+        # * Return the model, optimizer, loss function, and metric objects
+        return Model, [Optimizer, Loss, Metrics]
     

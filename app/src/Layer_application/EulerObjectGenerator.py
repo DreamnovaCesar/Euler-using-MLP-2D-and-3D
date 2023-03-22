@@ -1,8 +1,6 @@
 import os
 import random
 import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
 from .EulerGenerator import EulerGenerator
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
@@ -13,111 +11,166 @@ from ..Layer_domain.RemoveFiles.AllFileRemover import AllFileRemover
 from ..Layer_domain.Model.MLP import MLP
 
 from ..Layer_domain.SaverCSV import SaverCSV
-from ..Layer_domain.SaverFile import SaverFile
-from ..Layer_domain.SaverObjects import SaverObjects
+from ..Layer_domain.SaverObjectsSettings import SaverObjectsSettings
+from ..Layer_domain.SaverObjectsRandomly import SaverObjectsRandomly
 
 from .ExtractorArrays import ExtractorArrays
 from .ExtractorOctovoxels import ExtractorOctovoxels
 
 from .MLPPredictionStandard import MLPPredictionStandard
 
-class EulerObjectGenerator(EulerGenerator):
+from .GeneratorObject import GeneratorObject
 
-    def __init__(self, 
-                 _Folder_path : str, 
-                 _Number_of_objects : int,
-                 _Height : int,
-                 _Width : int,
-                 _Model : str,
-                 Depth : int
-                 ) -> None:
-        
-        super().__init__(_Folder_path, _Number_of_objects, _Height, _Width, _Model)
+class EulerObjectGenerator(EulerGenerator):
+    """
+    A class used for generating random 3D images and their combinations
+    with octovoxels and Euler numbers.
+
+    Attributes
+    ----------
+    _Folder_path : str
+        The folder path where the images will be saved
+    _Number_of_objects : int
+        The number of objects to be generated
+    _Height : int
+        The height of the generated images
+    _Width : int
+        The width of the generated images
+    _Model : str
+        The path of the trained model file
+    Depth : int
+        The depth of the generated images
+
+    Methods
+    -------
+    generate_euler_samples_random(Prob_0=0.2, Prob_1=0.8)
+        Generate random 3D images and save them in the specified folder path.
+    generate_euler_samples_settings()
+        Generate 3D images with settings and save them in the specified folder path.
+    """
+    def __init__(
+        self, 
+        _Folder_path : str, 
+        _Number_of_objects : int,
+        _Height : int,
+        _Width : int,
+        _Model : str,
+        Depth : int
+    ) -> None:
+        """
+        Constructs all the necessary attributes for the EulerObjectGenerator object.
+
+        Parameters
+        ----------
+            _Folder_path : str
+                The folder path where the images will be saved
+            _Number_of_objects : int
+                The number of objects to be generated
+            _Height : int
+                The height of the generated images
+            _Width : int
+                The width of the generated images
+            _Model : str
+                The path of the trained model file
+            Depth : int
+                The depth of the generated images
+        """
+
+        super().__init__(
+            _Folder_path, 
+            _Number_of_objects, 
+            _Height, 
+            _Width, 
+            _Model
+        )
 
         self._Depth = Depth
         self._Depth = int(self._Depth)
 
-    def generate_euler_samples_random(self, Prob_0: float = 0.2, Prob_1: float = 0.8):
-        """
-        _summary_
+    def generate_euler_samples_random(
+            self, 
+            Prob_0: float = 0.2, 
+            Prob_1: float = 0.8
+        ):
 
-        _extended_summary_
+        """
+        Generate random 3D images and save them in the specified folder path.
+
+        Parameters
+        ----------
+        Prob_0 : float, optional
+            The probability of the occurrence of pixel value 0, by default 0.2
+        Prob_1 : float, optional
+            The probability of the occurrence of pixel value 1, by default 0.8
         """
 
-        # *
+        # * Object to handle saving files
+        Saver_objects = SaverObjectsRandomly()
+
+        # * Object to generate 3D arrays
+        GeneratorObjects = GeneratorObject()
+
+        # * Remove any existing files from the folder path
         Remove_files = AllFileRemover(self._Folder_path)
         Remove_files.remove_files()
 
-        # *
+        # * Loop over the number of objects specified and create a 3D array for each one
         for i in range(self._Number_of_objects):
-
-            # *
-            #Data_3D = np.random.randint(0, 2, (self._Height * self._Depth * self._Width));
-            Data_3D = np.random.choice(2, self._Height * self._Depth * self._Width, p = [Prob_0, Prob_1]);
-            Data_3D = Data_3D.reshape((self._Height * self._Depth), self._Width);
-            Data_3D_plot = Data_3D.reshape((self._Height, self._Depth, self._Width));
-
-            # *
-            Data_3D_edges_complete = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-            Data_3D_edges_concatenate = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-            Data_3D_read = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
             
-            # * 
-            Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-            
-            # * Get 3D image and interpretation of 3D from 2D .txt
-            Data_3D_read[1:Data_3D_read.shape[0] - 1, 1:Data_3D_read.shape[1] - 1] = Data_3D
-            Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot
-
-            # * Concatenate np.zeros
-            Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0)
-            Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0)
-
-            for k in range(len(Data_3D_edges) - 2):
-                Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges[k + 1]), axis = 0)
-
-            Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0)
-
+            # * Create a unique file name for each 3D array
             File_name = 'Image_random_{}_3D.txt'.format(i);
             Path = os.path.join(self._Folder_path, File_name);
-            np.savetxt(Path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
 
-            # *
+            # * Generate a 3D array using the specified probabilities and dimensions
+            Object = GeneratorObjects.generator(
+                Prob_0, 
+                Prob_1,
+                self._Width,
+                self._Height,
+                self._Depth
+            )
+
+            # * Save the 3D array to a text file
+            np.savetxt(Path, Object, fmt = '%0.0f', delimiter = ',');
+
+            # * Create a directory for the images of each 3D array
             Dir_name_images = "Images_random_{}_3D".format(i)
-
-            # *
             Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images)
-
-            # *
             Exist_dir_images = os.path.isdir(Dir_data_images)
             
+            # * If the directory doesn't exist, create it and print its path
             if Exist_dir_images == False:
                 Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
                 os.mkdir(Folder_path_images)
-                print(Folder_path_images)
+                #print(Folder_path_images)
             else:
                 Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                print(Folder_path_images)
+                #print(Folder_path_images)
 
+            # * Save the images of each 3D array
             for j in range(self._Depth + 2):
         
-                Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
-                Image_path = os.path.join(Folder_path_images, Image_name)
-                #plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
-                plt.title('P_0: {}, P_1: {}'.format(Prob_0, Prob_1))
-                plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
-                plt.savefig(Image_path)
-                plt.close()
+                Saver_objects.save_file(
+                    i, j,
+                    Prob_0,
+                    Prob_1,
+                    Folder_path_images, 
+                    Object,
+                )
     
     def generate_euler_samples_settings(self):
         """
-        _summary_
+        Generate 3D images with theirs euler number and save them in the specified folder path.
 
-        _extended_summary_
+        Parameters
+        ----------
+        Prob_0 : float, optional
+            The probability of the occurrence of pixel value 0, by default 0.2
+        Prob_1 : float, optional
+            The probability of the occurrence of pixel value 1, by default 0.8
         """
-        DataFrame = pd.DataFrame()
-        
-        # *
+
+        # Initialize MLP and extractor objects
         MLPPrediction = MLPPredictionStandard(ExtractorArrays,
                                               MLP);
         
@@ -126,87 +179,54 @@ class EulerObjectGenerator(EulerGenerator):
                                                     OctovoxelHandler,
                                                     DataLoaderText)
 
+        # * Initialize Saver objects
         Saver_CSV = SaverCSV()
+        Saver_objects = SaverObjectsSettings()
+        
+        # * Initialize the object generator
+        GeneratorObjects = GeneratorObject()
 
-        Saver_objects = SaverObjects()
-
-        # *
+        # * Delete all files in the folder
         Remove_files = AllFileRemover(self._Folder_path);
         Remove_files.remove_files();
 
-        # *
+        # * Generate the specified number of objects
         for i in range(self._Number_of_objects):
             
-            P_0 = random.uniform(0, 1)
-            P_1 = 1 - P_0
-
-            # *
-            #Data_3D = np.random.randint(0, 2, (self._Height * self._Depth * self._Width));
-            Data_3D = np.random.choice(2, self._Height * self._Depth * self._Width, p = [P_0, P_1]);
-            Data_3D = Data_3D.reshape((self._Height * self._Depth), self._Width);
-            Data_3D_plot = Data_3D.reshape((self._Height, self._Depth, self._Width));
-
-            # *
-            Data_3D_edges_complete = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-            Data_3D_edges_concatenate = np.zeros((Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-            Data_3D_read = np.zeros((Data_3D.shape[0] + 2, Data_3D.shape[1] + 2))
-            
-            # * 
-            Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2, Data_3D_plot.shape[1] + 2, Data_3D_plot.shape[2] + 2))
-            
-            # * Get 3D image and interpretation of 3D from 2D .txt
-            Data_3D_read[1:Data_3D_read.shape[0] - 1, 1:Data_3D_read.shape[1] - 1] = Data_3D
-            Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 1:Data_3D_edges.shape[1] - 1, 1:Data_3D_edges.shape[2] - 1] = Data_3D_plot
-
-            #print(Data_3D_read);
-            #print(Data_3D_edges);
-            #print('\n');
-
-            # * Concatenate np.zeros
-            Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0)
-            Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0)
-
-            for k in range(len(Data_3D_edges) - 2):
-                Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges[k + 1]), axis = 0)
-
-            Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0)
-
+            # * Define file path and randomly generate pixel probabilities
             File_name = 'Image_random_{}_3D.txt'.format(i);
             Object_path = os.path.join(self._Folder_path, File_name);
 
-            np.savetxt(Object_path, Data_3D_edges_complete, fmt = '%0.0f', delimiter = ',');
+            Prob_0 = random.uniform(0, 1)
+            Prob_1 = 1 - Prob_0
 
+            # * Generate the 3D object and save it
+            Object = GeneratorObjects.generator(
+                Prob_0, 
+                Prob_1,
+                self._Width,
+                self._Height,
+                self._Depth
+            )
+
+            # * Generate a 3D array using the specified probabilities and dimensions
+            np.savetxt(Object_path, Object, fmt = '%0.0f', delimiter = ',');
+
+            # * Predict the Euler number of the 3D object and extract octovoxels
             Euler_number = MLPPrediction.prediction(self._Model, Object_path);
             Combination_octovoxels = Extraction_octovoxels.extractor(Object_path);
 
+            # * Save the combination of octovoxels and Euler number in CSV format
             Combination_octovoxels = np.append(Combination_octovoxels, Euler_number)
-
-            print(Combination_octovoxels)
-
             Saver_CSV.save_file(r'app\data\3D\Data', Combination_octovoxels)
 
-            '''# * Return the new dataframe with the new data
-            DataFrame = DataFrame.append(pd.Series(Combination_octovoxels), ignore_index = True)
-                
-            Dataframe_name = 'Dataframe_test_1.csv'.format()
-            Dataframe_folder = os.path.join(r'app\data\3D\Data', Dataframe_name)
-            DataFrame.to_csv(Dataframe_folder)
-
-            #Array = Prediction.obtain_arrays_3D(Data_3D_edges);
-            #Euler_number = Prediction.model_prediction_3D(self.__Model_trained, Array);
-
-            #print(Data_3D_read);'''
-
-            # *
+            # * Create folder to save images if it doesn't exist
             Dir_name_images = "Images_random_{}_3D".format(i)
-
-            # *
             Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images)
-
-            # *
             Exist_dir_images = os.path.isdir(Dir_data_images)
             
-            if Exist_dir_images == False:
+            # * If the directory doesn't exist, create it and print its path
+            if(Exist_dir_images == False):
                 Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
                 os.mkdir(Folder_path_images)
                 print(Folder_path_images)
@@ -214,19 +234,12 @@ class EulerObjectGenerator(EulerGenerator):
                 Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
                 print(Folder_path_images)
 
-            # * 
+            # * Save the images of each 3D array
             for j in range(self._Depth + 2):
                 
-                Saver_objects.save_file(Folder_path_images, 
-                                        Euler_number,
-                                        Data_3D_edges,
-                                        i,
-                                        j)
-
-                '''Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
-                Image_path = os.path.join(Folder_path_images, Image_name)
-                #plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
-                plt.title('Euler: {}'.format(Euler_number))
-                plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
-                plt.savefig(Image_path)
-                plt.close()'''
+                Saver_objects.save_file(
+                    i, j,
+                    Folder_path_images, 
+                    Euler_number,
+                    Object,
+                )

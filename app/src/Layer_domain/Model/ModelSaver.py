@@ -1,9 +1,30 @@
 from abc import ABC
 from abc import abstractmethod
 
+from ..Decorators.DisplayModelSave import DisplayModelSave
 class ModelSaver(ABC):
-    def __init__(self, file_saver):
-        self.file_saver = file_saver
 
-    def save_model(self, model, model_name):
+    @staticmethod
+    @abstractmethod
+    @DisplayModelSave.display
+    def save_model(
+        self, 
+        Model : object, 
+        Model_name : str
+    ):
+        
+        """
+        Abstract method to save a trained model to disk.
+
+        Parameters:
+        -----------
+        Model : object
+            Trained neural network model.
+        Model_name : str
+            Name of the file to save the model.
+
+        Returns:
+        --------
+        None
+        """
         pass

@@ -8,7 +8,7 @@ from .ModelBuilder import ModelBuilder
 from ..Json.JsonFileHander import JsonFileHandler
 from ...Layer_application.OptimizerOptions import OptimizerOptions
 
-class ModelBuilderMLPV2(ModelBuilder):
+class ModelBuilderMLPI1(ModelBuilder):
     """
     A class for building a Multi-Layer Perceptron model using Keras.
 
@@ -19,7 +19,7 @@ class ModelBuilderMLPV2(ModelBuilder):
 
     Examples
     --------
-    >>> builder = ModelBuilderMLPV1()
+    >>> builder = ModelBuilderMLPI1()
     >>> input_shape = (32, 32, 3)
     >>> json_file_path = "/path/to/hyperparameters.json"
     >>> model, [optimizer, loss, metrics] = builder.build_model(input_shape, json_file_path)
@@ -54,6 +54,7 @@ class ModelBuilderMLPV2(ModelBuilder):
         dense_1 = MLP_hp['dense_1'];
         output = MLP_hp['output'];
         activation_1 = MLP_hp['activation_1'];
+        activation_output = MLP_hp['activation_output'];
         Opt = MLP_hp['optimizer'];
         Lr = MLP_hp['lr'];
         Loss = MLP_hp['loss'];
@@ -66,7 +67,7 @@ class ModelBuilderMLPV2(ModelBuilder):
         Model = Sequential()
         Model.add(Input(shape = Input_shape.shape[1],))
         Model.add(Dense(dense_1, activation = activation_1))
-        Model.add(Dense(output))
+        Model.add(Dense(output, activation = activation_output))
 
         # * Return the model, optimizer, loss function, and metric objects
         return Model, [Optimizer, Loss, Metrics]

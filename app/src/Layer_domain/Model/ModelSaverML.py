@@ -1,17 +1,35 @@
 
+import os
 from .ModelSaver import ModelSaver
 
 class ModelSaverML(ModelSaver):
-    def __init__(self, file_saver):
-        self.file_saver = file_saver
 
-    def save_model(self, model, model_name):
-        # Save the trained model as an h5 file
-        Model_name_save = '{}.joblib'.format(model_name)
-        Model_folder_save = self.file_saver.save_file(Model_name_save)
-        model.save(Model_folder_save)
+    def save_model(
+        self, 
+        Model : object, 
+        Model_name : str
+    ) -> None:
+        """
+        Save a machine learning model using joblib library.
 
-        # Prints that the model has been saved
+        Parameters:
+        -----------
+        Model : object
+            The trained machine learning model to be saved.
+        Model_name : str
+            The name to be given to the saved model.
+
+        Returns:
+        --------
+        None
+        """
+
+        # * Save the trained model as an h5 file
+        Model_name_joblib = '{}.joblib'.format(Model_name)
+        Model_folder = os.path.join(r'app\data', Model_name_joblib)
+        Model.save(Model_folder)
+
+        # * Prints that the model has been saved
         print("Saving model...")
         print('\n')
 

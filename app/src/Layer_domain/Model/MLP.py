@@ -1,82 +1,130 @@
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 from typing import Union, Any
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import Input
-
-from keras.optimizers import Adam
 
 from .Model import Model
 from .ModelBuilder import ModelBuilder
-from ..Json.JsonFileHander import JsonFileHandler
-from .Optimizer.AdadeltaOptimizer import AdadeltaOptimizer
-from .Optimizer.AdagradOptimizer import AdagradOptimizer
-from .Optimizer.AdamaxOptimizer import AdamaxOptimizer
-from .Optimizer.AdamOptimizer import AdamOptimizer
-from .Optimizer.FTRLOptimizer import FtrlOptimizer
-from .Optimizer.NadamOptimizer import NadamOptimizer
-from .Optimizer.RMSpropOptimizer import RMSpropOptimizer
-from .Optimizer.SGDOptimizer import SGDOptimizer
-from .Optimizer.Optimizer import Optimizer
 
 from typing import Union
 
+from ..Decorators.DisplayTraining import DisplayTraining
+
 class MLP(Model):
+    """
+    Multi-layer perceptron (MLP) model for classification or regression problems.
 
-    def __init__(self, input_shape: Tuple[int, ...],
-                    output_shape : Tuple[int, ...],
-                    JSON_Handler : JsonFileHandler,
-                    JSON_file : str,
-                    Optimizer : Optimizer,                   
-                    Model : ModelBuilder,
-                    epochs : int,
-                    Lr : float):
+    Parameters:
+    -----------
+    Input_shape : tuple[int, ...]
+        The shape of the input data, excluding the batch size.
+    Output_shape : tuple[int, ...]
+        The shape of the output data, excluding the batch size.
+    JSON_file : str
+        The path to the JSON file containing the model architecture.
+    Epochs : int
+        The number of epochs to train the model.
+
+    Methods:
+    --------
+    compile_model():
+        Compiles the Keras model.
+    fit_model():
+        Trains the Keras model.
+    predict_model(Model, Array) -> Union[None, Any]:
+        Makes predictions with the Keras model.
+
+    """
+
+    def __init__(
+        self, 
+        Input_shape: Tuple[int, ...],
+        Output_shape : Tuple[int, ...], 
+        JSON_file : str,
+        Epochs : int
+    ) -> None:
         
-        self.input_shape = input_shape;
-        self.output_shape = output_shape;
+        """
+        MLP class constructor.
 
-        self.MLP_hp = JSON_Handler.read_json_file(JSON_file);
+        Parameters:
+        -----------
+        Input_shape : Tuple[int, ...]
+            Tuple containing the shape of the input data.
+        Output_shape : Tuple[int, ...]
+            Tuple containing the shape of the output data.
+        JSON_file : str
+            File containing the model architecture in JSON format.
+        Epochs : int
+            Number of epochs for training the model.
 
-        self.dense_1 = self.MLP_hp['dense_1'];
-        self.output = self.MLP_hp['output'];
-        self.activation_1 = self.MLP_hp['activation_1'];
-        #self.activation_output = self.MLP_hp['activation_output'];
+        Returns:
+        --------
+        None
+        """
 
-        #self.optimizer = Adam(learning_rate = 0.001)
-        self.optimizer = Optimizer.get_optimizer(Lr);
-        self.loss = self.MLP_hp['loss'];
-        self.metrics = self.MLP_hp['metrics'];
+        self.Input_shape = Input_shape;
+        self.Output_shape = Output_shape;
+        self.Epochs = Epochs;
 
-        print(self.input_shape)
-        print(self.output_shape)
-        #print(self.optimizer1)
-        print(self.optimizer)
+        print(self.Input_shape)
+        print(self.Output_shape)
 
-        print(self.dense_1)
-        print(self.output)
-        print(self.activation_1)
-        #print(self.activation_output)
-        print(self.loss)
-        print(self.metrics)
+        self.Model, self.Parameters = ModelBuilder.build_model(
+                                        self.Input_shape,
+                                        JSON_file
+                                        )
 
-        self.model = Model.build_model(self.input_shape,
-                                       self.dense_1,
-                                       self.output,
-                                       self.activation_1
-                                       );
-        self.epochs = epochs;
+    def compile_model(self) -> None:
+        """
+        Compile the neural network model.
+        """
+        
+        self.Model.compile(
+            optimizer = self.Parameters[0], 
+            loss = self.Parameters[1], 
+            metrics = [self.Parameters[2]]
+        )
 
-    def compile_model(self):
-        self.model.compile(optimizer = self.optimizer, loss = self.loss, 
-                            metrics = [self.metrics])
+    @DisplayTraining.display
+    def fit_model(self) -> Tuple[Any, Dict[str, Any]]:
+        """
+        Train the neural network model.
 
-    def fit_model(self):
+        Parameters:
+        -----------
+        None
 
-        Hist_data = self.model.fit(self.input_shape, self.output_shape, batch_size = 8, epochs = self.epochs, verbose = True)
+        Returns:
+        --------
+        Tuple[Any, Dict[str, Any]]
+            A tuple containing the trained model and history data.
+        """
 
-        return self.model, Hist_data
+        Hist_data = self.Model.fit(
+            self.Input_shape, 
+            self.Output_shape, 
+            batch_size = 8, 
+            epochs = self.Epochs, 
+            verbose = True
+        )
+
+        return self.Model, Hist_data
     
     def predict_model(Model, Array) -> Union[None, Any]:
+        """
+        Generate predictions for input data using the trained model.
+
+        Parameters:
+        -----------
+        Model : Any
+            Trained neural network model.
+        Array : np.ndarray
+            Input data for which predictions are to be generated.
+
+        Returns:
+        --------
+        Union[None, Any]
+            Prediction generated by the neural network model.
+        """
 
         return Model.predict(Array)
     

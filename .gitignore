@@ -10,3 +10,9 @@ Thumbs.db
 
 # Ancient files
 code.py
+
+# Codes future upgrades
+
+app\src\Layer_application\EulerExtractor.py
+app\src\Layer_application\EulerExtractorImage.py
+app\src\Layer_application\EulerExtractorObject.py
