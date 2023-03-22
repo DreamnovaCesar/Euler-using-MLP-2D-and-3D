@@ -1,8 +1,6 @@
 from abc import ABC
 from abc import abstractmethod
 
-from typing import List
-
 class DataFrameCreator(ABC):
     """
     An abstract base class that defines the interface for creating 

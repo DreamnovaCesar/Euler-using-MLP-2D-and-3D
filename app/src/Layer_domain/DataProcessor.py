@@ -27,12 +27,12 @@ class DataProcessor(object):
     """
 
     def __init__(self, Data_reader : DataLoaderCSV, 
-                 initial_x : int = 1, 
-                 final_x : int = 257):
+                 Initial_x : int = 1, 
+                 Final_x : int = 257):
         
         self.Data_reader = Data_reader
-        self.Initial_x = initial_x
-        self.Final_x = final_x
+        self.Initial_x = Initial_x
+        self.Final_x = Final_x
 
     @property
     def process_data(

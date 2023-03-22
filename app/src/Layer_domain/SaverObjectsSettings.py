@@ -55,7 +55,6 @@ class SaverObjectsSettings(Saver):
 
         Image_name = "Image_slice_random_{}_{}_3D".format(i, j)
         Image_path = os.path.join(Folder_path, Image_name)
-        #plt.title('P_0: {}, P_1: {}'.format(P_0, P_1))
         plt.title('Euler: {}'.format(Euler_number))
         plt.imshow(Data_3D_edges[j], cmap = 'gray', interpolation = 'nearest')
         plt.savefig(Image_path)

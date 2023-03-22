@@ -28,7 +28,7 @@ class GeneratorImage(Generator):
         Prob_1 : float,
         _Height : int,
         _Width : int
-    ):
+    ) -> np.ndarray:
         """
         Generate a 2D image with the specified probabilities and dimensions.
 
@@ -63,4 +63,4 @@ class GeneratorImage(Generator):
                       1:Data_2D_edges.shape[1] - 1] = Data_2D
 
         # * Return the resulting 2D array
-        return Data_2D
+        return Data_2D_edges

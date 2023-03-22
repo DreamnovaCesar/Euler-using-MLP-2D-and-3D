@@ -24,6 +24,6 @@ class RF(Model):
     def fit(self, x, y, verbose):
         return self.model.fit(x, y, verbose=verbose)
     
-    def predict(self, data) -> Union[None, Any]:
+    def predict(self, Data) -> Union[None, Any]:
         pass
     

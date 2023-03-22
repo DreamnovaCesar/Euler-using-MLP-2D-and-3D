@@ -7,7 +7,7 @@ class DataLoaderText(DataLoader):
     A class that loads data from files.
     """
     
-    def load_data(File_path):
+    def load_data(File_path : str):
         """
         Load data from a file.
 
