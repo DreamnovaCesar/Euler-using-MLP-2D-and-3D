@@ -107,9 +107,6 @@ class EulerObjectGenerator(EulerGenerator):
         # * Object to handle saving files
         Saver_objects = SaverObjectsRandomly()
 
-        # * Object to generate 3D arrays
-        GeneratorObjects = GeneratorObject()
-
         # * Remove any existing files from the folder path
         Remove_files = AllFileRemover(self._Folder_path)
         Remove_files.remove_files()
@@ -122,7 +119,7 @@ class EulerObjectGenerator(EulerGenerator):
             Path = os.path.join(self._Folder_path, File_name);
 
             # * Generate a 3D array using the specified probabilities and dimensions
-            Object = GeneratorObjects.generator(
+            Object, Object_plt = GeneratorObject.generator(
                 Prob_0, 
                 Prob_1,
                 self._Width,
@@ -182,10 +179,7 @@ class EulerObjectGenerator(EulerGenerator):
         # * Initialize Saver objects
         Saver_CSV = SaverCSV()
         Saver_objects = SaverObjectsSettings()
-        
-        # * Initialize the object generator
-        GeneratorObjects = GeneratorObject()
-
+    
         # * Delete all files in the folder
         Remove_files = AllFileRemover(self._Folder_path);
         Remove_files.remove_files();
@@ -201,7 +195,7 @@ class EulerObjectGenerator(EulerGenerator):
             Prob_1 = 1 - Prob_0
 
             # * Generate the 3D object and save it
-            Object = GeneratorObjects.generator(
+            Object, Object_plt = GeneratorObject.generator(
                 Prob_0, 
                 Prob_1,
                 self._Width,
@@ -241,5 +235,5 @@ class EulerObjectGenerator(EulerGenerator):
                     i, j,
                     Folder_path_images, 
                     Euler_number,
-                    Object,
+                    Object_plt,
                 )

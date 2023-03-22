@@ -18,8 +18,10 @@ class MLPOptionStandardTrain(MenuOption):
         Prompts the user to input a path to a number of folders and the Nnumber of images to download. 
     """
 
-    def __init__(self, 
-                 MLP_standard : MLPStandard):
+    def __init__(
+        self, 
+        MLP_standard : MLPStandard
+    ):
 
         """
         Constructs a new DownloadRandomly object.
@@ -35,9 +37,16 @@ class MLPOptionStandardTrain(MenuOption):
         
         self.JSON_file = input('JSON_file: ');
         self.Model_name = input("Model's name: ");
-        
+        self.Epochs = input("Epochs: ");
+
+        self.Epochs = int(self.Epochs)
+
         MLP_standard = self.MLP_standard(MLP);
-        MLP_standard.train(General_Info_3D._INPUT_3D_, 
-                           General_Info_3D._OUTPUT_3D_, 
-                           self.JSON_file, 
-                           self.Model_name);
+
+        MLP_standard.train(
+            General_Info_3D._INPUT_3D_, 
+            General_Info_3D._OUTPUT_3D_, 
+            self.JSON_file, 
+            self.Model_name,
+            self.Epochs
+        );

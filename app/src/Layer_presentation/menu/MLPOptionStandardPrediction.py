@@ -18,8 +18,10 @@ class MLPOptionStandardPrediction(MenuOption):
         Prompts the user to input a path to a number of folders and the Nnumber of images to download. 
     """
 
-    def __init__(self, 
-                 MLP_prediction_standard : MLPPredictionStandard):
+    def __init__(
+        self, 
+        MLP_prediction_standard : MLPPredictionStandard
+    ):
 
         """
         Constructs a new DownloadRandomly object.
@@ -36,7 +38,12 @@ class MLPOptionStandardPrediction(MenuOption):
         self.Model = input("Model: ");
         self.Object = input('Object: ');
         
-        MLP_prediction_standard = self.MLP_prediction_standard(ExtractorArrays,
-                                                               MLP);
-        MLP_prediction_standard.prediction(self.Model, 
-                                           self.Object);
+        MLP_prediction_standard = self.MLP_prediction_standard(
+            ExtractorArrays,
+            MLP
+        );
+
+        MLP_prediction_standard.prediction(
+            self.Model, 
+            self.Object
+        );

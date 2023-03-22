@@ -99,9 +99,11 @@ class MLPPredictionStandard(MLPPrediction):
                     axis = 1
                 )
 
+                print(Result[0])
+
                 # * Map the integer output to corresponding values
                 Result_map = {0: 0, 1: 1, 2: -1, 3: -2}
-                Result = Result_map.get(Result)
+                Result = Result_map.get(Result[0])
 
                 # * Print the prediction and true values
                 print('{} -------------- {}'.format(Array, Result))

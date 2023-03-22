@@ -1,5 +1,6 @@
 import numpy as np
 
+from typing import Tuple
 from .Generator import Generator
 
 class GeneratorObject(Generator):
@@ -31,7 +32,7 @@ class GeneratorObject(Generator):
         _Width : int,
         _Height : int,
         _Depth : int,
-    ):
+    ) -> Tuple[np.ndarray, np.ndarray]:
         """
         Generates a 3D array with given probabilities of 0 and 1, with edges added and concatenated with zeros.
 
@@ -92,5 +93,5 @@ class GeneratorObject(Generator):
 
         Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0)
 
-        return Data_3D_edges_complete
+        return Data_3D_edges_complete, Data_3D_edges
     

@@ -12,7 +12,7 @@ class Generator(ABC):
     @property
     @staticmethod
     @abstractmethod
-    def generator(self):
+    def generator():
         """Abstract method to generate data.
         
         This method should be implemented by concrete subclasses to generate data.

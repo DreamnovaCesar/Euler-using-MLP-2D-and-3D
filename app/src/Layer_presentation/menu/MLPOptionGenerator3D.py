@@ -17,8 +17,10 @@ class MLPOptionGenerator3D(MenuOption):
         Prompts the user to input a path to a number of folders and the Nnumber of images to download. 
     """
 
-    def __init__(self, 
-                 Euler_generator_3D : EulerObjectGenerator):
+    def __init__(
+        self, 
+        Euler_generator_3D : EulerObjectGenerator
+    ):
 
         """
         Constructs a new DownloadRandomly object.
@@ -34,16 +36,18 @@ class MLPOptionGenerator3D(MenuOption):
         
         self.Folder_path = input("Folder_path: ");
         self.Number_of_objects = input("Number_of_objects: ");
-        self.Height = input("height: ");
+        self.Height = input("Height: ");
         self.Width = input("Width: ");
         self.Depth = input("Depth: ");
         self.Model = input("Model: ");
         
-        Euler_generator_3D = self.Euler_generator_3D(self.Folder_path,
-                                                     self.Number_of_objects,
-                                                     self.Height,
-                                                     self.Width,
-                                                     self.Model,
-                                                     self.Depth);
+        Euler_generator_3D = self.Euler_generator_3D(
+            self.Folder_path,
+            self.Number_of_objects,
+            self.Height,
+            self.Width,
+            self.Model,
+            self.Depth
+        );
         
         Euler_generator_3D.generate_euler_samples_settings();

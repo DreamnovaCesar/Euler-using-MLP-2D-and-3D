@@ -10,4 +10,5 @@ from .DataLoaderCSV import DataLoaderCSV
 from .DataProcessor import DataProcessor
 from .Saver import Saver
 from .SaverCSV import SaverCSV
-from .SaverObjectsSettings import SaverObjects
+from .SaverObjectsSettings import SaverObjectsSettings
+from .SaverObjectsRandomly import SaverObjectsRandomly
