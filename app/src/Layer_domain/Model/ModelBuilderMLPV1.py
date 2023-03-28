@@ -25,6 +25,7 @@ class ModelBuilderMLPV1(ModelBuilder):
     >>> model, [optimizer, loss, metrics] = builder.build_model(input_shape, json_file_path)
     """
 
+    @staticmethod
     def build_model(
         Input_shape : Tuple[int, ...],
         JSON_file : str

@@ -71,7 +71,7 @@ class MLP(Model):
         self.Model, self.Parameters = ModelBuilder.build_model(
                                         self.Input_shape,
                                         JSON_file
-                                        )
+                                    );
 
     def compile_model(self) -> None:
         """
@@ -82,7 +82,7 @@ class MLP(Model):
             optimizer = self.Parameters[0], 
             loss = self.Parameters[1], 
             metrics = [self.Parameters[2]]
-        )
+        );
 
     @DisplayTraining.display
     def fit_model(self) -> Tuple[Any, Dict[str, Any]]:
@@ -105,10 +105,11 @@ class MLP(Model):
             batch_size = 8, 
             epochs = self.Epochs, 
             verbose = True
-        )
+        );
 
         return self.Model, Hist_data
     
+    @staticmethod
     def predict_model(Model, Array) -> Union[None, Any]:
         """
         Generate predictions for input data using the trained model.

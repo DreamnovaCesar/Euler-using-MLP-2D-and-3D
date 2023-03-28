@@ -9,7 +9,6 @@ class Generator(ABC):
     method, `generator`, which should be implemented by concrete subclasses.
     """
 
-    @property
     @staticmethod
     @abstractmethod
     def generator():

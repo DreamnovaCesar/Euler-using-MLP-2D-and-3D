@@ -53,8 +53,7 @@ class Model(ABC):
         """
         pass
     
-    @property
-    @staticmethod
+
     @abstractmethod
     def predict_model(self, data) -> Union[None, Any]:
         """Use the trained model to make predictions.

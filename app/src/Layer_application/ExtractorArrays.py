@@ -46,8 +46,8 @@ class ExtractorArrays(Extractor):
         """
 
         # * Initialize the instance variables
-        self.TextDataLoader = TextDataLoader
-        self.Arrays_handler = Arrays_handler
+        self.TextDataLoader = TextDataLoader;
+        self.Arrays_handler = Arrays_handler;
 
     def extractor(
         self, 
@@ -69,14 +69,14 @@ class ExtractorArrays(Extractor):
         """
         
         # * Load data from the text file
-        Arrays = self.TextDataLoader.load_data(File)
+        Arrays = self.TextDataLoader.load_data(File);
 
         # * Handle the arrays data
-        Arrays_handler = self.Arrays_handler(Arrays)
-        Arrays =  Arrays_handler.get_array()
+        Arrays_handler = self.Arrays_handler(Arrays);
+        Arrays =  Arrays_handler.get_array();
 
         # * Print the resulting array
-        print(Arrays)
+        print(Arrays);
 
         # * Return the resulting array
         return Arrays

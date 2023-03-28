@@ -65,10 +65,10 @@ class ExtractorPixels(Extractor):
         """
 
         # * Initialize the instance variables
-        self.Binary_storage_list = Binary_storage_list
-        self.Convertion_decimal_binary_nibble = Convertion_decimal_binary_nibble
-        self.TextDataLoader = TextDataLoader
-        self.Pixel_handler = Pixel_handler
+        self.Binary_storage_list = Binary_storage_list;
+        self.Convertion_decimal_binary_nibble = Convertion_decimal_binary_nibble;
+        self.TextDataLoader = TextDataLoader;
+        self.Pixel_handler = Pixel_handler;
 
     def extractor(
         self, 
@@ -90,17 +90,17 @@ class ExtractorPixels(Extractor):
         """
 
         # * Creates a BinaryStorageList object and calls the to_numpy_array method to get the binary storage list as a NumPy array
-        Binary_storage_list = self.Binary_storage_list(self.Convertion_decimal_binary_nibble)
-        Storage_list = Binary_storage_list.to_numpy_array()
+        Binary_storage_list = self.Binary_storage_list(self.Convertion_decimal_binary_nibble);
+        Storage_list = Binary_storage_list.to_numpy_array();
 
         # * Loads the text data from the file path
-        Arrays = self.TextDataLoader.load_data(File)
+        Arrays = self.TextDataLoader.load_data(File);
 
         # * Creates a PixelHandler object and calls the get_array method to get the pixel data as an array of integers
-        Pixel_handler = self.Pixel_handler(Arrays, Storage_list)
-        Combinations_int = Pixel_handler.get_array()
+        Pixel_handler = self.Pixel_handler(Arrays, Storage_list);
+        Combinations_int = Pixel_handler.get_array();
 
         # * Prints the array of integers representing the pixel data combinations
-        print(Combinations_int)
+        print(Combinations_int);
         
         return Combinations_int

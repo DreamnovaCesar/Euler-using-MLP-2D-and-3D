@@ -51,10 +51,10 @@ class ExtractorOctovoxels(Extractor):
         """
 
         # * Initialize the instance variables
-        self.Binary_storage_list = Binary_storage_list
-        self.Convertion_decimal_binary_byte = Convertion_decimal_binary_byte
-        self.TextDataLoader = TextDataLoader
-        self.Octovoxel_handler = Octovoxel_handler
+        self.Binary_storage_list = Binary_storage_list;
+        self.Convertion_decimal_binary_byte = Convertion_decimal_binary_byte;
+        self.TextDataLoader = TextDataLoader;
+        self.Octovoxel_handler = Octovoxel_handler;
 
     def extractor(
         self, 
@@ -76,21 +76,21 @@ class ExtractorOctovoxels(Extractor):
         """
 
         # * Create a BinaryStorageList object with the Convertion_decimal_binary_byte object and convert it to a numpy array
-        Binary_storage_list_object = self.Binary_storage_list(self.Convertion_decimal_binary_byte)
-        Storage_list = Binary_storage_list_object.to_numpy_array()
+        Binary_storage_list_object = self.Binary_storage_list(self.Convertion_decimal_binary_byte);
+        Storage_list = Binary_storage_list_object.to_numpy_array();
 
         # * Load the text data from the file using the TextDataLoader object
-        Arrays = self.TextDataLoader.load_data(File)
+        Arrays = self.TextDataLoader.load_data(File);
 
         # * Create an OctovoxelHandler object with the Arrays and Storage_list objects and get the octovoxel data combinations
-        Octovoxel_handler_object = self.Octovoxel_handler(Arrays, Storage_list)
-        Combinations_int = Octovoxel_handler_object.get_array()
+        Octovoxel_handler_object = self.Octovoxel_handler(Arrays, Storage_list);
+        Combinations_int = Octovoxel_handler_object.get_array();
 
         # * Expand the dimensions of Combinations_int to match the expected output format
-        Combinations_int = np.expand_dims(Combinations_int, axis = 0)
+        Combinations_int = np.expand_dims(Combinations_int, axis = 0);
 
         # * Print Combinations_int for debugging purposes
-        print(Combinations_int)
+        print(Combinations_int);
 
         return Combinations_int
 

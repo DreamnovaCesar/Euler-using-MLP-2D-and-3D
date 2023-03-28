@@ -164,12 +164,12 @@ class EulerImageGenerator(EulerGenerator):
         );
 
         # * Initialize Saver objects
-        Saver_CSV = SaverCSV()
-        Saver_objects = SaverImagesSettings()
+        Saver_CSV = SaverCSV();
+        Saver_objects = SaverImagesSettings();
         
         # * Delete all files in the folder
-        Remove_files = AllFileRemover(self._Folder_path)
-        Remove_files.remove_files()
+        Remove_files = AllFileRemover(self._Folder_path);
+        Remove_files.remove_files();
 
         # * Generate the specified number of objects
         for i in range(self._Number_of_objects):
@@ -188,7 +188,7 @@ class EulerImageGenerator(EulerGenerator):
                 Prob_1,
                 self._Width,
                 self._Height,
-            )
+            );
 
             # * Generate a 3D array using the specified probabilities and dimensions
             np.savetxt(Image_path, Image, fmt = '%0.0f', delimiter = ',');
@@ -198,22 +198,22 @@ class EulerImageGenerator(EulerGenerator):
             Combination_pixels = Extraction_pixels.extractor(Image_path);
 
             # * Save the combination of octovoxels and Euler number in CSV format
-            Combination_pixels = np.append(Combination_pixels, Euler_number)
-            Saver_CSV.save_file(r'app\data\2D\Data', Combination_pixels)
+            Combination_pixels = np.append(Combination_pixels, Euler_number);
+            Saver_CSV.save_file(r'app\data\2D\Data', Combination_pixels);
 
             # * Create folder to save images if it doesn't exist
-            Dir_name_images = "Images_random_{}_2D".format(i)
-            Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images)
-            Exist_dir_images = os.path.isdir(Dir_data_images)
+            Dir_name_images = "Images_random_{}_2D".format(i);
+            Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images);
+            Exist_dir_images = os.path.isdir(Dir_data_images);
             
             # * If the directory doesn't exist, create it and print its path
             if(Exist_dir_images == False):
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                os.mkdir(Folder_path_images)
-                print(Folder_path_images)
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
+                os.mkdir(Folder_path_images);
+                print(Folder_path_images);
             else:
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
-                print(Folder_path_images)
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
+                print(Folder_path_images);
             
             # * Save the images 2D array
             Saver_objects.save_file(
@@ -221,4 +221,4 @@ class EulerImageGenerator(EulerGenerator):
                 Folder_path_images, 
                 Euler_number,
                 Image,
-            )
+            );

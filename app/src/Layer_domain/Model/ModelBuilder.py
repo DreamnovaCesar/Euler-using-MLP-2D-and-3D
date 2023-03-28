@@ -13,8 +13,7 @@ class ModelBuilder(ABC):
         Builds and returns a Keras Sequential model.
 
     """
-
-    @staticmethod
+    
     @abstractmethod
     def build_model(self) -> Sequential:
         """

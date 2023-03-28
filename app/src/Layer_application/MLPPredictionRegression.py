@@ -90,9 +90,12 @@ class MLPPredictionRegression(MLPPrediction):
         if Model.endswith('.h5'):
 
             Model_prediction = load_model(Model)
-            Result = self.MLP_prediction.predict_model(Model_prediction, 
-                                                       Combinations_int)
-            print(Result)
+            Result = self.MLP_prediction.predict_model(
+                Model_prediction, 
+                Combinations_int
+            );
+
+            print(Result);
 
         return Result
 

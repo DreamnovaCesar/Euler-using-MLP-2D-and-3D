@@ -4,16 +4,24 @@ from abc import abstractmethod
 
 class MLPTrain(ABC):
     """
-    An abstract base class for MLP training models.
+    An abstract base class for Multilayer perceptron training models.
 
-    Attributes
+    Parameters
     ----------
-    None
+    X : ndarray
+        A numpy array containing input data for training the MLP model.
+    Y : ndarray
+        A numpy array containing target data for training the MLP model.
+    JSON_file : str
+        The file path for saving the trained model as a JSON file.
+    Model_name : str
+        The name of the trained model.
+    Epochs : int
+        The number of epochs to train the MLP model.
 
-    Methods
+    Returns
     -------
-    train()
-        An abstract method to be implemented by subclasses for training an MLP model.
+    None
     """
     
     @abstractmethod

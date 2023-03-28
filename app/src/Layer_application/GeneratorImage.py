@@ -56,11 +56,11 @@ class GeneratorImage(Generator):
 
         # * Create a new 2D array with shape (_Height+2, _Width+2) filled with zeros
         Data_2D_edges = np.zeros((Data_2D.shape[0] + 2, 
-                                  Data_2D.shape[1] + 2))
+                                  Data_2D.shape[1] + 2));
         
         # * Copy the values of Data_2D into the central portion of Data_2D_edges
         Data_2D_edges[1:Data_2D_edges.shape[0] - 1, 
-                      1:Data_2D_edges.shape[1] - 1] = Data_2D
+                      1:Data_2D_edges.shape[1] - 1] = Data_2D;
 
         # * Return the resulting 2D array
         return Data_2D_edges

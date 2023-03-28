@@ -1,11 +1,15 @@
 
 import os
+import joblib
 from .ModelSaver import ModelSaver
+
+from ..Decorators.DisplayModelSave import DisplayModelSave
 
 class ModelSaverML(ModelSaver):
 
+    @staticmethod
+    @DisplayModelSave.display
     def save_model(
-        self, 
         Model : object, 
         Model_name : str
     ) -> None:
@@ -25,11 +29,8 @@ class ModelSaverML(ModelSaver):
         """
 
         # * Save the trained model as an h5 file
-        Model_name_joblib = '{}.joblib'.format(Model_name)
-        Model_folder = os.path.join(r'app\data', Model_name_joblib)
-        Model.save(Model_folder)
+        Model_name_joblib = '{}_RF.joblib'.format(Model_name);
+        Model_folder = os.path.join(r'app\data', Model_name_joblib);
+        joblib.dump(Model, Model_folder);
 
-        # * Prints that the model has been saved
-        print("Saving model...")
-        print('\n')
 

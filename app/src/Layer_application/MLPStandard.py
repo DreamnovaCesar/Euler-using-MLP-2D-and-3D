@@ -38,7 +38,7 @@ class MLPStandard(MLPTrain):
             A multilayer perceptron (MLP) model to be trained.
         """
 
-        self.MLP_training = MLP_training
+        self.MLP_training = MLP_training;
 
     def train(
         self, 
@@ -77,27 +77,20 @@ class MLPStandard(MLPTrain):
             Y, 
             JSON_file, 
             Epochs
-        )
+        );
         
         # * Compiles the model before training
-        MLP.compile_model()
+        MLP.compile_model();
 
         # * Fits the model to the input and target data
-        Model, Hist_data = MLP.fit_model()
+        Model, Hist_data = MLP.fit_model();
 
         # * Save model to the folder
-        ModelSaverDL.save_model(Model, Model_name)
-
-        '''DataFrameCreatorDL.create_dataframe_history(
-            Column_names, 
-            Folder_save, 
-            CSV_name, 
-            Hist_data
-        )'''
+        ModelSaverDL.save_model(Model, Model_name);
 
         # * Plot the training data for the model
-        DataPlotterDL.plot_data_loss(Hist_data, Model_name, r'app\data')
-        DataPlotterDL.plot_data_accuracy(Hist_data, Model_name, r'app\data')
+        DataPlotterDL.plot_data_loss(Hist_data, Model_name, r'app\data');
+        DataPlotterDL.plot_data_accuracy(Hist_data, Model_name, r'app\data');
 
     
 

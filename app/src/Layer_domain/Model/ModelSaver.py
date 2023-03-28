@@ -1,14 +1,11 @@
 from abc import ABC
 from abc import abstractmethod
 
-from ..Decorators.DisplayModelSave import DisplayModelSave
 class ModelSaver(ABC):
 
     @staticmethod
     @abstractmethod
-    @DisplayModelSave.display
     def save_model(
-        self, 
         Model : object, 
         Model_name : str
     ):

@@ -63,35 +63,35 @@ class GeneratorObject(Generator):
         
         # * Initialize arrays with zeros to add edges to the data
         Data_3D_edges_complete = np.zeros((Data_3D_plot.shape[1] + 2, 
-                                           Data_3D_plot.shape[2] + 2))
+                                           Data_3D_plot.shape[2] + 2));
         Data_3D_edges_concatenate = np.zeros((Data_3D_plot.shape[1] + 2, 
-                                              Data_3D_plot.shape[2] + 2))
+                                              Data_3D_plot.shape[2] + 2));
         
         # * Add edges to the 2D data
         Data_3D_read = np.zeros((Data_3D.shape[0] + 2, 
-                                 Data_3D.shape[1] + 2))
+                                 Data_3D.shape[1] + 2));
         # * Add edges to the 3D data
         Data_3D_edges = np.zeros((Data_3D_plot.shape[0] + 2,
                                   Data_3D_plot.shape[1] + 2, 
-                                  Data_3D_plot.shape[2] + 2))
+                                  Data_3D_plot.shape[2] + 2));
         
         # * Get 3D image and interpretation of 3D from 2D .txt
         Data_3D_read[1:Data_3D_read.shape[0] - 1, 
-                     1:Data_3D_read.shape[1] - 1] = Data_3D
+                     1:Data_3D_read.shape[1] - 1] = Data_3D;
         
         Data_3D_edges[1:Data_3D_edges.shape[0] - 1, 
                       1:Data_3D_edges.shape[1] - 1, 
-                      1:Data_3D_edges.shape[2] - 1] = Data_3D_plot
+                      1:Data_3D_edges.shape[2] - 1] = Data_3D_plot;
 
         # * Concatenate zeros to the 2D data
-        Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0)
-        Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0)
+        Data_3D_read = np.concatenate((Data_3D_edges_concatenate, Data_3D_read), axis = 0);
+        Data_3D_read = np.concatenate((Data_3D_read, Data_3D_edges_concatenate), axis = 0);
 
         # * Concatenate zeros to the 3D data
         for k in range(len(Data_3D_edges) - 2):
-            Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges[k + 1]), axis = 0)
+            Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges[k + 1]), axis = 0);
 
-        Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0)
+        Data_3D_edges_complete = np.concatenate((Data_3D_edges_complete, Data_3D_edges_concatenate), axis = 0);
 
         return Data_3D_edges_complete, Data_3D_edges
     

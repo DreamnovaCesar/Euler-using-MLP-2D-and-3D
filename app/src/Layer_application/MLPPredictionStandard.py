@@ -1,5 +1,6 @@
 import numpy as np
 
+import joblib
 from keras.models import load_model
 
 from keras.models import Sequential
@@ -97,24 +98,52 @@ class MLPPredictionStandard(MLPPrediction):
                         Model_prediction, 
                         [Array]), 
                     axis = 1
-                )
+                );
 
                 print(Result[0])
 
                 # * Map the integer output to corresponding values
-                Result_map = {0: 0, 1: 1, 2: -1, 3: -2}
-                Result = Result_map.get(Result[0])
+                Result_map = {0: 0, 1: 1, 2: -1, 3: -2};
+                Result = Result_map.get(Result[0]);
 
                 # * Print the prediction and true values
-                print('{} -------------- {}'.format(Array, Result))
-                print('The result is: {}'.format(Result))
-                print('The true value is: {}'.format(Result))
-                print('\n')
+                print('{} -------------- {}'.format(Array, Result));
+                print('The result is: {}'.format(Result));
+                print('The true value is: {}'.format(Result));
+                print('\n');
 
                 # * Add current prediction result to the overall prediction result
-                Prediction_result += Result
+                Prediction_result += Result;
 
                 # * Print the final prediction result
-                print(Prediction_result)
+                print(Prediction_result);
 
+            # * Read multilayer perceptron model
+        elif Model.endswith('.joblib'):
+            
+            Model_prediction = joblib.load(Model)
+
+            # * Loop through the input array
+            for _, Array in enumerate(Arrays):
+
+                Result = Model_prediction.predict([Array]);
+
+                print(Result)
+
+                # * Map the integer output to corresponding values
+                Result_map = {0: 0, 1: 1, 2: -1, 3: -2};
+                Result = Result_map.get(Result[0]);
+
+                # * Print the prediction and true values
+                print('{} -------------- {}'.format(Array, Result));
+                print('The result is: {}'.format(Result));
+                print('The true value is: {}'.format(Result));
+                print('\n');
+
+                # * Add current prediction result to the overall prediction result
+                Prediction_result += Result;
+
+                # * Print the final prediction result
+                print(Prediction_result);
+        
         return Prediction_result

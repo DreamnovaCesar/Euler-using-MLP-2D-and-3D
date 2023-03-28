@@ -75,9 +75,9 @@ class MLPProcessor(MLPTrain):
 
         """
 
-        Processor = self.Data_processor(DataLoaderCSV)
+        Processor = self.Data_processor(DataLoaderCSV);
 
-        X, Y = Processor.process_data(CSV_file)
+        X, Y = Processor.process_data(CSV_file);
 
         # * Instantiates an MLP object to train
         MLP = self.MLP_training(
@@ -85,19 +85,18 @@ class MLPProcessor(MLPTrain):
             Y, 
             JSON_file, 
             Epochs
-        )
+        );
         
         # * Compiles the model before training
-        MLP.compile_model()
+        MLP.compile_model();
 
         # * Fits the model to the input and target data
-        Model, Hist_data = MLP.fit_model()
-
+        Model, Hist_data = MLP.fit_model();
 
         # * Save model to the folder
-        ModelSaverDL.save_model(Model, Model_name)
+        ModelSaverDL.save_model(Model, Model_name);
 
         # * Plot the training data for the model
-        DataPlotterDL.plot_data_loss(Hist_data, Model_name, r'app\data')
-        #DataPlotterDL.plot_data_accuracy(Hist_data, Model_name, r'app\data')
+        DataPlotterDL.plot_data_loss(Hist_data, Model_name, r'app\data');
+        #DataPlotterDL.plot_data_accuracy(Hist_data, Model_name, r'app\data');
 

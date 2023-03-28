@@ -234,11 +234,11 @@ class EulerObjectGenerator(EulerGenerator):
             
             # * If the directory doesn't exist, create it and print its path
             if(Exist_dir_images == False):
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
                 os.mkdir(Folder_path_images);
                 #print(Folder_path_images);
             else:
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images)
+                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
                 #print(Folder_path_images);
 
             # * Save the images of each 3D array

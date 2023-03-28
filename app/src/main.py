@@ -10,12 +10,14 @@ from .Layer_application.MLPProcessor import MLPProcessor
 from .Layer_application.MLPPredictionRegression import MLPPredictionRegression
 from .Layer_application.MLPPredictionStandard import MLPPredictionStandard
 from .Layer_application.EulerObjectGenerator import EulerObjectGenerator
+from .Layer_application.MLRFTrain import MLRFTrain
 
 from .Layer_presentation.menu.MLPOptionStandardTrain import MLPOptionStandardTrain
 from .Layer_presentation.menu.MLPOptionProcessorTrain import MLPOptionProcessorTrain
 from .Layer_presentation.menu.MLPOptionStandardPrediction import MLPOptionStandardPrediction
 from .Layer_presentation.menu.MLPOptionPrediction import MLPOptionPrediction
 from .Layer_presentation.menu.MLPOptionGenerator3D import MLPOptionGenerator3D
+from .Layer_presentation.menu.MLPOptionRFTrain import MLPOptionRFTrain
 
 from .Layer_presentation.menu.Menu import Menu
 
@@ -26,7 +28,8 @@ options = {
     "MLP Train Processor" : MLPOptionProcessorTrain(MLPProcessor),
     "MLP Prediction Standard" : MLPOptionStandardPrediction(MLPPredictionStandard),
     "MLP Prediction Processor" : MLPOptionPrediction(MLPPredictionRegression),
-    "MLP Euler Generator" : MLPOptionGenerator3D(EulerObjectGenerator)
+    "Euler Generator" : MLPOptionGenerator3D(EulerObjectGenerator),
+    "RF Train" : MLPOptionRFTrain(MLRFTrain)
     
 };
 
