@@ -24,7 +24,7 @@ class SaverCSV(Saver):
         """
         self.DataFrame = pd.DataFrame()
 
-    def save_file(self, Folder_path : str, Data : list[int]):
+    def save_file(self, Folder_path : str, Data : list[int]) -> pd.DataFrame:
         """
         Appends the Data to the DataFrame and saves it to a CSV file in the given folder path.
 
@@ -42,3 +42,5 @@ class SaverCSV(Saver):
         Dataframe_name = 'Dataframe_Data.csv'.format()
         Dataframe_folder = os.path.join(Folder_path, Dataframe_name)
         self.DataFrame.to_csv(Dataframe_folder)
+
+        return self.DataFrame

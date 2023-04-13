@@ -1,6 +1,9 @@
+boto3==1.26.113
+joblib==1.1.1
 keras==2.10.0
 matplotlib==3.5.3
 numpy==1.23.4
 pandas==1.4.4
+python-dotenv==1.0.0
 scikit_learn==1.2.2
 tensorflow==2.10.0

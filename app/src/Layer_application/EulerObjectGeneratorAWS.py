@@ -1,6 +1,8 @@
 import os
+import boto3
 import random
 import numpy as np
+import pandas as pd
 
 from .EulerGenerator import EulerGenerator
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
@@ -21,39 +23,13 @@ from .MLPPredictionStandard import MLPPredictionStandard
 
 from .GeneratorObject import GeneratorObject
 
-import boto3
-import csv
+from dotenv import load_dotenv
+from pathlib import Path
 
-# Set your AWS access key ID and secret access key
-ACCESS_KEY = 'AKIA5EX7ZGYJKFOC4EEW'
-SECRET_KEY = 'JQ0mgATopRA+Y8kVLSwnwgG2glEm3olAH9C5tMkt'
+dotenv_path = Path('app\data\.env')
+load_dotenv(dotenv_path=dotenv_path)
 
-# Set your S3 bucket name and file name
-BUCKET_NAME = 'objectsdatacsv'
-
-# Set your CSV file name and data
-CSV_NAME = 'Euler_Data.csv'
-FOLDER_NAME = 'Test_1/'
-FOLDER_IMAGES = 'Images/'
-
-
-# Create an S3 client object using your IAM credentials
-s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-
-# Create the folder inside your S3 bucket
-s3.put_object(Bucket=BUCKET_NAME, Key=FOLDER_NAME)
-
-# Create the folder inside your S3 bucket
-s3.put_object(Bucket=BUCKET_NAME, Key=FOLDER_NAME + FOLDER_IMAGES)
-
-# Upload the CSV file to the folder inside your S3 bucket
-s3.put_object(Bucket=BUCKET_NAME, Key=FOLDER_NAME + CSV_NAME)
-
-'''# Upload the file to S3
-s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-s3.download_file(BUCKET_NAME, FILE_NAME, FILE_NAME)'''
-
-class EulerObjectGenerator(EulerGenerator):
+class EulerObjectGeneratorAWS(EulerGenerator):
     """
     A class used for generating random 3D images and their combinations
     with octovoxels and Euler numbers.
@@ -135,6 +111,26 @@ class EulerObjectGenerator(EulerGenerator):
         self._Depth = Depth;
         self._Depth = int(self._Depth);
 
+        self._DataFrame = pd.DataFrame()
+
+        # Set your AWS access key ID and secret access key
+        self._ACCESS_KEY = os.getenv('ACCESS_KEY')
+        self._SECRET_KEY = os.getenv('SECRET_KEY')
+
+        # Set your S3 bucket name and file name
+        self._BUCKET_NAME = 'objectsdatacsv'
+
+        # Set your CSV file name and data
+        self._CSV_NAME = 'Euler_Data.csv'
+        self._FOLDER_NAME = 'Test_1/'
+        self._FOLDER_IMAGES = 'Images/'
+
+        try:
+            # Create an S3 client object using your IAM credentials
+            self._S3 = boto3.client('s3', aws_access_key_id=self._ACCESS_KEY, aws_secret_access_key=self._SECRET_KEY)
+        except Exception as e:
+            print(f"Error creating S3 client: {e}")
+
     def generate_euler_samples_random(
             self, 
             Prob_0: float = 0.2, 
@@ -178,31 +174,13 @@ class EulerObjectGenerator(EulerGenerator):
             # * Save the 3D array to a text file
             np.savetxt(Object_path, Object, fmt = '%0.0f', delimiter = ',');
 
-            # * Create a directory for the images of each 3D array
-            Dir_name_images = "Images_random_{}_3D".format(i)
-            Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images);
-            Exist_dir_images = os.path.isdir(Dir_data_images);
-            
-            # * If the directory doesn't exist, create it and print its path
-            if Exist_dir_images == False:
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
-                os.mkdir(Folder_path_images);
-                #print(Folder_path_images)
-            else:
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
-                #print(Folder_path_images)
+            # Create the folder inside your S3 bucket
+            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME)
 
-            # * Save the images of each 3D array
-            for j in range(self._Depth + 2):
-        
-                Saver_objects.save_file(
-                    i, j,
-                    Prob_0,
-                    Prob_1,
-                    Folder_path_images, 
-                    Object_plt,
-                );
-    
+            # Create the folder inside your S3 bucket
+            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME + self._FOLDER_IMAGES  + f'Images_{i}', Body=Object)
+
+
     def generate_euler_samples_settings(self):
         """
         Generate 3D images with theirs euler number and save them in the specified folder path.
@@ -227,11 +205,12 @@ class EulerObjectGenerator(EulerGenerator):
     
         # * Delete all files in the folder
         Remove_files = AllFileRemover(self._Folder_path);
-        Remove_files.remove_files();
 
         # * Generate the specified number of objects
         for i in range(self._Number_of_objects):
             
+            Remove_files.remove_files();
+
             # * Define file path and randomly generate pixel probabilities
             File_name = 'Image_random_{}_3D.txt'.format(i);
             Object_path = os.path.join(self._Folder_path, File_name);
@@ -257,28 +236,20 @@ class EulerObjectGenerator(EulerGenerator):
 
             # * Save the combination of octovoxels and Euler number in CSV format
             Combination_octovoxels = np.append(Combination_octovoxels, Euler_number);
-            Saver_CSV.save_file(r'app\data\3D\Data', Combination_octovoxels);
 
-            # * Create folder to save images if it doesn't exist
-            Dir_name_images = "Images_random_{}_3D".format(i);
-            Dir_data_images = '{}/{}'.format(self._Folder_path, Dir_name_images);
-            Exist_dir_images = os.path.isdir(Dir_data_images);
-            
-            # * If the directory doesn't exist, create it and print its path
-            if(Exist_dir_images == False):
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
-                os.mkdir(Folder_path_images);
-                #print(Folder_path_images);
-            else:
-                Folder_path_images = os.path.join(self._Folder_path, Dir_name_images);
-                #print(Folder_path_images);
+            # * Return the new dataframe with the new data
+            self._DataFrame = self._DataFrame.append(pd.Series(Combination_octovoxels), ignore_index = True);
 
-            # * Save the images of each 3D array
-            for j in range(self._Depth + 2):
-                
-                Saver_objects.save_file(
-                    i, j,
-                    Folder_path_images, 
-                    Euler_number,
-                    Object_plt,
-                );
+            Dataframe_folder = os.path.join(self._Folder_path, self._CSV_NAME);
+            self._DataFrame.to_csv(Dataframe_folder);
+
+            # Create the folder inside your S3 bucket
+            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME);
+
+            # Create the folder inside your S3 bucket
+            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME + self._FOLDER_IMAGES);
+
+            self._S3.upload_file(Object_path, self._BUCKET_NAME, self._FOLDER_NAME + self._FOLDER_IMAGES + File_name);
+        
+        # Upload the CSV file to the folder inside your S3 bucket
+        self._S3.upload_file(Dataframe_folder, self._BUCKET_NAME, self._FOLDER_NAME + self._CSV_NAME);

@@ -1,7 +1,7 @@
 from .MenuOption import MenuOption
-from ...Layer_application.EulerObjectGenerator import EulerObjectGenerator
+from ...Layer_application.EulerObjectGeneratorAWS import EulerObjectGeneratorAWS
 
-class MLPOptionGenerator3D(MenuOption):
+class MLPOptionGeneratorAWS(MenuOption):
     """
     A MenuOption class that allows the user to download random images of girls.
 
@@ -18,7 +18,7 @@ class MLPOptionGenerator3D(MenuOption):
 
     def __init__(
         self, 
-        Euler_generator_3D : EulerObjectGenerator
+        Euler_generator_3D : EulerObjectGeneratorAWS
     ):
 
         """
