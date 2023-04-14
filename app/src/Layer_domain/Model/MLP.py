@@ -80,6 +80,7 @@ class MLP(Model):
         # * Read the model hyperparameters from the JSON file
         self.MLP_hp = JsonFileHandler.read_json_file(JSON_file);
         self.Opt = self.MLP_hp['optimizer'];
+        self.Dense_1 = self.MLP_hp['dense_1'];
         self.Lr = self.MLP_hp['lr'];
 
         self.Model, self.Parameters = self.ModelBuild.build_model(
@@ -101,7 +102,7 @@ class MLP(Model):
         );
 
     @DisplayTraining.display
-    def fit_model(self) -> Tuple[Any, Dict[str, Any]]:
+    def fit_model(self, TypeMLP) -> Tuple[Any, Dict[str, Any]]:
         """
         Train the neural network model.
 
@@ -115,14 +116,30 @@ class MLP(Model):
             A tuple containing the trained model and history data.
         """
 
+        Folder_train = "Folder_Data_Models_{}_{}_{}_{}".format(TypeMLP, self.Opt, self.Lr, self.Dense_1)
+
+        Folder_train_data = '{}/{}'.format(r'app\data', Folder_train)
+
+        # *
+        Exist_folder_train_data = os.path.isdir(Folder_train_data)
+
+        # *
+        if Exist_folder_train_data == False:
+          Folder_path = os.path.join(r'app\data', Folder_train)
+          os.mkdir(Folder_path)
+          print(Folder_path)
+        else:
+          Folder_path = os.path.join(r'app\data', Folder_train)
+          print(Folder_path)
+
         # * Save best model weights for each model.
         Best_model_name_weights = "Dataframe_Best_Model_Weights_{}_{}_{}.h5".format(self.Opt, self.Lr, self.Epochs)
-        Best_model_folder_name_weights = os.path.join(r'app\data', Best_model_name_weights)
+        Best_model_folder_name_weights = os.path.join(Folder_path, Best_model_name_weights)
 
         # * Save dataframe Logger (data: Accuracy and loss) for each model.
         #CSV_logger_info = str(Class_problem_prefix) + str(Pretrained_model_name) + '_' + str(Enhancement_technique) + '.csv'
         CSV_logger_info = "Dataframe_Logger_{}_{}_{}.csv".format(self.Opt, self.Lr, self.Epochs)
-        CSV_logger_info_folder = os.path.join(r'app\data', CSV_logger_info)
+        CSV_logger_info_folder = os.path.join(Folder_path, CSV_logger_info)
 
         # * Using ModelCheckpoint class.
         Model_checkpoint_callback = ModelCheckpoint(filepath = Best_model_folder_name_weights,
@@ -147,7 +164,7 @@ class MLP(Model):
             callbacks = Callbacks
         );
 
-        return self.Model, Hist_data
+        return self.Model, Hist_data, Folder_path
     
     @staticmethod
     def predict_model(Model, Array) -> Union[None, Any]:

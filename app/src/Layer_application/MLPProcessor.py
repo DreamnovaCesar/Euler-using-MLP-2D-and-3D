@@ -104,12 +104,12 @@ class MLPProcessor(MLPTrain):
         MLP.compile_model();
 
         # * Fits the model to the input and target data
-        Model, Hist_data = MLP.fit_model();
+        Model, Hist_data, Folder_store_data = MLP.fit_model('Processor');
 
         # * Save model to the folder
-        ModelSaverDL.save_model(Model, Model_name);
+        ModelSaverDL.save_model(Folder_store_data, Model, Model_name);
 
         # * Plot the training data for the model
-        DataPlotterDL.plot_data_loss(Hist_data, Model_name, r'app\data');
+        DataPlotterDL.plot_data_loss(Folder_store_data, Hist_data, Model_name);
         #DataPlotterDL.plot_data_accuracy(Hist_data, Model_name, r'app\data');
 

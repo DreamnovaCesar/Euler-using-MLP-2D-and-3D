@@ -50,7 +50,7 @@ class MLRFTrain(MLTrain):
             JSON_file, 
         );
 
-
+        
         # * Fits the model to the input and target data
         Model = RF.fit_model();
 

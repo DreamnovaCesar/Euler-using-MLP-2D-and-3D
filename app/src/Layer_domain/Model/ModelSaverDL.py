@@ -9,6 +9,7 @@ class ModelSaverDL(ModelSaver):
     @staticmethod
     @DisplayModelSave.display
     def save_model(
+        Folder_path : str,
         Model : object, 
         Model_name : str
     ) -> None:
@@ -30,6 +31,6 @@ class ModelSaverDL(ModelSaver):
 
         # * Save the trained model as an h5 file
         Model_name_h5 = '{}_MLP.h5'.format(Model_name);
-        Model_folder = os.path.join(r'app\data', Model_name_h5);
+        Model_folder = os.path.join(Folder_path, Model_name_h5);
         Model.save(Model_folder);
 

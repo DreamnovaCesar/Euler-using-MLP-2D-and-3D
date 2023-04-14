@@ -4,6 +4,7 @@ from ..Layer_domain.Json.JsonFileHander import JsonFileHandler
 from ..Layer_domain.Model.ModelSaverDL import ModelSaverDL
 from ..Layer_presentation.DataPlotterDL import DataPlotterDL
 from ..Layer_domain.DataFrameCreatorDL import DataFrameCreatorDL
+from ..Layer_domain.Model.ModelBuilderMLPI1 import ModelBuilderMLPI1
 
 from .MLPTrain import MLPTrain
 
@@ -76,7 +77,8 @@ class MLPStandard(MLPTrain):
             X, 
             Y, 
             JSON_file, 
-            Epochs
+            Epochs,
+            ModelBuilderMLPI1
         );
         
         # * Compiles the model before training
@@ -88,17 +90,17 @@ class MLPStandard(MLPTrain):
         AO = MLP_hp['activation_output'];
         Lr = MLP_hp['lr'];
 
-        Model_name = '{}_{}_{}_{}_{}'.format(Model_name, Opt, AO, Lr, Epochs)
+        Model_name = 'Standard_{}_{}_{}_{}_{}'.format(Model_name, Opt, AO, Lr, Epochs)
 
         # * Fits the model to the input and target data
-        Model, Hist_data = MLP.fit_model();
+        Model, Hist_data, Folder_store_data = MLP.fit_model('Standard');
 
         # * Save model to the folder
-        ModelSaverDL.save_model(Model, Model_name);
+        ModelSaverDL.save_model(Folder_store_data, Model, Model_name);
 
         # * Plot the training data for the model
-        DataPlotterDL.plot_data_loss(Hist_data, Model_name, r'app\data');
-        DataPlotterDL.plot_data_accuracy(Hist_data, Model_name, r'app\data');
+        DataPlotterDL.plot_data_loss(Folder_store_data, Hist_data, Model_name);
+        DataPlotterDL.plot_data_accuracy(Folder_store_data, Hist_data, Model_name);
 
     
 

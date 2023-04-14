@@ -5,7 +5,11 @@ from .DataPlotter import DataPlotter
 
 class DataPlotterDL(DataPlotter):
     
-    def plot_data_loss(Hist_data: object, Model_name, Folder_data) -> None:
+    def plot_data_loss(
+            Folder_data: str,
+            Hist_data: object, 
+            Model_name: str
+        ) -> None:
         """
         Method to plot the loss. plot_data_loss takes the history 
         of the training process and plots the loss of the model as 
@@ -35,7 +39,12 @@ class DataPlotterDL(DataPlotter):
         plt.savefig(Figure_name_folder)
         plt.close()
 
-    def plot_data_accuracy(Hist_data: object, Model_name, Folder_data) -> None:
+    def plot_data_accuracy(
+            Folder_data: str,
+            Hist_data: object, 
+            Model_name: str
+        ) -> None:
+
         """
         Method to plot the accuracy. plot_data_accuracy also takes the history 
         of the training process as an argument and plots the accuracy of the model as 
