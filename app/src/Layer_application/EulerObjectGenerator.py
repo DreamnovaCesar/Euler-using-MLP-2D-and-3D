@@ -203,7 +203,10 @@ class EulerObjectGenerator(EulerGenerator):
                     Object_plt,
                 );
     
-    def generate_euler_samples_settings(self):
+    def generate_euler_samples_settings(
+            self
+        ):
+        
         """
         Generate 3D images with theirs euler number and save them in the specified folder path.
         """

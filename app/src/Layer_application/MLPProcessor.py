@@ -1,6 +1,8 @@
 
 from ..Layer_domain.DataProcessor import DataProcessor
 from ..Layer_domain.Model.MLP import MLP
+from ..Layer_domain.Model.ModelBuilderMLPV2 import ModelBuilderMLPV2
+from ..Layer_domain.Json.JsonFileHander import JsonFileHandler
 
 from ..Layer_domain.DataLoaderCSV import DataLoaderCSV
 from ..Layer_domain.Model.ModelSaverDL import ModelSaverDL
@@ -26,9 +28,12 @@ class MLPProcessor(MLPTrain):
 
     """
 
-    def __init__(self, 
-                 Data_processor : DataProcessor,
-                 MLP_training : MLP):
+    def __init__(
+        self, 
+        Data_processor : DataProcessor,
+        MLP_training : MLP
+    ):
+
         """
         Initializes the MLPProcessor class.
 
@@ -84,9 +89,17 @@ class MLPProcessor(MLPTrain):
             X, 
             Y, 
             JSON_file, 
-            Epochs
+            Epochs,
+            ModelBuilderMLPV2
         );
         
+        # * Read the model hyperparameters from the JSON file
+        MLP_hp = JsonFileHandler.read_json_file(JSON_file);
+        Opt = MLP_hp['optimizer'];
+        Lr = MLP_hp['lr'];
+
+        Model_name = '{}_{}_{}_{}'.format(Model_name, Opt, Lr, Epochs)
+
         # * Compiles the model before training
         MLP.compile_model();
 

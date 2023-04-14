@@ -34,7 +34,6 @@ class DataProcessor(object):
         self.Initial_x = Initial_x
         self.Final_x = Final_x
 
-    @property
     def process_data(
         self, 
         Path : str

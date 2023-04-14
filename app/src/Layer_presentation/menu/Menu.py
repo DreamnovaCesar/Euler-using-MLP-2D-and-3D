@@ -1,4 +1,6 @@
 
+import os
+
 class Menu(object):
     """
     A class representing a menu for displaying options and executing user-selected actions.
@@ -31,18 +33,6 @@ class Menu(object):
 
     def display(self):
 
-        asterisk = 60;
-        print("\n");
-        print("*" * asterisk);
-        print('What do you want to do:');
-        print("*" * asterisk);
-        print('\n');
-
-        for i, option in enumerate(self._Options_text):
-            print(f'{i + 1}: {option}');
-
-        print('\n');
-        print("*" * asterisk);
 
         while True:
             """
@@ -50,6 +40,21 @@ class Menu(object):
             for the selected option.
             """
             
+            os.system ("cls");
+
+            asterisk = 60;
+            print("\n");
+            print("*" * asterisk);
+            print('What do you want to do:');
+            print("*" * asterisk);
+            print('\n');
+
+            for i, option in enumerate(self._Options_text):
+                print(f'{i + 1}: {option}');
+
+            print('\n');
+            print("*" * asterisk);
+
             print('\n');
             choice = input('Option: ');
 

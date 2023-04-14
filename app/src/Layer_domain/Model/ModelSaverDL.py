@@ -29,11 +29,7 @@ class ModelSaverDL(ModelSaver):
         """
 
         # * Save the trained model as an h5 file
-        Model_name_h5 = '{}_MLP.h5'.format(Model_name)
-        Model_folder = os.path.join(r'app\data', Model_name_h5)
-        Model.save(Model_folder)
-
-        # * Prints that the model has been saved
-        print("Saving model...")
-        print('\n')
+        Model_name_h5 = '{}_MLP.h5'.format(Model_name);
+        Model_folder = os.path.join(r'app\data', Model_name_h5);
+        Model.save(Model_folder);
 

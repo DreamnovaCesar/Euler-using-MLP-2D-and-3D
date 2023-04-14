@@ -1,8 +1,15 @@
 from typing import List, Tuple, Dict
 from typing import Union, Any
 
+import os 
 from .Model import Model
 from .ModelBuilder import ModelBuilder
+from ..Json.JsonFileHander import JsonFileHandler
+
+from keras.callbacks import ModelCheckpoint
+from keras.callbacks import EarlyStopping
+from keras.callbacks import CSVLogger
+from keras.callbacks import ReduceLROnPlateau
 
 from typing import Union
 
@@ -39,7 +46,8 @@ class MLP(Model):
         Input_shape: Tuple[int, ...],
         Output_shape : Tuple[int, ...], 
         JSON_file : str,
-        Epochs : int
+        Epochs : int,
+        ModelBuild : ModelBuilder
     ) -> None:
         
         """
@@ -64,15 +72,23 @@ class MLP(Model):
         self.Input_shape = Input_shape;
         self.Output_shape = Output_shape;
         self.Epochs = Epochs;
+        self.ModelBuild = ModelBuild;
 
-        print(self.Input_shape)
-        print(self.Output_shape)
+        #print(self.Input_shape)
+        #print(self.Output_shape)
 
-        self.Model, self.Parameters = ModelBuilder.build_model(
+        # * Read the model hyperparameters from the JSON file
+        self.MLP_hp = JsonFileHandler.read_json_file(JSON_file);
+        self.Opt = self.MLP_hp['optimizer'];
+        self.Lr = self.MLP_hp['lr'];
+
+        self.Model, self.Parameters = self.ModelBuild.build_model(
                                         self.Input_shape,
                                         JSON_file
                                     );
 
+        print(self.Parameters);
+    
     def compile_model(self) -> None:
         """
         Compile the neural network model.
@@ -99,12 +115,36 @@ class MLP(Model):
             A tuple containing the trained model and history data.
         """
 
+        # * Save best model weights for each model.
+        Best_model_name_weights = "Dataframe_Best_Model_Weights_{}_{}_{}.h5".format(self.Opt, self.Lr, self.Epochs)
+        Best_model_folder_name_weights = os.path.join(r'app\data', Best_model_name_weights)
+
+        # * Save dataframe Logger (data: Accuracy and loss) for each model.
+        #CSV_logger_info = str(Class_problem_prefix) + str(Pretrained_model_name) + '_' + str(Enhancement_technique) + '.csv'
+        CSV_logger_info = "Dataframe_Logger_{}_{}_{}.csv".format(self.Opt, self.Lr, self.Epochs)
+        CSV_logger_info_folder = os.path.join(r'app\data', CSV_logger_info)
+
+        # * Using ModelCheckpoint class.
+        Model_checkpoint_callback = ModelCheckpoint(filepath = Best_model_folder_name_weights,
+                                                    save_weights_only = True,                     
+                                                    monitor = 'loss',
+                                                    mode = 'max',
+                                                    save_best_only = True )
+
+
+        # * Using CSVLogger class to extract each epoch. 
+        Log_CSV = CSVLogger(CSV_logger_info_folder, separator = ',', append = False)
+
+        # * Save all callbacks to use them together
+        Callbacks = [Model_checkpoint_callback, Log_CSV]
+
         Hist_data = self.Model.fit(
             self.Input_shape, 
             self.Output_shape, 
             batch_size = 8, 
             epochs = self.Epochs, 
-            verbose = True
+            verbose = True,
+            callbacks = Callbacks
         );
 
         return self.Model, Hist_data

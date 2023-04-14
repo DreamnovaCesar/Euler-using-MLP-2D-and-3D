@@ -1,6 +1,6 @@
 import numpy as np
 from ..Layer_domain.Model.MLP import MLP
-
+from ..Layer_domain.Json.JsonFileHander import JsonFileHandler
 from ..Layer_domain.Model.ModelSaverDL import ModelSaverDL
 from ..Layer_presentation.DataPlotterDL import DataPlotterDL
 from ..Layer_domain.DataFrameCreatorDL import DataFrameCreatorDL
@@ -81,6 +81,14 @@ class MLPStandard(MLPTrain):
         
         # * Compiles the model before training
         MLP.compile_model();
+
+        # * Read the model hyperparameters from the JSON file
+        MLP_hp = JsonFileHandler.read_json_file(JSON_file);
+        Opt = MLP_hp['optimizer'];
+        AO = MLP_hp['activation_output'];
+        Lr = MLP_hp['lr'];
+
+        Model_name = '{}_{}_{}_{}_{}'.format(Model_name, Opt, AO, Lr, Epochs)
 
         # * Fits the model to the input and target data
         Model, Hist_data = MLP.fit_model();

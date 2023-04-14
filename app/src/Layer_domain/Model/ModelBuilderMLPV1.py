@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Input
@@ -28,8 +28,8 @@ class ModelBuilderMLPV1(ModelBuilder):
     @staticmethod
     def build_model(
         Input_shape : Tuple[int, ...],
-        JSON_file : str
-    ) -> Tuple[Sequential, List[str, str, str]]:
+        JSON_file : str,
+    ) -> Tuple[Sequential, List[Union[str, str, str]]]:
         """
         Builds a multi-layer perceptron model using Keras.
 
@@ -62,7 +62,8 @@ class ModelBuilderMLPV1(ModelBuilder):
         Metrics = MLP_hp['metrics'];
 
         # * Choose the optimizer based on the optimizer option and learning rate
-        Optimizer = OptimizerOptions.choose_optimizer(Opt, Lr);
+        Optimizer = OptimizerOptions(Opt, Lr);
+        Opt = Optimizer.choose_optimizer();
         
         # * Define the Keras Sequential model
         Model = Sequential()
@@ -71,5 +72,5 @@ class ModelBuilderMLPV1(ModelBuilder):
         Model.add(Dense(output, activation = activation_output))
 
         # * Return the model, optimizer, loss function, and metric objects
-        return Model, [Optimizer, Loss, Metrics]
+        return Model, [Opt, Loss, Metrics]
     
