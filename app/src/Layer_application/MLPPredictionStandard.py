@@ -48,8 +48,8 @@ class MLPPredictionStandard(MLPPrediction):
 
         """
 
-        self.Extractor_arrays = Extractor_arrays
-        self.MLP_prediction = MLP_prediction
+        self.Extractor_arrays = Extractor_arrays;
+        self.MLP_prediction = MLP_prediction;
 
     def prediction(
         self, 
@@ -78,12 +78,12 @@ class MLPPredictionStandard(MLPPrediction):
         Arrays = self.Extractor_arrays(
             ArraysHandlder,
             DataLoaderText
-        )
+        );
 
-        Arrays = Arrays.extractor(Object)
+        Arrays = Arrays.extractor(Object);
 
         # * Initialize the prediction result to zero
-        Prediction_result = 0
+        Prediction_result = 0;
 
         # * Read multilayer perceptron model
         if Model.endswith('.h5'):
@@ -121,14 +121,14 @@ class MLPPredictionStandard(MLPPrediction):
             # * Read multilayer perceptron model
         elif Model.endswith('.joblib'):
             
-            Model_prediction = joblib.load(Model)
+            Model_prediction = joblib.load(Model);
 
             # * Loop through the input array
             for _, Array in enumerate(Arrays):
 
                 Result = Model_prediction.predict([Array]);
 
-                print(Result)
+                print(Result);
 
                 # * Map the integer output to corresponding values
                 Result_map = {0: 0, 1: 1, 2: -1, 3: -2};

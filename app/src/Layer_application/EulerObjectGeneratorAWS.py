@@ -111,19 +111,19 @@ class EulerObjectGeneratorAWS(EulerGenerator):
         self._Depth = Depth;
         self._Depth = int(self._Depth);
 
-        self._DataFrame = pd.DataFrame()
+        self._DataFrame = pd.DataFrame();
 
         # Set your AWS access key ID and secret access key
-        self._ACCESS_KEY = os.getenv('ACCESS_KEY')
-        self._SECRET_KEY = os.getenv('SECRET_KEY')
+        self._ACCESS_KEY = os.getenv('ACCESS_KEY');
+        self._SECRET_KEY = os.getenv('SECRET_KEY');
 
         # Set your S3 bucket name and file name
-        self._BUCKET_NAME = 'objectsdatacsv'
+        self._BUCKET_NAME = 'objectsdatacsv';
 
         # Set your CSV file name and data
-        self._CSV_NAME = 'Euler_Data.csv'
-        self._FOLDER_NAME = 'Test_1/'
-        self._FOLDER_IMAGES = 'Images/'
+        self._CSV_NAME = 'Euler_Data.csv';
+        self._FOLDER_NAME = 'Test_1/';
+        self._FOLDER_IMAGES = 'Images/';
 
         try:
             # Create an S3 client object using your IAM credentials
@@ -175,10 +175,10 @@ class EulerObjectGeneratorAWS(EulerGenerator):
             np.savetxt(Object_path, Object, fmt = '%0.0f', delimiter = ',');
 
             # Create the folder inside your S3 bucket
-            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME)
+            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME);
 
             # Create the folder inside your S3 bucket
-            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME + self._FOLDER_IMAGES  + f'Images_{i}', Body=Object)
+            self._S3.put_object(Bucket=self._BUCKET_NAME, Key=self._FOLDER_NAME + self._FOLDER_IMAGES  + f'Images_{i}', Body=Object);
 
 
     def generate_euler_samples_settings(self):

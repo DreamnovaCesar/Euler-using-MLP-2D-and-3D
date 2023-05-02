@@ -1,1 +1,1 @@
-{"dense_1": 512, "output": 1, "activation_1": "sigmoid", "loss": "mean_squared_error", "metrics": "accuracy"}
+{"dense_1": 512, "output": 1, "activation_1": "sigmoid", "optimizer": "ADAM", "lr": 0.0001, "loss": "mean_squared_error", "metrics": "mae"}

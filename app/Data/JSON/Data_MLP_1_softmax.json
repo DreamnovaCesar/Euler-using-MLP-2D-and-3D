@@ -1,1 +1,1 @@
-{"dense_1": 256, "output": 4, "activation_1": "sigmoid", "activation_output": "softmax", "loss": "sparse_categorical_crossentropy", "metrics": "accuracy"}
+{"dense_1": 256, "output": 4, "activation_1": "sigmoid", "activation_output": "softmax", "optimizer": "ADAM", "lr": 0.01, "loss": "sparse_categorical_crossentropy", "metrics": "accuracy"}
