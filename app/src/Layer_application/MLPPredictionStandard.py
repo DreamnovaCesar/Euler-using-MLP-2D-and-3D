@@ -100,17 +100,17 @@ class MLPPredictionStandard(MLPPrediction):
                     axis = 1
                 );
 
-                print(Result[0])
+                #print(Result[0])
 
                 # * Map the integer output to corresponding values
                 Result_map = {0: 0, 1: 1, 2: -1, 3: -2};
                 Result = Result_map.get(Result[0]);
 
                 # * Print the prediction and true values
-                print('{} -------------- {}'.format(Array, Result));
-                print('The result is: {}'.format(Result));
-                print('The true value is: {}'.format(Result));
-                print('\n');
+                #print('{} -------------- {}'.format(Array, Result));
+                #print('The result is: {}'.format(Result));
+                #print('The true value is: {}'.format(Result));
+                #print('\n');
 
                 # * Add current prediction result to the overall prediction result
                 Prediction_result += Result;
@@ -128,17 +128,17 @@ class MLPPredictionStandard(MLPPrediction):
 
                 Result = Model_prediction.predict([Array]);
 
-                print(Result);
+                #print(Result);
 
                 # * Map the integer output to corresponding values
                 Result_map = {0: 0, 1: 1, 2: -1, 3: -2};
                 Result = Result_map.get(Result[0]);
 
                 # * Print the prediction and true values
-                print('{} -------------- {}'.format(Array, Result));
-                print('The result is: {}'.format(Result));
-                print('The true value is: {}'.format(Result));
-                print('\n');
+                #print('{} -------------- {}'.format(Array, Result));
+                #print('The result is: {}'.format(Result));
+                #print('The true value is: {}'.format(Result));
+                #print('\n');
 
                 # * Add current prediction result to the overall prediction result
                 Prediction_result += Result;

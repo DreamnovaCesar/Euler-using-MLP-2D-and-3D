@@ -6,6 +6,7 @@ from .EulerGenerator import EulerGenerator
 from ..Layer_domain.Convertion.BinaryStorageList import BinaryStorageList
 from ..Layer_domain.Convertion.ConvertionDecimalBinaryByte import ConvertionDecimalBinaryByte
 from ..Layer_domain.Arrays.OctovoxelHander import OctovoxelHandler
+from ..Layer_domain.Arrays.OctovoxelHander_2 import OctovoxelHandler_2
 from ..Layer_domain.DataLoaderText import DataLoaderText
 from ..Layer_domain.RemoveFiles.AllFileRemover import AllFileRemover
 from ..Layer_domain.Model.MLP import MLP
@@ -35,23 +36,6 @@ BUCKET_NAME = 'objectsdatacsv'
 CSV_NAME = 'Euler_Data.csv'
 FOLDER_NAME = 'Test_1/'
 FOLDER_IMAGES = 'Images/'
-
-
-# Create an S3 client object using your IAM credentials
-s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-
-# Create the folder inside your S3 bucket
-s3.put_object(Bucket=BUCKET_NAME, Key=FOLDER_NAME)
-
-# Create the folder inside your S3 bucket
-s3.put_object(Bucket=BUCKET_NAME, Key=FOLDER_NAME + FOLDER_IMAGES)
-
-# Upload the CSV file to the folder inside your S3 bucket
-s3.put_object(Bucket=BUCKET_NAME, Key=FOLDER_NAME + CSV_NAME)
-
-'''# Upload the file to S3
-s3 = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-s3.download_file(BUCKET_NAME, FILE_NAME, FILE_NAME)'''
 
 class EulerObjectGenerator(EulerGenerator):
     """
@@ -220,7 +204,7 @@ class EulerObjectGenerator(EulerGenerator):
         Extraction_octovoxels = ExtractorOctovoxels(
             BinaryStorageList,
             ConvertionDecimalBinaryByte,
-            OctovoxelHandler,
+            OctovoxelHandler_2,
             DataLoaderText
         );
 
